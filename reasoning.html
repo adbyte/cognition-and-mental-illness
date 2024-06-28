@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasoning and Problem-Solving Questionnaire</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        /* background: url("images/bg3.png");*/
+        background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);
+    }
+
+    option {
+        background-color: #7CEBFC;
+    }
+
+    .score-card-modal {
+        display: none;
+        overflow: auto;
+        z-index: 1000;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+
+        background: url("images/bg.png");
+
+    }
+
+    .score-card-content {
+
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #e2e2e9;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .score-card-content button {
+        display: block;
+        margin-top: 10px;
+    }
+</style>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Reasoning and Problem-Solving Questionnaire</h1>
+
+        <!-- Section 1: Logical Reasoning -->
+        <div class="mt-4">
+            <h2>Section 1: Logical Reasoning</h2>
+            <h3>1.1. Syllogisms</h3>
+            <form>
+                <div class="form-group">
+                    <label>1. All dogs are animals. All animals have four legs. Therefore, all dogs have four
+                        legs.</label>
+                    <select class="form-control">
+
+                        <option value="false" class="n">False</option>
+                        <option data-correct="true" value="true">True</option>
+                        <option value="uncertain" class="n">Uncertain</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. Some fruits are sweet. All apples are fruits. Therefore, some apples are sweet.</label>
+                    <select class="form-control">
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                        <option data-correct="true" value="uncertain">Uncertain</option>
+                    </select>
+                </div>
+
+                <h3>1.2. Pattern Recognition</h3>
+                <div class="form-group">
+                    <label>1. What comes next in the sequence? 2, 4, 8, 16, __</label>
+                    <select class="form-control">
+                        <option value="24">24</option>
+                        <option data-correct="true" value="32">32</option>
+                        <option value="20">20</option>
+                        <option value="18">18</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. Find the missing number in the series: 1, 3, 6, 10, 15, __</label>
+                    <select class="form-control">
+                        <option value="20">20</option>
+                        <option data-correct="true" value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="19">19</option>
+                    </select>
+                </div>
+
+                <!-- Section 2: Verbal Reasoning -->
+                <h2>Section 2: Verbal Reasoning</h2>
+                <h3>2.1. Analogies</h3>
+                <div class="form-group">
+                    <label>1. Book is to Reading as Fork is to:</label>
+                    <select class="form-control">
+                        <option value="drawing">Drawing</option>
+                        <option value="writing">Writing</option>
+                        <option data-correct="true" value="eating">Eating</option>
+                        <option value="stirring">Stirring</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. Cat is to Kitten as Dog is to:</label>
+                    <select class="form-control">
+                        <option value="calf">Calf</option>
+                        <option data-correct="true" value="puppy">Puppy</option>
+
+                        <option value="foal">Foal</option>
+                        <option value="cub">Cub</option>
+                    </select>
+                </div>
+
+                <h3>2.2. Critical Thinking</h3>
+                <div class="form-group">
+                    <label>1. A doctor is to hospital as a teacher is to:</label>
+                    <select class="form-control">
+                        <option value="office">Office</option>
+                        <option data-correct="true" value="school">School</option>
+                        <option value="market">Market</option>
+                        <option value="factory">Factory</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. Identify the conclusion: "All roses are flowers. Some flowers fade quickly. Therefore,
+                        some roses fade quickly."</label>
+                    <select class="form-control">
+                        <option value="valid">Valid</option>
+                        <option data-correct="true" value="invalid">Invalid</option>
+                    </select>
+                </div>
+
+                <!-- Section 3: Numerical Reasoning -->
+                <h2>Section 3: Numerical Reasoning</h2>
+                <h3>3.1. Basic Arithmetic</h3>
+                <div class="form-group">
+                    <label>1. If a train travels at 60 km/h for 3 hours, how far does it travel?</label>
+                    <select class="form-control">
+                        <option value="120km">120 km</option>
+                        <option data-correct="true" value="180km">180 km</option>
+                        <option value="240km">240 km</option>
+                        <option value="300km">300 km</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. What is 25% of 200?</label>
+                    <select class="form-control">
+                        <option value="25">25</option>
+                        <option data-correct="true" value="50">50</option>
+                        <option value="75">75</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+
+                <h3>3.2. Word Problems</h3>
+                <div class="form-group">
+                    <label>1. If John has 3 apples and gives 2 to Mary, how many apples are still left?</label>
+                    <select class="form-control">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option data-correct="true" value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. A car's fuel efficiency is 20 miles per gallon. How many gallons are needed to travel 100
+                        miles?</label>
+                    <select class="form-control">
+                        <option value="4">4</option>
+                        <option data-correct="true" value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+
+                <!-- Section 4: Abstract Reasoning -->
+                <h2>Section 4: Abstract Reasoning</h2>
+                <h3>4.1. Shapes and Patterns</h3>
+                <div class="form-group">
+                    <label>1. Identify the next shape in the sequence:</label>
+                    <!-- Add images for sequence here -->
+                    <div><img src="images/shape1.avif" alt=""></div>
+                    <select class="form-control">
+                        <option value="shapeA">Shape A</option>
+                        <option value="shapeB">Shape B</option>
+                        <option data-correct="true" value="shapeC">Shape C</option>
+                        <option value="shapeD">Shape D</option>
+                        <option value="shapeE">Shape E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. Which shape does not belong?</label>
+                    <!-- Add images of 4 different shapes here -->
+                    <div><img src="images/shape2.jpg" alt=""></div>
+                    <select class="form-control">
+                        <option value="shape1">Shape a</option>
+                        <option data-correct="true" value="shape2">Shape b</option>
+                        <option value="shape3">Shape c</option>
+                        <option value="shape4">Shape d</option>
+                    </select>
+                </div>
+
+                <!-- Section 5: Situational Judgment -->
+                <h2>Section 5: Situational Judgment</h2>
+                <h3>5.1. Work Scenarios</h3>
+                <div class="form-group">
+                    <label>1. If you find out that a colleague has been taking credit for your work, what would you
+                        do?</label>
+                    <select class="form-control">
+                        <option value="confront">Confront the colleague immediately</option>
+                        <option value="report">Report to the manager</option>
+                        <option value="ignore">Ignore and continue working</option>
+                        <option data-correct="true" value="discuss">Discuss with the colleague privately</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>2. During a team project, if one team member is not contributing, what is the best
+                        approach?</label>
+                    <select class="form-control">
+                        <option value="ignore">Ignore their behavior</option>
+                        <option value="workload">Take on their workload yourself</option>
+                        <option data-correct="true" value="speak">Speak to them directly to understand their situation
+                        </option>
+                        <option value="report">Report to the team leader</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-secondary score">Check score</button>
+                <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to
+                    Home</button>
+                <button type="button" class="btn btn-danger"
+                    onclick="window.location.href='reasoning.html'">Restart</button>
+
+                <div id="scoreCardModal" class="score-card-modal">
+                    <div class="score-card-content">
+                        <!-- Content of your score card goes here -->
+                        <h2>Score Card</h2>
+                        <p>corrects are : <span class="correctValue"></span> </p>
+                        <p>Incorrects are : <span class="incorrect"></span>
+                        </p>
+                        <p class="conclusion"></p>
+                        <span></span>
+                        <!-- Add more content as needed -->
+                        <button id="closeScoreCardBtn">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        var count = 0;
+        var incorr = 0;
+        document.querySelectorAll("select").forEach(select => {
+            select.addEventListener("change", function () {
+                if (this.options[this.selectedIndex].getAttribute("data-correct") === "true") {
+                    count++;
+                } else {
+                    incorr++;
+                }
+                console.log(count);
+            });
+        });
+        var scorebutton = document.querySelector(".score");
+        scorebutton.onclick = function () {
+            let scorecard = document.querySelector(".score-card-modal");
+            scorecard.style.display = "block";
+            let correct=document.querySelector(".correctValue");
+            let incorrect=document.querySelector(".incorrect");
+            let con=document.querySelector(".conclusion");
+            correct.innerHTML=count;
+            incorrect.innerHTML=incorr;
+            if(correct>incorr)
+            {
+                con.innerHTML="GOOD !!<br></br> Keep it up";
+
+            }else{
+                con.innerHTML="Poor performance";
+            }
+
+        }
+    </script>
+</body>
+
+</html>
