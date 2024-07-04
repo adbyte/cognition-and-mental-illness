@@ -225,6 +225,15 @@ text-align: center;
 display: block;
 margin-top: 10px;
 }
+#paragraph{
+    font-size: 1rem;
+}
+.description{
+    background-color: #7CEBFC;
+    opacity: .7;
+    padding: 1rem;
+    font-size: larger;
+}
 </style>
 
 <body>
@@ -238,7 +247,7 @@ margin-top: 10px;
     </div>
     <div class="description">
         <p>You will be given a picture that'll contain many things from real world . The picture will be shown to you
-            for brief period , in that period you have to memorise as many items as you can .</p>
+            for brief period 16 seconds , in that period you have to memorise as many items as you can .</p>
         <p>After completion of demonstrative step , You'll be asked to write down as many things as you can recall .
             <b>The More you'll recall , More you'll get the points </b> </p>
     </div>
@@ -251,7 +260,7 @@ margin-top: 10px;
         <div class="right">
             <form action="/submit" method="post">
                 <h2 style="text-align: center;">Enter Here</h2>
-                <textarea id="paragraph" name="paragraph" rows="15" cols="50"></textarea><br><br>
+                <textarea id="paragraph" name="paragraph" rows="15" cols="50" placeholder="write here"></textarea><br><br>
 
             </form>
         </div>

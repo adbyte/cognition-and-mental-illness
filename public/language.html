@@ -32,7 +32,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        opacity: .6;
     }
+
 
     .heading:hover,
     .description:hover {
@@ -95,13 +97,15 @@
         z-index: 1000;
         position: fixed;
         left: 0;
+        padding: 1rem;
+        margin: 1rem;
         top: 0;
         height: 100%;
         width: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
+        opacity: .8;
         background: url("../images/bg.png");
     }
 
@@ -163,7 +167,7 @@
 
 <body>
     <div class="textarea">
-        <textarea name="textt" class="text"></textarea>
+        <textarea name="textt" class="text" placeholder="Start writing here"></textarea>
     </div>
     <div class="heading">
         <h1 style="margin-left: 40%;">
@@ -171,16 +175,19 @@
         </h1>
     </div>
     <div class="description">
-        <p>Its a task to test your language , You'll be given a wheel to genrate an alphabet from A to Z . Your task
-            will be then to write as many words as you can from theat randomly generated alphabet</p>
-        <p>You 'll have <b>20 sec</b> to make things work for you . Make sure that your written words should be
-            meaningfull .
-            <b>Fluency is the key</b>
-        </p>
-        <ul>Remember , after 20 seconds , screen will close and you will not be able to write further</ul>
-        <ul>Writing Noun is not allowed </ul>
-        <ul>After one word , give a space and then write other</ul>
-        <ul>If you'll write same word more than one then <b>none of the word will be counted.</b></ul>
+        <b>
+
+            <p>Its a task to test your language , You'll be given a wheel to genrate an alphabet from A to Z . Your task
+                will be then to write as many words as you can from theat randomly generated alphabet</p>
+            <p>You 'll have <b>20 sec</b> to make things work for you . Make sure that your written words should be
+                meaningfull .
+                <b>Fluency is the key</b>
+            </p>
+            <ul>Remember , after 20 seconds , screen will close and you will not be able to write further</ul>
+            <ul>Writing Noun is not allowed </ul>
+            <ul>After one word , give a space and then write other</ul>
+            <ul>If you'll write same word more than one then <b>none of the word will be counted.</b></ul>
+        </b>
 
     </div>
     <div class="wheeldiv">
