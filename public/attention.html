@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attention</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<style>
+    body {
+        background: url("../images/bg.png");
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .header {
+        display: flex;
+        flex-wrap: nowrap;
+        margin-top: 3%;
+    }
+
+    .header1 {
+        width: 100%;
+    }
+
+    
+
+    .mediator img {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        z-index: -1;
+    }
+
+
+    .mediator {
+        position: relative;
+        display: inline-block;
+    }
+
+    .mediator img {
+        display: block;
+    }
+
+    .mediator .fa-circle-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        cursor: pointer;
+
+    }
+
+    .pl:hover {
+        cursor: pointer;
+    }
+
+    .pl:active {
+        transform: translateY(2px);
+
+    }
+
+
+
+    #root {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #a0d0e2;
+        overflow: hidden;
+        background: url("https://i.ibb.co/P9HB3kR/low-poly-mountains-landscape-background-vector-11497752.jpg") repeat-x;
+        background-size: contain;
+        background-position: 0 0;
+        animation: scenary 40s linear infinite;
+    }
+
+    #root #floor {
+        position: absolute;
+        top: 60%;
+        left: 0;
+        width: 100vw;
+        bottom: 0;
+        background: #4e4e4e;
+    }
+
+    #root #floor #paints {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        animation: speed 1s linear infinite;
+    }
+
+    #root #floor #paints [class^=paint-] {
+        position: absolute;
+        top: 0px;
+        width: 250px;
+        height: 0;
+        border-bottom: 15px solid yellow;
+        border-right: 20px solid transparent;
+        border-left: 20px solid transparent;
+    }
+
+    #root #floor #paints .paint-1 {
+        left: 0px;
+    }
+
+    #root #model #side {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -60%);
+        width: 530px;
+        height: 210px;
+        animation: movement 0.5s linear infinite alternate;
+    }
+
+    #root #model #side #windows {
+        position: absolute;
+        width: 486px;
+        height: 0;
+        transform: translate(39px, 7px);
+        border-radius: 20px 200px 52px 28px;
+        border-bottom: 82px solid #f1f1f1;
+        border-left: 40px solid transparent;
+        border-right: 16px solid transparent;
+        z-index: 1;
+    }
+
+    #root #model #side #windows::before {
+        position: absolute;
+        content: "";
+        top: 20px;
+        left: 0;
+        width: 459px;
+        height: 1px;
+        background: #d6d6d6;
+        transform: translateX(-26px);
+    }
+
+    #root #model #side #windows .window:nth-child(1) {
+        width: 20px;
+        height: 50px;
+        transform: skew(-28deg);
+        background: black;
+        position: absolute;
+        top: 27px;
+        left: -48px;
+    }
+
+    #root #model #side #windows .window:nth-child(2) {
+        width: 20px;
+        height: 50px;
+        transform: skew(-27deg);
+        background: black;
+        position: absolute;
+        top: 27px;
+        left: -22px;
+    }
+
+    #root #model #side #windows .window:nth-child(3) {
+        position: absolute;
+        top: 27px;
+        left: -8px;
+        border-bottom: 50px solid black;
+        border-left: 21px solid transparent;
+        border-right: 0px solid transparent;
+        height: 0;
+        width: 94px;
+    }
+
+    #root #model #side #windows .window:nth-child(4) {
+        position: absolute;
+        top: 27px;
+        left: 100px;
+        height: 50px;
+        width: 65px;
+        background: black;
+    }
+
+    #root #model #side #windows .window:nth-child(5) {
+        position: absolute;
+        top: 27px;
+        left: 180px;
+        height: 50px;
+        width: 65px;
+        background: black;
+    }
+
+    #root #model #side #windows .window:nth-child(6) {
+        position: absolute;
+        top: 27px;
+        left: 260px;
+        height: 50px;
+        width: 65px;
+        background: black;
+    }
+
+    #root #model #side #windows .window:nth-child(7) {
+        position: absolute;
+        top: 27px;
+        left: 335px;
+        height: 50px;
+        width: 65px;
+        background: black;
+    }
+
+    #root #model #side #buffers {
+        position: absolute;
+        width: 530px;
+        height: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    #root #model #side #buffers #front-buffer {
+        position: absolute;
+        bottom: -4px;
+        left: -20px;
+    }
+
+    #root #model #side #buffers #front-buffer::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 15px solid #c7c7c7;
+        border-left: 10px solid transparent;
+        border-right: 0px solid transparent;
+        height: 0;
+        width: 75px;
+        transform: rotate(180deg);
+        border-radius: 10px 10px 10px 0px;
+        z-index: 1;
+    }
+
+    #root #model #side #buffers #front-buffer::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        bottom: -2px;
+        z-index: 0;
+        width: 14px;
+        height: 43px;
+        background: #c7c7c7;
+        border-radius: 5px;
+        box-shadow: inset 0 0 10px #fff;
+    }
+
+    #root #model #side #buffers #front-buffer .metal-bar {
+        position: absolute;
+        bottom: 16px;
+        left: 10px;
+        width: 50px;
+        height: 8px;
+        transform: rotate(31deg);
+        background: #c7c7c7;
+        border-radius: 5px;
+        z-index: 1;
+    }
+
+    #root #model #side #buffers #back-buffer {
+        position: absolute;
+        bottom: -7px;
+        right: -20px;
+    }
+
+    #root #model #side #buffers #back-buffer::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        border-bottom: 15px solid #c7c7c7;
+        border-left: 0px solid transparent;
+        border-right: 8px solid transparent;
+        height: 0;
+        width: 53px;
+        transform: rotate(180deg);
+        border-radius: 10px 10px 10px 0px;
+        z-index: 1;
+    }
+
+    #root #model #side #buffers #back-buffer::after {
+        content: "";
+        position: absolute;
+        right: 5px;
+        bottom: -2px;
+        z-index: 0;
+        width: 14px;
+        height: 43px;
+        background: #c7c7c7;
+        border-radius: 5px;
+        box-shadow: inset 0 0 10px #fff;
+    }
+
+    #root #model #side #headlight {
+        transform: rotate(180deg);
+        position: absolute;
+        bottom: 3px;
+        left: 39px;
+        z-index: 1;
+    }
+
+    #root #model #side #headlight::before {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: 1px;
+        display: block;
+        width: 33px;
+        height: 14px;
+        background: #565656;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        z-index: 1;
+        transform: rotate(90deg);
+    }
+
+    #root #model #side #headlight::after {
+        position: absolute;
+        content: "";
+        bottom: -60px;
+        left: 7px;
+        display: block;
+        width: 33px;
+        height: 14px;
+        background: yellow;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        z-index: 1;
+        transform: rotate(90deg);
+    }
+
+    #root #model #side #signal {
+        transform: rotate(180deg);
+        position: absolute;
+        bottom: 32px;
+        left: 40px;
+        z-index: 1;
+    }
+
+    #root #model #side #signal::before {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: 1px;
+        display: block;
+        width: 21px;
+        height: 7px;
+        background: #565656;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        z-index: 1;
+        transform: rotate(90deg);
+    }
+
+    #root #model #side #signal::after {
+        position: absolute;
+        content: "";
+        bottom: -60px;
+        left: 7px;
+        display: block;
+        width: 17px;
+        height: 7px;
+        background: #da971e;
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        z-index: 1;
+        transform: rotate(90deg);
+    }
+
+    #root #model #side #lantern {
+        position: absolute;
+        width: 10px;
+        height: 30px;
+        background: #c30000;
+        right: -5px;
+        bottom: 36px;
+        z-index: 1;
+        border-radius: 5px;
+        border: 1px solid #921717;
+    }
+
+    #root #model #side #doors {
+        position: absolute;
+        width: 530px;
+        height: 123px;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #root #model #side #doors::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 160px;
+        background: #f1f1f1;
+        border-radius: 120% 0 0;
+        transform: translate(15px, -87px) rotate(11deg);
+        z-index: -1;
+    }
+
+    #root #model #side #doors:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #f00;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 75px 10px 10px 10px;
+        z-index: 0;
+    }
+
+    #root #model #side #doors .door {
+        position: absolute;
+        width: 1px;
+        height: 111px;
+        top: -4px;
+        left: 37px;
+        background: #b10000;
+        z-index: 1;
+    }
+
+    #root #model #side #doors .door::before {
+        position: absolute;
+        content: "";
+        width: 1px;
+        top: 5px;
+        left: 134px;
+        height: 72px;
+        background: #b10000;
+        z-index: 1;
+    }
+
+    #root #model #side #doors .door::after {
+        position: absolute;
+        content: "";
+        width: 20px;
+        top: 75px;
+        left: 115px;
+        height: 1px;
+        background: #b10000;
+        z-index: 1;
+    }
+
+    #root #model #side #doors .handle {
+        position: absolute;
+        top: 27px;
+        left: 134px;
+        display: block;
+        width: 30px;
+        height: 7px;
+        background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 48%, #c5c5d6 98%);
+        border-radius: 50% 50% 50% 50%/60% 60% 40% 40%;
+        z-index: 1;
+    }
+
+    #root #model #side #doors #air-exit {
+        position: absolute;
+        top: 10px;
+        right: 44px;
+        width: 42px;
+        height: 46px;
+        background: gray;
+        z-index: 1;
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+        grid-gap: 1px 0;
+    }
+
+    #root #model #side #doors #air-exit>div {
+        background: #f00;
+    }
+
+    #root #model #side #wheels {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #root #model #side #wheels .wheel-space {
+        position: absolute;
+        bottom: 0;
+    }
+
+    #root #model #side #wheels .wheel-space .wheel {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: #fff;
+        border: 20px solid #000;
+    }
+
+    #root #model #side #wheels .wheel-space .wheel .hood {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 80%;
+        height: 80%;
+        background: url("https://banner2.kisspng.com/20180720/gwk/kisspng-volkswagen-beetle-car-volkswagen-gol-volkswagen-18-istanbul-background-5b518d3c54b186.1451426715320712283469.jpg") no-repeat;
+        background-size: auto 35px;
+        background-position: center center;
+        border-radius: 50%;
+        animation: rotate 0.6s linear infinite;
+    }
+
+    #root #model #side #wheels .wheel-space:first-child {
+        left: 0;
+        width: 113px;
+        height: 0;
+        transform: translate(63px, 0px);
+        border-radius: 37px 28px 0px 0px;
+        border-bottom: 53px solid #820101;
+        border-left: 23px solid transparent;
+        border-right: 18px solid transparent;
+        z-index: 1;
+    }
+
+    #root #model #side #wheels .wheel-space:first-child .wheel {
+        transform: translate(-56%, 113%);
+        animation: suspension-rear 0.5s linear infinite alternate;
+    }
+
+    #root #model #side #wheels .wheel-space:last-child {
+        right: 0;
+        width: 125px;
+        height: 0;
+        transform: translate(-36px, 0px);
+        border-radius: 41px 35px 0px 0px;
+        border-bottom: 33px solid #820101;
+        border-left: 23px solid transparent;
+        border-right: 21px solid transparent;
+        z-index: 1;
+    }
+
+    #root #model #side #wheels .wheel-space:last-child .metal-piece {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 20px;
+        background: red;
+        transform: translate(-10%, -100%);
+        z-index: 1;
+    }
+
+    #root #model #side #wheels .wheel-space:last-child .wheel {
+        transform: translate(-49%, 91%);
+        animation: suspension-back 0.5s linear infinite alternate;
+    }
+
+    @keyframes movement {
+        to {
+            top: 50.5%;
+        }
+    }
+
+    @keyframes suspension-rear {
+        to {
+            transform: translate(-56%, 109%);
+        }
+    }
+
+    @keyframes suspension-back {
+        to {
+            transform: translate(-49%, 87%);
+        }
+    }
+
+    @keyframes speed {
+        2% {
+            transform: translateX(2%);
+        }
+
+        4% {
+            transform: translateX(4%);
+        }
+
+        6% {
+            transform: translateX(6%);
+        }
+
+        8% {
+            transform: translateX(8%);
+        }
+
+        10% {
+            transform: translateX(10%);
+        }
+
+        12% {
+            transform: translateX(12%);
+        }
+
+        14% {
+            transform: translateX(14%);
+        }
+
+        16% {
+            transform: translateX(16%);
+        }
+
+        18% {
+            transform: translateX(18%);
+        }
+
+        20% {
+            transform: translateX(20%);
+        }
+
+        22% {
+            transform: translateX(22%);
+        }
+
+        24% {
+            transform: translateX(24%);
+        }
+
+        26% {
+            transform: translateX(26%);
+        }
+
+        28% {
+            transform: translateX(28%);
+        }
+
+        30% {
+            transform: translateX(30%);
+        }
+
+        32% {
+            transform: translateX(32%);
+        }
+
+        34% {
+            transform: translateX(34%);
+        }
+
+        36% {
+            transform: translateX(36%);
+        }
+
+        38% {
+            transform: translateX(38%);
+        }
+
+        40% {
+            transform: translateX(40%);
+        }
+
+        42% {
+            transform: translateX(42%);
+        }
+
+        44% {
+            transform: translateX(44%);
+        }
+
+        46% {
+            transform: translateX(46%);
+        }
+
+        48% {
+            transform: translateX(48%);
+        }
+
+        50% {
+            transform: translateX(50%);
+        }
+
+        52% {
+            transform: translateX(52%);
+        }
+
+        54% {
+            transform: translateX(54%);
+        }
+
+        56% {
+            transform: translateX(56%);
+        }
+
+        58% {
+            transform: translateX(58%);
+        }
+
+        60% {
+            transform: translateX(60%);
+        }
+
+        62% {
+            transform: translateX(62%);
+        }
+
+        64% {
+            transform: translateX(64%);
+        }
+
+        66% {
+            transform: translateX(66%);
+        }
+
+        68% {
+            transform: translateX(68%);
+        }
+
+        70% {
+            transform: translateX(70%);
+        }
+
+        72% {
+            transform: translateX(72%);
+        }
+
+        74% {
+            transform: translateX(74%);
+        }
+
+        76% {
+            transform: translateX(76%);
+        }
+
+        78% {
+            transform: translateX(78%);
+        }
+
+        80% {
+            transform: translateX(80%);
+        }
+
+        82% {
+            transform: translateX(82%);
+        }
+
+        84% {
+            transform: translateX(84%);
+        }
+
+        86% {
+            transform: translateX(86%);
+        }
+
+        88% {
+            transform: translateX(88%);
+        }
+
+        90% {
+            transform: translateX(90%);
+        }
+
+        92% {
+            transform: translateX(92%);
+        }
+
+        94% {
+            transform: translateX(94%);
+        }
+
+        96% {
+            transform: translateX(96%);
+        }
+
+        98% {
+            transform: translateX(98%);
+        }
+
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    @keyframes rotate {
+        from {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+
+        to {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+    }
+
+    @keyframes scenary {
+        to {
+            background-position: 1000px 0;
+        }
+    }
+
+    .stop,
+    .score,
+    .bus {
+        display: none;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .press {
+        border-radius: 100%;
+       
+        padding: 40px;
+
+    }
+    .press:active {
+        background-color: #c30000 !important;
+    }
+    .timer-container {
+	width: 150px;
+	
+	
+	padding: 20px 0;
+	
+	
+}
+.timer-container > * {
+	font-size: 2rem;
+	font-family: sans-serif;
+	font-weight: bolder;
+	color: #198;
+}
+#hou::after {
+	content: "0";
+	animation-name: counter_9;
+	animation-duration: 60000s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+}
+#hou::before {
+	content: "0";
+	animation-name: counter_5;
+	animation-duration: 600000s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+}
+#men::after {
+	content: "0";
+	animation-name: counter_9;
+	animation-duration: 600s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+}
+#men::before {
+	content: "0";
+	animation-name: counter_5;
+	animation-duration: 6000s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+}
+#sec::after {
+	content: "0";
+	animation-name: counter_9;
+	animation-duration: 10s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+	animation-fill-mode: both;
+}
+#sec::before {
+	content: "0";
+	animation-name: counter_5;
+	animation-duration: 60s;
+	animation-delay: 0s;
+	animation-timing-function: step-end;
+	animation-iteration-count: infinite;
+}
+
+
+
+@keyframes counter_9 {
+	0%,
+	100% {
+		content: "0";
+	}
+	10% {
+		content: "1";
+	}
+	20% {
+		content: "2";
+	}
+	30% {
+		content: "3";
+	}
+	40% {
+		content: "4";
+	}
+	50% {
+		content: "5";
+	}
+	60% {
+		content: "6";
+	}
+	70% {
+		content: "7";
+	}
+	80% {
+		content: "8";
+	}
+	90% {
+		content: "9";
+	}
+}
+
+@keyframes counter_5 {
+	0%,
+	100% {
+		content: "0";
+	}
+	16.66% {
+		content: "1";
+	}
+	33.32% {
+		content: "2";
+	}
+	49.98% {
+		content: "3";
+	}
+	66.64% {
+		content: "4";
+	}
+	83.3% {
+		content: "5";
+	}
+}
+
+#scoreCardModal{
+    display: none;
+    overflow:auto;
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+  top: 0;
+  height:100%;
+  width:100%;
+
+  background:url("images/bg.png") ;
+}
+.score-card-content {
+  
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #e2e2e9;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.score-card-content button {
+  display: block;
+  margin-top: 10px;
+}
+h3,h4,h5{
+    padding:0;
+    margin: 0;
+}
+.header{
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
+    width:100%;
+    text-align: center;
+}
+
+
+
+</style>
+
+<body>
+    <div class="header">
+        <div class="header1">
+            <h1>Continuous Performance Task</h1>
+            <h3> Make yours senses ultra ready for this fun ride </h3>
+            <br><h5>The Bus is going your home through the road which covers yellow strips , press the button of the handle
+                after every 5 strips because your home is that much strip far only .Continue the process upto one minute of time </h5>
+        </div>
+
+
+        
+    </div>
+    <div class="mediator">
+        <i class="fa-solid fa-circle-play fa-5x pl"></i>
+        
+        <img src="images\Screenshot 2024-06-22 025915.png" class="mimg" alt="">
+        <div id="root" class="bus">
+            <div>
+                <input name="state" type="radio" id="reset" checked />
+                <input name="state" type="radio" id="pause" />
+                <input name="state" type="radio" id="play" />
+                <div class="timer-container">
+                    <span id="hou"></span>
+                    <span>:</span>
+                    <span id="men"></span>
+                    <span>:</span>
+                    <span id="sec"></span>
+                </div>
+                
+            </div>
+            <div id="floor">
+
+                <div id="paints">
+                    <div class="paint-1"></div>
+
+                </div>
+            </div>
+            <div id="model">
+                
+                <button type="button" class="btn btn-warning press">Press</button>
+                <div id="side">
+
+                    <div id="windows">
+                        <div class="window"></div>
+                        <div class="window"></div>
+                        <div class="window"></div>
+                        <div class="window"></div>
+
+                        <div class="window"></div>
+                        <div class="window"></div>
+                        <div class="window"></div>
+                    </div>
+                    <div id="headlight"></div>
+                    <div id="signal"></div>
+                    <div id="lantern"></div>
+                    <div id="doors">
+                        <div class="door"></div>
+                        <div class="handle"></div>
+                        <div class="handle"></div>
+                        <div id="air-exit">
+                            <div></div>
+                            <div></div>
+
+                            <div></div>
+
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+
+                    </div>
+                    <div id="buffers">
+
+                        <div id="front-buffer">
+                            <div class="metal-bar"></div>
+                        </div>
+                        <div id="back-buffer"></div>
+
+                    </div>
+                    <div id="wheels">
+
+                        <div class="wheel-space">
+                            <div class="wheel">
+                                <div class="hood"></div>
+                            </div>
+                        </div>
+                        <div class="wheel-space">
+                            <div class="metal-piece"></div>
+                            <div class="wheel">
+                                <div class="hood"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="footer">
+        <button type="button" class="btn btn-primary stop">Stop</button>
+        <button type="button" class="btn btn-secondary score">Check score</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to Home </button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='attention.html'">Restart</button>
+        <button type="button" class="btn btn-warning">Help ?</button>
+        <div id="scoreCardModal" class="score-card-modal">
+            <div class="score-card-content">
+              <!-- Content of your score card goes here -->
+              <h2>Score Card</h2>
+              <p>Accuracy: <span id="scoreValue"></span> %</p>
+              <p class="conclusion"></p>
+              <span></span>
+              <!-- Add more content as needed -->
+              <button id="closeScoreCardBtn">Close</button>
+            </div>
+          </div>
+
+
+    </div>
+</body>
+<script>
+    var mediator = document.querySelector(".mediator");
+    var play = document.querySelector(".pl");
+    var idw = document.querySelector(".bus");
+    var immage = document.querySelector(".mimg");
+    var stopbutton = document.querySelector(".stop");
+    var scorebutton = document.querySelector(".score");
+    var pressbutton=document.querySelector(".press");
+    var count=0;
+    var oneminutecount=12;
+    
+    pressbutton.onclick=function(){
+        count++;
+        console.log(count);
+    }
+    
+       
+  const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+  const scoreCardModal = document.getElementById("scoreCardModal");
+
+  scorebutton.addEventListener("click", function() {
+    scoreCardModal.style.display = "block";
+    let sv=document.querySelector("#scoreValue");
+    let count2=(count/12)*100;
+    let c3=count2.toFixed(2);
+    sv.innerHTML=`${c3}`;
+    let con=document.querySelector(".conclusion");
+    let msg;
+    if(c3<=33.33){
+        msg="Less Attentive";
+    }
+    else if(c3<=67){
+        msg="Average Attentive"
+    }
+    else{
+        msg="High Attentive";
+    }
+    con.innerHTML=`${msg}`;
+    
+  });
+
+  closeScoreCardBtn.addEventListener("click", function() {
+    scoreCardModal.style.display = "none";
+  });
+         
+
+    
+    play.onclick = function () {
+        let f = idw;
+        f.style.display = "block";
+        let b = stopbutton;
+        b.style.display = "flex";
+        let y = scorebutton;
+        y.style.display = "flex";
+    }
+    stopbutton.onclick = function () {
+        let f = idw;
+        f.style.display = "none";
+    }
+    var defaults = {}
+        , one_second = 1000
+        , one_minute = one_second * 60
+        , one_hour = one_minute * 60
+        , one_day = one_hour * 24
+        , startDate = new Date()
+        , face = document.getElementById('lazy');
+
+    // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    var requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    }());
+
+    tick();
+
+    function tick() {
+
+        var now = new Date()
+            , elapsed = now - startDate
+            , parts = [];
+
+        parts[0] = '' + Math.floor(elapsed / one_hour);
+        parts[1] = '' + Math.floor((elapsed % one_hour) / one_minute);
+        parts[2] = '' + Math.floor(((elapsed % one_hour) % one_minute) / one_second);
+
+        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
+        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
+        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+
+        face.innerText = parts.join(':');
+
+        requestAnimationFrame(tick);
+
+    }
+
+</script>
+
+</html>
