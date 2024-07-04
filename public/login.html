@@ -198,9 +198,15 @@ body {
             <h5>Enter Email Id - <input type="text" name="email" id="email"></h5>
            
             <h5>Enter password - <input type="password" name="pwd" id="pwd"></h5>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block signin">Sign In</button>
         </form>
     </div>
 
 </body>
+<script>
+   loginbtn=document.querySelector(".signin");
+   loginbtn.onclick=function(event){
+    this.preventDefault(event);
+   }
+</script>
 </html>
