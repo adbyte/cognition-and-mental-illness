@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const User = require("./user");
+const path = require("path");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,27 +23,47 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {
-    res.redirect('./sign_up.html');
+    res.sendFile(path.join(__dirname, 'public', 'sign_up.html'));
 });
 
-app.post("/sign_up", (req, res) => {
-    const { name, email, pwd, age } = req.body;
-    
-    const newUser = new User({
-        name,
-        email,
-        pwd,
-        age
-    });
+app.post("/sign_up", async (req, res) => {
+    try {
+        const { name, email, pwd, age } = req.body;
+        const hashedPassword = await bcrypt.hash(pwd, 10);
+        const newUser = new User({
+            name,
+            email,
+            pwd: hashedPassword,
+            age
+        });
 
-    newUser.save((err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send("Error registering user");
-        }
+        await newUser.save();
         console.log("Registered Successfully!");
-        return res.redirect('./login.html');
-    });
+        res.redirect('/login.html');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error registering user");
+    }
+});
+
+app.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.send("User not found");
+        }
+       
+        const isPasswordMatch = await bcrypt.compare(password, user.pwd);
+        if (!isPasswordMatch) {
+            return res.send("Wrong Password");
+        } else {
+            res.sendFile(path.join(__dirname, 'public', 'index.html'));
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error logging in");
+    }
 });
 
 app.listen(PORT, () => {
