@@ -957,19 +957,45 @@
 }
 .score-card-content {
   
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #e2e2e9;
-  width: 80%;
-  max-width: 600px;
-  text-align: center;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #e2e2e9;
+        width: 60%;
+        max-width: 600px;
+        text-align: center;
+        background-color: #ffffff;
+        font-size: medium;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
 }
 
 .score-card-content button {
-  display: block;
-  margin-top: 10px;
+    display: block;
+        margin: 20px auto 0;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
 }
-h3,h4,h5{
+.score-card-content button:hover {
+        background-color: #0056b3;
+    }
+.score-card-content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+.score-card-content p {
+        font-size: 18px;
+        color: #666;
+    }
+
+    h3,h4,h5{
     padding:0;
     margin: 0;
 }
@@ -1007,7 +1033,6 @@ h3,h4,h5{
 
 
 </style>
-
 <body>
     <div class="header">
         <div class="header1">
@@ -1120,12 +1145,14 @@ h3,h4,h5{
         <div id="scoreCardModal" class="score-card-modal">
             <div class="score-card-content">
               <!-- Content of your score card goes here -->
+               <form id="score_card">
               <h2>Score Card</h2>
               <p>Accuracy: <span id="scoreValue"></span> %</p>
               <p class="conclusion"></p>
               <span></span>
               <!-- Add more content as needed -->
-              <button id="closeScoreCardBtn">Close</button>
+              <button id="closeScoreCardBtn">Close</button> 
+            </form>
             </div>
           </div>
 
@@ -1139,46 +1166,66 @@ h3,h4,h5{
     var immage = document.querySelector(".mimg");
     var stopbutton = document.querySelector(".stop");
     var scorebutton = document.querySelector(".score");
-    var pressbutton=document.querySelector(".press");
-    var count=0;
-    var oneminutecount=12;
-    
-    pressbutton.onclick=function(){
+    var pressbutton = document.querySelector(".press");
+    var count = 0;
+    var oneminutecount = 12;
+
+    pressbutton.onclick = function () {
         count++;
         console.log(count);
     }
-    
+
+    const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+    const scoreCardModal = document.getElementById("scoreCardModal");
+
+    scorebutton.addEventListener("click", function () {
+        scoreCardModal.style.display = "block";
+        let sv = document.querySelector("#scoreValue");
+        let count2 = (count / 12) * 100;
+        let c3 = count2.toFixed(2);
+        sv.innerHTML = `${c3}`;
+        let con = document.querySelector(".conclusion");
+        let msg;
+        if (c3 <= 33.33) {
+            msg = "Less Attentive";
+        } else if (c3 <= 67) {
+            msg = "Average Attentive"
+        } else {
+            msg = "High Attentive";
+        }
+        con.innerHTML = `${msg}`;
+    });
+
+    closeScoreCardBtn.addEventListener("click", function () {
+        scoreCardModal.style.display = "none";
+
+        const testName = 'Attention Test';
+        const currentDateTime = getCurrentDateTime();
+        const score = document.querySelector("#scoreValue").innerText;
+
+        storeTestAttempt(testName, currentDateTime, score);
+
+        console.log('Test attempt saved:', JSON.stringify(testAttempt)); // Log the saved data
        
-  const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
-  const scoreCardModal = document.getElementById("scoreCardModal");
+    });
 
-  scorebutton.addEventListener("click", function() {
-    scoreCardModal.style.display = "block";
-    let sv=document.querySelector("#scoreValue");
-    let count2=(count/12)*100;
-    let c3=count2.toFixed(2);
-    sv.innerHTML=`${c3}`;
-    let con=document.querySelector(".conclusion");
-    let msg;
-    if(c3<=33.33){
-        msg="Less Attentive";
+    function getCurrentDateTime() {
+        
+        let date = new Date().toLocaleDateString();
+        let time = new Date().toLocaleTimeString();
+        return `${date}, ${time}`;
     }
-    else if(c3<=67){
-        msg="Average Attentive"
-    }
-    else{
-        msg="High Attentive";
-    }
-    con.innerHTML=`${msg}`;
-    
-  });
 
-  closeScoreCardBtn.addEventListener("click", function() {
-    scoreCardModal.style.display = "none";
-  });
-         
+    function storeTestAttempt(testName, dateTime, score) {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        testAttempts.push({
+            testName: testName,
+            dateTime: dateTime,
+            score: score
+        });
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+    }
 
-    
     play.onclick = function () {
         let f = idw;
         f.style.display = "block";
@@ -1187,19 +1234,20 @@ h3,h4,h5{
         let y = scorebutton;
         y.style.display = "flex";
     }
+
     stopbutton.onclick = function () {
         let f = idw;
         f.style.display = "none";
     }
-    var defaults = {}
-        , one_second = 1000
-        , one_minute = one_second * 60
-        , one_hour = one_minute * 60
-        , one_day = one_hour * 24
-        , startDate = new Date()
-        , face = document.getElementById('lazy');
 
-    // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    var defaults = {},
+        one_second = 1000,
+        one_minute = one_second * 60,
+        one_hour = one_minute * 60,
+        one_day = one_hour * 24,
+        startDate = new Date(),
+        face = document.getElementById('lazy');
+
     var requestAnimationFrame = (function () {
         return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -1214,10 +1262,9 @@ h3,h4,h5{
     tick();
 
     function tick() {
-
-        var now = new Date()
-            , elapsed = now - startDate
-            , parts = [];
+        var now = new Date(),
+            elapsed = now - startDate,
+            parts = [];
 
         parts[0] = '' + Math.floor(elapsed / one_hour);
         parts[1] = '' + Math.floor((elapsed % one_hour) / one_minute);
@@ -1228,11 +1275,8 @@ h3,h4,h5{
         parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
 
         face.innerText = parts.join(':');
-
         requestAnimationFrame(tick);
-
     }
-
 </script>
 
 </html>
