@@ -16,7 +16,8 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        padding: 10px;
+        margin:0px;
+        padding: 0px;
         background: url("../images/bg.png") no-repeat center center fixed;
         overflow: scroll;
     }
@@ -198,21 +199,47 @@
         background: url("../images/bg.png");
     }
 
+
     .score-card-content {
+  
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #e2e2e9;
+  width: 60%;
+  max-width: 600px;
+  text-align: center;
+  background-color: #ffffff;
+  font-size: medium;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
 
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #e2e2e9;
-        width: 80%;
-        max-width: 600px;
-        text-align: center;
-    }
+.score-card-content button {
+display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.score-card-content button:hover {
+  background-color: #0056b3;
+}
+.score-card-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
 
-    .score-card-content button {
-        display: block;
-        margin-top: 10px;
-    }
-    .helpoption{
+.score-card-content p {
+  font-size: 18px;
+  color: #666;
+}
+.helpoption{
         display: none;
         width:80%;
         height:100%;
@@ -237,7 +264,6 @@
         
     }
 </style>
-
 <body>
     <div class="headingvisual">
         <h1>VISUAL SEARCH TASK</h1>
@@ -258,7 +284,7 @@
             The goal is to understand how quickly and accurately one can identify the target and what factors affect their performance.
         </p>
     </div>
-    
+
     <div class="buttonstart">
         <a href="#grid"><button class="custom-btn btn-6"><span> <br> Start the Game </span></button></a>
     </div>
@@ -768,10 +794,23 @@
             console.log(tcount);
         };
     });
+    function storeTestAttempt(testName, date, time, score) {
+       
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+
+        testAttempts.push({
+            testName: testName,
+            date: date,
+            time: time,
+            score: score
+        });
+
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+    }
     
     scorebutton.onclick = function () {
         scoreCardModal.style.display = "block";
-        //console.log(sc);
+      
         score.innerHTML = `${tcount * 10}`;
         let er = document.querySelector(".error");
         er.innerHTML = `${icount}`;
@@ -788,6 +827,11 @@
             msg = "High Perceptive";
         }
         con.innerHTML = `${msg}`;
+        let testName = "Perception Test"; // Example test name
+        let currentDate = new Date().toLocaleDateString(); // Example current date
+        let currentTime = new Date().toLocaleTimeString(); // Example current time
+
+        storeTestAttempt(testName, currentDate, currentTime, sc);
 
     }
     closeScoreCardBtn.addEventListener("click", function () {
