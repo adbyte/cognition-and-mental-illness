@@ -26,13 +26,10 @@
         top: 0;
         height: 100%;
         width: 100%;
-
         background: url("../images/bg.png");
-
     }
 
     .score-card-content {
-
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #e2e2e9;
@@ -57,10 +54,8 @@
             <h3>1.1. Syllogisms</h3>
             <form>
                 <div class="form-group">
-                    <label>1. All dogs are animals. All animals have four legs. Therefore, all dogs have four
-                        legs.</label>
+                    <label>1. All dogs are animals. All animals have four legs. Therefore, all dogs have four legs.</label>
                     <select class="form-control">
-
                         <option value="false" class="n">False</option>
                         <option data-correct="true" value="true">True</option>
                         <option value="uncertain" class="n">Uncertain</option>
@@ -112,7 +107,6 @@
                     <select class="form-control">
                         <option value="calf">Calf</option>
                         <option data-correct="true" value="puppy">Puppy</option>
-
                         <option value="foal">Foal</option>
                         <option value="cub">Cub</option>
                     </select>
@@ -129,8 +123,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>2. Identify the conclusion: "All roses are flowers. Some flowers fade quickly. Therefore,
-                        some roses fade quickly."</label>
+                    <label>2. Identify the conclusion: "All roses are flowers. Some flowers fade quickly. Therefore, some roses fade quickly."</label>
                     <select class="form-control">
                         <option value="valid">Valid</option>
                         <option data-correct="true" value="invalid">Invalid</option>
@@ -170,8 +163,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>2. A car's fuel efficiency is 20 miles per gallon. How many gallons are needed to travel 100
-                        miles?</label>
+                    <label>2. A car's fuel efficiency is 20 miles per gallon. How many gallons are needed to travel 100 miles?</label>
                     <select class="form-control">
                         <option value="4">4</option>
                         <option data-correct="true" value="5">5</option>
@@ -211,56 +203,44 @@
                 <h2>Section 5: Situational Judgment</h2>
                 <h3>5.1. Work Scenarios</h3>
                 <div class="form-group">
-                    <label>1. If you find out that a colleague has been taking credit for your work, what would you
-                        do?</label>
+                    <label>1. A colleague is struggling to meet a deadline. What do you do?</label>
                     <select class="form-control">
-                        <option value="confront">Confront the colleague immediately</option>
-                        <option value="report">Report to the manager</option>
-                        <option value="ignore">Ignore and continue working</option>
-                        <option data-correct="true" value="discuss">Discuss with the colleague privately</option>
+                        <option value="ignore">Ignore the situation</option>
+                        <option value="report">Report to supervisor</option>
+                        <option data-correct="true" value="help">Offer help</option>
+                        <option value="takeover">Take over task</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>2. During a team project, if one team member is not contributing, what is the best
-                        approach?</label>
+                    <label>2. A customer is unhappy with a service. How do you handle it?</label>
                     <select class="form-control">
-                        <option value="ignore">Ignore their behavior</option>
-                        <option value="workload">Take on their workload yourself</option>
-                        <option data-correct="true" value="speak">Speak to them directly to understand their situation
-                        </option>
-                        <option value="report">Report to the team leader</option>
+                        <option value="apologize">Apologize and offer a solution</option>
+                        <option value="ignore">Ignore the complaint</option>
+                        <option value="escalate">Escalate to manager</option>
+                        <option data-correct="true" value="listen">Listen and empathize</option>
                     </select>
                 </div>
 
-                <button type="button" class="btn btn-secondary score">Check score</button>
-                <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to
-                    Home</button>
-                <button type="button" class="btn btn-danger"
-                    onclick="window.location.href='reasoning.html'">Restart</button>
-
-                <div id="scoreCardModal" class="score-card-modal">
-                    <div class="score-card-content">
-                        <!-- Content of your score card goes here -->
-                        <h2>Score Card</h2>
-                        <p>corrects are : <span class="correctValue"></span> </p>
-                        <p>Incorrects are : <span class="incorrect"></span>
-                        </p>
-                        <p class="conclusion"></p>
-                        <span></span>
-                        <!-- Add more content as needed -->
-                        <button id="closeScoreCardBtn">Close</button>
-                    </div>
-                </div>
+                <button type="button" class="score btn btn-primary">Check score</button>
             </form>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Score Card Modal -->
+    <div class="score-card-modal">
+        <div class="score-card-content bg-light p-4 rounded">
+            <h2>Score Card</h2>
+            <p>Correct Answers: <span class="correctValue"></span></p>
+            <p>Incorrect Answers: <span class="incorrect"></span></p>
+            <p class="conclusion"></p>
+            <button class="close-score btn btn-secondary">Close</button>
+        </div>
+    </div>
+
     <script>
         var count = 0;
         var incorr = 0;
+
         document.querySelectorAll("select").forEach(select => {
             select.addEventListener("change", function () {
                 if (this.options[this.selectedIndex].getAttribute("data-correct") === "true") {
@@ -268,27 +248,51 @@
                 } else {
                     incorr++;
                 }
-                console.log(count);
             });
         });
+
         var scorebutton = document.querySelector(".score");
         scorebutton.onclick = function () {
             let scorecard = document.querySelector(".score-card-modal");
             scorecard.style.display = "block";
-            let correct=document.querySelector(".correctValue");
-            let incorrect=document.querySelector(".incorrect");
-            let con=document.querySelector(".conclusion");
-            correct.innerHTML=count;
-            incorrect.innerHTML=incorr;
-            if(correct>incorr)
-            {
-                con.innerHTML="GOOD !!<br></br> Keep it up";
+            let correct = document.querySelector(".correctValue");
+            let incorrect = document.querySelector(".incorrect");
+            let con = document.querySelector(".conclusion");
+            correct.innerHTML = count;
+            incorrect.innerHTML = incorr;
 
-            }else{
-                con.innerHTML="Poor performance";
+            // Store data in local storage
+            storeTestAttempt("Reasoning Test", getCurrentDateTime(), count);
+
+            // Display conclusion based on score
+            if (count > incorr) {
+                con.innerHTML = "GOOD !!<br></br> Keep it up";
+            } else {
+                con.innerHTML = "Poor performance";
             }
+        };
 
+        function getCurrentDateTime() {
+           
+            let date = new Date().toLocaleDateString();
+            let time = new Date().toLocaleTimeString();
+            return { date, time };
         }
+
+        function storeTestAttempt(testName, dateTime, score) {
+            let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+            testAttempts.push({
+                testName: testName,
+                date: dateTime.date,
+                time: dateTime.time,
+                score: score
+            });
+            localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+        }
+
+        document.querySelector(".close-score").addEventListener("click", function () {
+            document.querySelector(".score-card-modal").style.display = "none";
+        });
     </script>
 </body>
 
