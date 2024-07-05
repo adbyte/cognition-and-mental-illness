@@ -345,12 +345,13 @@ display: block;
                     ansarray.push(ans.value.trim());
                     console.log(ans.value);
                     ans.value = "";
-                    displayNextKey(); // Call the function recursively for the next key
-                }, 5000); // Display each key for 5 seconds
+                    displayNextKey(); 
+                }, 5000); 
             }
         }
 
-        displayNextKey(); // Start displaying keys
+        displayNextKey();
+        
     };
 
     var scorebtn = document.querySelector(".score");
@@ -379,7 +380,7 @@ display: block;
         }
         con.innerHTML = `${msg}`;
 
-        // Store data in local storage
+   
         const testName = 'Executive Test';
         const currentDate = new Date().toLocaleDateString();
         const currentTime = new Date().toLocaleTimeString();
