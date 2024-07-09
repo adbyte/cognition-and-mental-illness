@@ -1190,8 +1190,11 @@
             msg = "Less Attentive";
         } else if (c3 <= 67) {
             msg = "Average Attentive"
-        } else {
+        } else if(c3<=100){
             msg = "High Attentive";
+        }
+        else{
+            msg="You pressed more than needed.."
         }
         con.innerHTML = `${msg}`;
     });

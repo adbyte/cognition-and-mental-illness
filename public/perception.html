@@ -52,6 +52,7 @@
         width: 500px;
         /* Increased width */
         height: 200px;
+        margin: 7rem;
         /* Increased height */
     }
 
@@ -263,6 +264,28 @@ display: block;
         color: black;
         
     }
+    .beforestart{
+        
+        top: 0;
+        left: 0;
+        margin: 26px;
+        background-color: #f6f7f9;
+        border: 2px solid black;
+        opacity: .7;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+        align-items: center;
+        display: none;
+    }
+    .readybutton{
+        margin: 20px;
+        border-radius: 25%;
+        width: 100%;
+    }
+    .pclass{
+        font-size: 2rem;
+    }
 </style>
 <body>
     <div class="headingvisual">
@@ -285,11 +308,21 @@ display: block;
         </p>
     </div>
 
-    <div class="buttonstart">
-        <a href="#grid"><button class="custom-btn btn-6"><span> <br> Start the Game </span></button></a>
-    </div>
+    <a href="#bs"> <div class="buttonstart">
+        <button class="custom-btn btn-6"><span> <br> Start the Game </span></button>
+       
+    </div></a>
+   
+    <div class="beforestart" id="bs">
+        <p class="pclass">
+           You 'll' be given 30 seconds for the task , under which only you have to find T's in the horde of I's 
+        </p>
+        <p><h3>ALL THE BEST</h3></p>
+        <a href="#grid"> <button class="readybutton">READY</button></a>
+       
+   </div>
     <div id="grid" class="grid">
-
+        
         <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
         <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
         <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
@@ -770,8 +803,25 @@ display: block;
             </p>
         </div>
     </div>
+   
 </body>
 <script>
+    const buttonstart=document.querySelector(".buttonstart");
+    const beforestart=document.querySelector(".beforestart");
+    buttonstart.onclick=function(){
+          
+         beforestart.style.display="flex";
+
+    }
+    const readybutton=document.querySelector(".readybutton");
+    readybutton.onclick=function(){
+        //let bstart=document.querySelector(".beforestart");
+        beforestart.style.display="none";
+        setTimeout(() => {
+            const grid=document.querySelector(".grid");
+            grid.style.display="none";
+        }, 30000);
+    }
     function help(){
         let hp=document.querySelector(".helpoption");
         hp.style.display="block";
@@ -823,8 +873,11 @@ display: block;
         else if (sc <= 67) {
             msg = "Average Perceptive"
         }
-        else {
+        else if(sc<=100){
             msg = "High Perceptive";
+        }
+        else{
+            msg='You pressed same T multiple times ..'
         }
         con.innerHTML = `${msg}`;
         let testName = "Perception Test"; // Example test name
