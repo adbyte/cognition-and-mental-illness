@@ -1230,12 +1230,16 @@
     }
 
     play.onclick = function () {
+
         let f = idw;
         f.style.display = "block";
         let b = stopbutton;
         b.style.display = "flex";
         let y = scorebutton;
         y.style.display = "flex";
+        setTimeout(() => {
+            f.style.display="none";
+        }, 60000);
     }
 
     stopbutton.onclick = function () {

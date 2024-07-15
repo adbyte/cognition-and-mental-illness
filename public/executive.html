@@ -229,6 +229,35 @@ display: block;
   font-size: 18px;
   color: #666;
 }
+.inputsection{
+   
+    width: 100%;
+    padding:1rem;
+    border: .85px solid black;
+    display: flex;
+   margin-top: 5px;
+    border-radius: 25%;
+    
+}
+.inputbox{
+    background-color: white;
+}
+.transcription{
+    width:90%;
+    height:100%;
+
+}
+.fa-microphone{
+    width: 10%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+.fa-microphone:active{
+    transform: scale(.85);
+}
 
 
 </style>
@@ -269,7 +298,12 @@ display: block;
                 <p class="colortext">Click start  </p>
             </div>
             <div class="inputbox">
-                <input type="text" class="ans_by_user" placeholder="Ans here">
+                <!--<input type="text" class="ans_by_user" placeholder="Ans here">-->
+                <div class="inputsection">
+                    <div class="transcription"></div>
+                    <i class="fa-solid fa-microphone fa-2x"></i>
+                    <script src="audioinput/executiveaudio.js"></script>
+                </div>
             </div>
         </div>
     </div>
@@ -298,112 +332,6 @@ display: block;
 
     
 </body>
-<script>
-    const colors = {
-        "red": "white",
-        "blue": "green",
-        "black": "brown",
-        "grey": "yellow",
-        "orange": "red",
-        "white": "blue",
-        "yellow": "orange",
-        "pink": "purple",
-        "green": "green",
-        "brown": "pink",
-        "mustard": "red",
-        "silver": "white",
-        "wheat": "silver",
-        "gold": "yellow",
-        "violet": "gold",
-        "cofee": "grey",
-        "indigo": "orange",
-        "cream": "yellow",
-        "cyan": "green",
-        "crimson": "pink",
-        "chocolate": "gold",
-        "OVER": "wheat",
-    };
 
-    const startbtn = document.querySelector(".st");
-    const colordisplay = document.querySelector(".colortext");
-    const ans = document.querySelector(".ans_by_user");
-    const ansarray = [];
-
-    startbtn.onclick = function() {
-        let keys = Object.keys(colors);
-        let index = 0;
-
-        function displayNextKey() {
-            if (index < keys.length) {
-                let key = keys[index];
-                colordisplay.innerHTML = key;
-                colordisplay.style.color = colors[key];
-
-                setTimeout(() => {
-                    colordisplay.innerHTML = "";
-                    index++;
-                    ansarray.push(ans.value.trim());
-                    console.log(ans.value);
-                    ans.value = "";
-                    displayNextKey(); 
-                }, 5000); 
-            }
-        }
-
-        displayNextKey();
-        
-    };
-
-    var scorebtn = document.querySelector(".score");
-    scorebtn.onclick = function() {
-        const keyarray = Object.keys(colors);
-        var score = 0;
-        for (let i = 0; i < keyarray.length; i++) {
-            if (colors[keyarray[i]] == ansarray[i]) {
-                score++;
-            }
-        }
-
-        var modal = document.querySelector(".score-card-modal");
-        modal.style.display = "block";
-        var rate = ((score / 16) * 100).toFixed(2);
-        var scorevalue = document.querySelector(".scoreValue");
-        scorevalue.innerHTML = `${rate}`;
-        var con = document.querySelector(".conclusion");
-        var msg;
-        if (rate < 33.33) {
-            msg = "Less Executive";
-        } else if (rate < 67.5) {
-            msg = "Average Executive";
-        } else {
-            msg = "High Executive";
-        }
-        con.innerHTML = `${msg}`;
-
-   
-        const testName = 'Executive Test';
-        const currentDate = new Date().toLocaleDateString();
-        const currentTime = new Date().toLocaleTimeString();
-        const testAttempt = {
-            testName: testName,
-            date: currentDate,
-            time: currentTime,
-            score: rate
-        };
-
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-        testAttempts.push(testAttempt);
-        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
-
-       
-       
-    };
-
-    const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
-    closeScoreCardBtn.addEventListener("click", function() {
-        var scoreCardModal = document.querySelector(".score-card-modal");
-        scoreCardModal.style.display = "none";
-    });
-</script>
 
 </html>

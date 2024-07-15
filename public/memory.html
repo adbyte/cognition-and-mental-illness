@@ -228,6 +228,34 @@
         padding: 1rem;
         font-size: larger;
     }
+    .fa-microphone{
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+    .fa-microphone:active{
+        
+        transform: scale(0.85);
+    }
+    .stoprec{
+        font-size: 1rem;
+        text-decoration: none;
+        border: 2px solid red;
+        color: red;
+        background-color: transparent;
+       display: none;
+        cursor: pointer;
+        transition: transform .2 ease;
+    }
+    .stoprec:active{
+        transform: scale(.85);
+    }
+    .transcription{
+        width: 100%;
+        padding: 10px;
+        border: 1px solid black;
+        display: none;
+        
+    }
     </style>
 </head>
 <body>
@@ -252,11 +280,15 @@
             </div>
         </div>
         <div class="right">
-            <form action="/submit" method="post">
+            <!--<form action="/submit" method="post">
                 <h2 style="text-align: center;">Enter Here</h2>
                 <textarea id="paragraph" name="paragraph" rows="15" cols="50" placeholder="write here"></textarea><br><br>
 
-            </form>
+            </form> -->
+            <i class="fa-solid fa-microphone fa-7x"></i>
+            <div class="stoprec"></div>
+            <p class="transcription"></p>
+            <script src="audioinput/memoryaudio.js"></script>
         </div>
     </div>
     <div>
