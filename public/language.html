@@ -279,10 +279,10 @@ display: block;
 
                 <p class="conclusion"></p>
                 <span></span>
-                
+                <!-- Add more content as needed -->
                  <p> Previous Scores </p>
                 <table id="previousScores" class="table table-striped">
-                 
+                    <!-- Previous scores will be inserted here -->
                 </table>
                 <button id="closeScoreCardBtn">Close</button>
             </div>
@@ -427,7 +427,7 @@ display: block;
             
             let dateTime = new Date(year, month, day, hours, minutes, seconds);
 
-            if (!isNaN(dateTime.getTime())) { // Check if valid Date object
+            if (!isNaN(dateTime.getTime())) { 
                 let formattedDate = dateTime.toLocaleDateString();
                 let formattedTime = dateTime.toLocaleTimeString();
 
