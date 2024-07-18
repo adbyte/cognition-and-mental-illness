@@ -134,11 +134,9 @@
             align-items: center;
         }
 
-        
-
         .mainbox h5 {
             margin: 10px 0;
-            font-size:small;
+            font-size: small;
         }
 
         #form {
@@ -163,12 +161,13 @@
             transition: all 0.4s;
             outline: none;
         }
-        #form input:focus{
-			background: #fff;
-			border-color: transparent;
-			border-bottom-color: #2a6fca;
-			box-shadow: 2px 2px 5px 0px #9c8e8e;
-		}
+
+        #form input:focus {
+            background: #fff;
+            border-color: transparent;
+            border-bottom-color: #2a6fca;
+            box-shadow: 2px 2px 5px 0px #9c8e8e;
+        }
 
         #form button {
             display: block;
@@ -184,12 +183,14 @@
             color: #2908a2;
             line-height: 24px;
         }
-        #form button:hover, #form button:focus{
-			background: linear-gradient(135deg, #0866d1 0%,#1561d2 100%);
-			color: #fff;    
-			letter-spacing: 4px;
-    		color: #ffffff;
-		}
+
+        #form button:hover,
+        #form button:focus {
+            background: linear-gradient(135deg, #0866d1 0%, #1561d2 100%);
+            color: #fff;
+            letter-spacing: 4px;
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -217,14 +218,38 @@
     </div>
 
     <div class="mainbox mt-5">
-        <form action="/sign_up" method="POST" id="form">
-            <h5>Enter the Name - <input type="text" name="name" id="name"></h5>
-            <h5>Enter Email ID - <input type="text" name="email" id="email"></h5>
-            <h5>Create password - <input type="password" name="pwd" id="pwd"></h5>
-            <h5>Age - <input type="number" name="age" id="age"></h5>
+        <form id="form">
+            <h5>Enter the Name - <input type="text" name="name" id="name" required></h5>
+            <h5>Enter Email ID - <input type="email" name="email" id="email" required></h5>
+            <h5>Create password - <input type="password" name="pwd" id="pwd" required></h5>
+            <h5>Age - <input type="number" name="age" id="age" required></h5>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const pwd = document.getElementById('pwd').value;
+            const age = document.getElementById('age').value;
+
+            const user = {
+                name: name,
+                email: email,
+                password: pwd,
+                age: age
+            };
+
+            let userTable = JSON.parse(localStorage.getItem('userTable')) || [];
+            userTable.push(user);
+            localStorage.setItem('userTable', JSON.stringify(userTable));
+
+            alert('User registered successfully!');
+            window.location.href = "login.html";
+        });
+    </script>
 </body>
 
 </html>
