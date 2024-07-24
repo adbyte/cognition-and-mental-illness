@@ -187,6 +187,52 @@ display: block;
   font-size: 18px;
   color: #666;
 }
+.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
 </style>
 <body>
     <div class="textarea">
@@ -234,6 +280,10 @@ display: block;
                 <p class="conclusion"></p>
                 <span></span>
                 <!-- Add more content as needed -->
+                 <p> Previous Scores </p>
+                <table id="previousScores" class="table table-striped">
+                    <!-- Previous scores will be inserted here -->
+                </table>
                 <button id="closeScoreCardBtn">Close</button>
             </div>
         </div>
@@ -302,6 +352,7 @@ display: block;
             msg = "High Linguistic";
         }
         con.innerHTML = `${msg}`;
+        displayPreviousScores()
     }
     var closebutton = document.querySelector("#closeScoreCardBtn");
     closebutton.onclick = function () {
@@ -344,6 +395,59 @@ display: block;
        
         
     }
+    function displayPreviousScores() {
+    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+    let languageTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Language Test');
+
+    let scoreTable = document.querySelector("#previousScores");
+    scoreTable.innerHTML = "";
+
+    let tableHeader = `
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Score</th>
+        </tr>`;
+    scoreTable.innerHTML = tableHeader;
+
+    languageTestAttempts.forEach(attempt => {
+        
+        let dateParts = attempt.date.split('/');
+        let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/); 
+
+        if (dateParts.length === 3 && timeParts) {
+            let day = parseInt(dateParts[0], 10);
+            let month = parseInt(dateParts[1], 10) - 1; 
+            let year = parseInt(dateParts[2], 10);
+
+            let hours = parseInt(timeParts[1], 10) + (timeParts[4] === 'pm' ? 12 : 0); 
+            let minutes = parseInt(timeParts[2], 10);
+            let seconds = parseInt(timeParts[3], 10);
+
+            
+            let dateTime = new Date(year, month, day, hours, minutes, seconds);
+
+            if (!isNaN(dateTime.getTime())) { 
+                let formattedDate = dateTime.toLocaleDateString();
+                let formattedTime = dateTime.toLocaleTimeString();
+
+                let scoreRow = `
+                    <tr>
+                        <td>${formattedDate}</td>
+                        <td>${formattedTime}</td>
+                        <td>${attempt.score}</td>
+                    </tr>`;
+                scoreTable.innerHTML += scoreRow;
+            } else {
+                console.error('Invalid date/time format:', attempt.date, attempt.time);
+            }
+        } else {
+            console.error('Invalid date/time format:', attempt.date, attempt.time);
+        }
+    });
+}
+
+
     //installing textrazor api 
     /* const apikey="c0fddcc0f54557442c5bc879116972566811dcadea82a4e54739e210";
      var txtstr=document.querySelector(".text").value;

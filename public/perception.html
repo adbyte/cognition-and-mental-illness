@@ -286,6 +286,52 @@ display: block;
     .pclass{
         font-size: 2rem;
     }
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
 </style>
 <body>
     <div class="headingvisual">
@@ -725,7 +771,12 @@ display: block;
                 <p>Error score : <span class="error"></span></p>
                 <p class="conclusion"></p>
                 <span></span>
+                
                 <!-- Add more content as needed -->
+                <p>Previous Scores</p>
+                <table id="previousScores" class="table table-striped">
+                    <!-- Previous scores will be inserted here -->
+                </table>
                 <button id="closeScoreCardBtn">Close</button>
             </div>
         </div>
@@ -806,31 +857,14 @@ display: block;
    
 </body>
 <script>
-    const buttonstart=document.querySelector(".buttonstart");
-    const beforestart=document.querySelector(".beforestart");
-    buttonstart.onclick=function(){
-          
-         beforestart.style.display="flex";
+const buttonstart = document.querySelector(".buttonstart");
+const beforestart = document.querySelector(".beforestart");
 
-    }
-    const readybutton=document.querySelector(".readybutton");
-    readybutton.onclick=function(){
-        //let bstart=document.querySelector(".beforestart");
-        beforestart.style.display="none";
-        setTimeout(() => {
-            const grid=document.querySelector(".grid");
-            grid.style.display="none";
-        }, 30000);
-    }
-    function help(){
-        let hp=document.querySelector(".helpoption");
-        hp.style.display="block";
-    }
-    var iletter = document.querySelectorAll(".l");
-    var tletter = document.querySelectorAll(".t");
-    var score = document.querySelector(".scoreValue");
-    var scorebutton = document.querySelector(".score");
+buttonstart.onclick = function () {
+    beforestart.style.display = "flex";
+}
 
+<<<<<<< HEAD
     var icount = 0;
     var tcount = 0;
     iletter.forEach(element => {
@@ -845,58 +879,126 @@ display: block;
             element.style.backgroundColor="green";
             console.log(tcount);
         };
+=======
+const readybutton = document.querySelector(".readybutton");
+
+readybutton.onclick = function () {
+    beforestart.style.display = "none";
+    setTimeout(() => {
+        const grid = document.querySelector(".grid");
+        grid.style.display = "none";
+    }, 30000);
+}
+
+function help() {
+    let hp = document.querySelector(".helpoption");
+    hp.style.display = "block";
+}
+
+var iletter = document.querySelectorAll(".l");
+var tletter = document.querySelectorAll(".t");
+var score = document.querySelector(".scoreValue");
+var scorebutton = document.querySelector(".score");
+
+var icount = 0;
+var tcount = 0;
+
+iletter.forEach(element => {
+    element.onclick = function () {
+        icount++;
+    };
+});
+
+tletter.forEach(element => {
+    element.onclick = function () {
+        tcount++;
+        console.log(tcount);
+    };
+});
+
+function storeTestAttempt(testName, date, time, score) {
+    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+
+    testAttempts.push({
+        testName: testName,
+        date: date,
+        time: time,
+        score: score
     });
-    function storeTestAttempt(testName, date, time, score) {
-       
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
 
-        testAttempts.push({
-            testName: testName,
-            date: date,
-            time: time,
-            score: score
-        });
+    localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+}
 
-        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+scorebutton.onclick = function () {
+    scoreCardModal.style.display = "block";
+
+    score.innerHTML = `${tcount * 10}`;
+    let er = document.querySelector(".error");
+    er.innerHTML = `${icount}`;
+    let msg;
+    let sc = (tcount * 10);
+    let con = document.querySelector(".conclusion");
+
+    if (sc <= 33.33) {
+        msg = "Less Perceptive";
+    } else if (sc <= 67) {
+        msg = "Average Perceptive";
+    } else if (sc <= 100) {
+        msg = "High Perceptive";
+    } else {
+        msg = 'You pressed same T multiple times ..';
     }
-    
-    scorebutton.onclick = function () {
-        scoreCardModal.style.display = "block";
-      
-        score.innerHTML = `${tcount * 10}`;
-        let er = document.querySelector(".error");
-        er.innerHTML = `${icount}`;
-        let msg;
-        let sc=(tcount * 10);
-        let con = document.querySelector(".conclusion")
-        if (sc <= 33.33) {
-            msg = "Less Perceptive";
-        }
-        else if (sc <= 67) {
-            msg = "Average Perceptive"
-        }
-        else if(sc<=100){
-            msg = "High Perceptive";
-        }
-        else{
-            msg='You pressed same T multiple times ..'
-        }
-        con.innerHTML = `${msg}`;
-        let testName = "Perception Test"; // Example test name
-        let currentDate = new Date().toLocaleDateString(); // Example current date
-        let currentTime = new Date().toLocaleTimeString(); // Example current time
+    con.innerHTML = `${msg}`;
 
-        storeTestAttempt(testName, currentDate, currentTime, sc);
+    let testName = "Perception Test";
+    let currentDate = new Date().toLocaleDateString();
+    let currentTime = new Date().toLocaleTimeString();
 
-    }
-    closeScoreCardBtn.addEventListener("click", function () {
-        scoreCardModal.style.display = "none";
+    storeTestAttempt(testName, currentDate, currentTime, sc);
+
+    displayPreviousScores();
+}
+
+closeScoreCardBtn.addEventListener("click", function () {
+    scoreCardModal.style.display = "none";
+});
+
+let x = document.querySelector(".fa-x");
+x.onclick = function () {
+    let hp = document.querySelector(".helpoption");
+    hp.style.display = "none";
+}
+
+function displayPreviousScores() {
+    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+    let perceptionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Perception Test');
+
+    let scoreTable = document.querySelector("#previousScores");
+    scoreTable.innerHTML = ""; 
+
+    let tableHeader = `
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Score</th>
+        </tr>`;
+    scoreTable.innerHTML += tableHeader;
+
+    perceptionTestAttempts.forEach(attempt => {
+        let dateTime = attempt.date.split(", ");
+        let date = dateTime[0];
+        let time = dateTime[1];
+        let scoreRow = `
+            <tr>
+                <td>${date}</td>
+                <td>${time}</td>
+                <td>${attempt.score}</td>
+            </tr>`;
+        scoreTable.innerHTML += scoreRow;
+>>>>>>> fe97854a8a4aa2e605453901b4d9daf1b8bb8f1f
     });
-    let x=document.querySelector(".fa-x");
-    x.onclick=function(){
-        let hp=document.querySelector(".helpoption");
-        hp.style.display="none";
-    }
+}
+
 </script>
 
 </html>

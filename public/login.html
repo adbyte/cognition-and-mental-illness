@@ -3,119 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cognition</title>
-</head>
-<style>
-   body {
-    background: url("../images/login.png") no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0px;
-  font-family: 'segoe ui';
-}
-
-.nav {
-  height: 50px;
-  width: 100%;
-  
-  position: relative;
-}
-
-.nav > .nav-header {
-  display: inline;
-}
-
-.nav > .nav-header > .nav-title {
-  display: inline-block;
-  font-size: 22px;
-  color: #fff;
-  padding: 10px 10px 10px 10px;
-}
-
-.nav > .nav-btn {
-  display: none;
-}
-
-.nav > .nav-links {
-  display: inline;
-  float: right;
-  font-size: 18px;
-}
-
-.nav > .nav-links > a {
-  display: inline-block;
-  padding: 13px 10px 13px 10px;
-  text-decoration: none;
-  color: #efefef;
-}
-
-.nav > .nav-links > a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.nav > #nav-check {
-  display: none;
-}
-
-@media (max-width:600px) {
-  .nav > .nav-btn {
-    display: inline-block;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-  }
-  .nav > .nav-btn > label {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    padding: 13px;
-  }
-  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
-    background-color: transparent;
-  }
-  .nav > .nav-btn > label > span {
-    display: block;
-    width: 25px;
-    height: 10px;
-    border-top: 2px solid #eee;
-  }
-  .nav > .nav-links {
-    position: absolute;
-    display: block;
-    width: 100%;
-    background-color: #333;
-    height: 0px;
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 50px;
-    left: 0px;
-  }
-  .nav > .nav-links > a {
-    display: block;
-    width: 100%;
-  }
-  .nav > #nav-check:not(:checked) ~ .nav-links {
-    height: 0px;
-  }
-  .nav > #nav-check:checked ~ .nav-links {
-    height: calc(100vh - 50px);
-    overflow-y: auto;
-  }
-}
-.myprofile{
-    display: none;
-}
-#form {
+    <title>Login</title>
+    <style>
+        body {
+            background: url("../images/login.png") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0px;
+            font-family: 'segoe ui';
+        }
+        .nav {
+            height: 50px;
+            width: 100%;
+            position: relative;
+        }
+        .nav > .nav-header {
+            display: inline;
+        }
+        .nav > .nav-header > .nav-title {
+            display: inline-block;
+            font-size: 22px;
+            color: #fff;
+            padding: 10px 10px 10px 10px;
+        }
+        .nav > .nav-btn {
+            display: none;
+        }
+        .nav > .nav-links {
+            display: inline;
+            float: right;
+            font-size: 18px;
+        }
+        .nav > .nav-links > a {
+            display: inline-block;
+            padding: 13px 10px 13px 10px;
+            text-decoration: none;
+            color: #efefef;
+        }
+        .nav > .nav-links > a:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .nav > #nav-check {
+            display: none;
+        }
+        @media (max-width:600px) {
+            .nav > .nav-btn {
+                display: inline-block;
+                position: absolute;
+                right: 0px;
+                top: 0px;
+            }
+            .nav > .nav-btn > label {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                padding: 13px;
+            }
+            .nav > .nav-btn > label:hover,
+            .nav  #nav-check:checked ~ .nav-btn > label {
+                background-color: transparent;
+            }
+            .nav > .nav-btn > label > span {
+                display: block;
+                width: 25px;
+                height: 10px;
+                border-top: 2px solid #eee;
+            }
+            .nav > .nav-links {
+                position: absolute;
+                display: block;
+                width: 100%;
+                background-color: #333;
+                height: 0px;
+                transition: all 0.3s ease-in;
+                overflow-y: hidden;
+                top: 50px;
+                left: 0px;
+            }
+            .nav > .nav-links > a {
+                display: block;
+                width: 100%;
+            }
+            .nav > #nav-check:not(:checked) ~ .nav-links {
+                height: 0px;
+            }
+            .nav > #nav-check:checked ~ .nav-links {
+                height: calc(100vh - 50px);
+                overflow-y: auto;
+            }
+        }
+        .myprofile {
+            display: none;
+        }
+        #form {
             background: rgba(255, 255, 255, 0.7);
             width: 450px;
             max-width: 95%;
@@ -125,7 +114,6 @@ body {
             padding: 20px;
             font-size: 12px;
         }
-
         #form input {
             display: block;
             margin: 10px 0;
@@ -138,13 +126,12 @@ body {
             transition: all 0.4s;
             outline: none;
         }
-        #form input:focus{
-			background: #fff;
-			border-color: transparent;
-			border-bottom-color: #2a6fca;
-			box-shadow: 2px 2px 5px 0px #9c8e8e;
-		}
-
+        #form input:focus {
+            background: #fff;
+            border-color: transparent;
+            border-bottom-color: #2a6fca;
+            box-shadow: 2px 2px 5px 0px #9c8e8e;
+        }
         #form button {
             display: block;
             margin: 15px 0;
@@ -159,55 +146,60 @@ body {
             color: #2908a2;
             line-height: 24px;
         }
-        #form button:hover, #form button:focus{
-			background: linear-gradient(135deg, #0866d1 0%,#1561d2 100%);
-			color: #fff;    
-			letter-spacing: 4px;
-    		color: #ffffff;
-		}
-</style>
+        #form button:hover, #form button:focus {
+            background: linear-gradient(135deg, #0866d1 0%, #1561d2 100%);
+            color: #fff;
+            letter-spacing: 4px;
+            color: #ffffff;
+        }
+    </style>
+</head>
 <body>
     <div class="nav">
         <input type="checkbox" id="nav-check">
         <div class="nav-header">
         </div>
         <div class="nav-btn">
-          <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
+            <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
         </div>
-        
         <div class="nav-links">
-          <a href="index.html">Home</a>
-          
-          <a href="cognition.html">Cognition Domain Test</a>
-          
+            <a href="index.html">Home</a>
+            <a href="cognition.html">Cognition Domain Test</a>
             <a href="login.html" class="signlog">Login</a>
             <a href="signup.html" class="signlog">Sign up</a>
             <a href="tests.html">Non-Clinical Tests</a>
-          
-          <a href="" class="myprofile">My profile</a>
+            <a href="" class="myprofile">My profile</a>
         </div>
-
-
-      </div>
-
-      <div class="mainbox mt-5">
-        <form action="/login" method="POST" id="form">
+    </div>
+    <div class="mainbox mt-5">
+        <form id="form">
             <h5>Enter Email Id - <input type="text" name="email" id="email"></h5>
-           
             <h5>Enter password - <input type="password" name="pwd" id="pwd"></h5>
             <button type="submit" class="btn btn-primary btn-lg btn-block signin">Sign In</button>
         </form>
     </div>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("pwd").value;
 
+            const users = JSON.parse(localStorage.getItem("userTable")) || [];
+
+            const user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                localStorage.setItem("currentUser", JSON.stringify(user));
+                window.location.href = "profile.html";
+            } else {
+                alert("User credentials are incorrect");
+            }
+        });
+    </script>
 </body>
-<script>
-   loginbtn=document.querySelector(".signin");
-   loginbtn.onclick=function(event){
-    this.preventDefault(event);
-   }
-</script>
 </html>
