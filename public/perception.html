@@ -836,11 +836,13 @@ display: block;
     iletter.forEach(element => {
         element.onclick = function () {
             icount++;
+
         };
     });
     tletter.forEach(element => {
         element.onclick = function () {
             tcount++;
+            element.style.backgroundColor="green";
             console.log(tcount);
         };
     });

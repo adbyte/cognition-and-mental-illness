@@ -1,146 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cognition</title>
-</head>
-<style>
-   body {
-    background: url("../images/indexbgg.png") no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-* {
-  box-sizing: border-box;
-}
+  </head>
+  <style>
+    body {
+      background: url("../images/indexbgg.png") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
 
-body {
-  margin: 0px;
-  font-family: 'segoe ui';
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.nav {
-  height: 50px;
-  width: 100%;
-  
-  position: relative;
-}
+    body {
+      margin: 0px;
+      font-family: "segoe ui";
+    }
 
-.nav > .nav-header {
-  display: inline;
-}
+    .nav {
+      height: 50px;
+      width: 100%;
 
-.nav > .nav-header > .nav-title {
-  display: inline-block;
-  font-size: 22px;
-  color: #fff;
-  padding: 10px 10px 10px 10px;
-}
+      position: relative;
+    }
 
-.nav > .nav-btn {
-  display: none;
-}
+    .nav > .nav-header {
+      display: inline;
+    }
 
-.nav > .nav-links {
-  display: inline;
-  float: right;
-  font-size: 18px;
-}
+    .nav > .nav-header > .nav-title {
+      display: inline-block;
+      font-size: 22px;
+      color: #fff;
+      padding: 10px 10px 10px 10px;
+    }
 
-.nav > .nav-links > a {
-  display: inline-block;
-  padding: 13px 10px 13px 10px;
-  text-decoration: none;
-  color: #efefef;
-}
+    .nav > .nav-btn {
+      display: none;
+    }
 
-.nav > .nav-links > a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
-}
+    .nav > .nav-links {
+      display: inline;
+      float: right;
+      font-size: 18px;
+    }
 
-.nav > #nav-check {
-  display: none;
-}
+    .nav > .nav-links > a {
+      display: inline-block;
+      padding: 13px 10px 13px 10px;
+      text-decoration: none;
+      color: #efefef;
+    }
 
-@media (max-width:600px) {
-  .nav > .nav-btn {
-    display: inline-block;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-  }
-  .nav > .nav-btn > label {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    padding: 13px;
-  }
-  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
-    background-color: transparent;
-  }
-  .nav > .nav-btn > label > span {
-    display: block;
-    width: 25px;
-    height: 10px;
-    border-top: 2px solid #eee;
-  }
-  .nav > .nav-links {
-    position: absolute;
-    display: block;
-    width: 100%;
-    background-color: #333;
-    height: 0px;
-    transition: all 0.3s ease-in;
-    overflow-y: hidden;
-    top: 50px;
-    left: 0px;
-  }
-  .nav > .nav-links > a {
-    display: block;
-    width: 100%;
-  }
-  .nav > #nav-check:not(:checked) ~ .nav-links {
-    height: 0px;
-  }
-  .nav > #nav-check:checked ~ .nav-links {
-    height: calc(100vh - 50px);
-    overflow-y: auto;
-  }
-}
-.myprofile{
-    display: none;
-}
-</style>
-<body>
+    .nav > .nav-links > a:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > #nav-check {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+      }
+      .nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+      }
+      .nav > .nav-btn > label:hover,
+      .nav #nav-check:checked ~ .nav-btn > label {
+        background-color: transparent;
+      }
+      .nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+      }
+      .nav > .nav-links {
+        position: absolute;
+        display: block;
+        width: 100%;
+        background-color: #333;
+        height: 0px;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 50px;
+        left: 0px;
+      }
+      .nav > .nav-links > a {
+        display: block;
+        width: 100%;
+      }
+      .nav > #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+      }
+      .nav > #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+      }
+    }
+    .myprofile {
+      display: none;
+    }
+    .mainheading {
+      margin-left: 50px;
+    }
+    .screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: none;
+    }
+    .head {
+      font-size: 2.8rem;
+      left: 0;
+      top: 0;
+
+      font-family: Georgia, "Times New Roman", Times, serif;
+      color: #012335;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #47bfbf,
+        0 0 30px #47bfbf, 0 0 40px #47bfbf, 0 0 50px #47bfbf, 0 0 60px #47bfbf;
+      text-transform: uppercase;
+    }
+    .quote {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid black;
+      width: 100%;
+      margin-top: 50%;
+      cursor: pointer;
+    }
+    .firstone {
+      font-family: cursive;
+
+      color: whitesmoke;
+      font-size: 2rem;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #47bfbf,
+        0 0 30px #47bfbf, 0 0 40px #47bfbf, 0 0 50px #47bfbf, 0 0 60px #47bfbf;
+    }
+    .secondone {
+      font-family: cursive;
+      margin: 2px;
+      padding: 2px;
+      font-size: 10px;
+      transition: transform 0.2s ease-in-out;
+    }
+    .quote:hover {
+      box-shadow: 0 0 80px 20px #47bfbf;
+    }
+    .quote:hover .secondone {
+      transform: scale(1.8);
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #47bfbf,
+        0 0 150px #050c0c, 0 0 80px #ccff34, 0 0 50px #47bfbf, 0 0 60px #47bfbf;
+    }
+    @media (max-width: 520px) {
+      .screen {
+        display: flex;
+      }
+      body {
+        background: url("../images/bg4.png") no-repeat center center fixed;
+      }
+    }
+  </style>
+  <body>
     <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-        </div>
-        <div class="nav-btn">
-          <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-          </label>
-        </div>
-        
-        <div class="nav-links">
-          <a href="index.html">Home</a>
-          
-          <a href="cognition.html">Cognition Domain Test</a>
-          
-            <a href="login.html" class="signlog">Login</a>
-            <a href="signup.html" class="signlog">Sign up</a>
-            <a href="tests.html">Non-Clinical Tests</a>
-          <a href="profile.html" class="myprofile">My profile</a>
-          
-        </div>
+      <input type="checkbox" id="nav-check" />
+      <div class="nav-header"></div>
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
       </div>
 
-</body>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+
+        <a href="cognition.html">Cognition Domain Test</a>
+
+        <a href="login.html" class="signlog">Login</a>
+        <a href="signup.html" class="signlog">Sign up</a>
+        <a href="tests.html">Non-Clinical Tests</a>
+        <a href="profile.html" class="myprofile">My profile</a>
+      </div>
+    </div>
+    <div class="screen">
+      <div class="mainheading">
+        <p class="head">Cognition & Mental Diagnosis</p>
+      </div>
+      <div class="quote">
+        <p class="firstone">Live in the moment</p>
+        <p class="secondone">Cause U deserve all the happiness</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    const screen = document.querySelector(".screen");
+    if (screen.style.display == "flex") {
+      console.log("yes");
+    }
+  </script>
 </html>
