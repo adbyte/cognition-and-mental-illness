@@ -1,401 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <style>
     body {
-        background: url("../images/Blue Night Sky Cute Whale Desktop Wallpaper.png") repeat center center;
-        background-size: cover;
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        width: 100vw;
-        font-family: Arial, sans-serif;
+      background: url("../images/Blue Night Sky Cute Whale Desktop Wallpaper.png")
+        repeat center center;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      font-family: Arial, sans-serif;
     }
 
     * {
-        box-sizing: border-box;
+      box-sizing: border-box;
     }
 
     body {
-        margin: 0px;
-        font-family: 'segoe ui';
+      margin: 0px;
+      font-family: "segoe ui";
     }
 
     .nav {
+      height: 50px;
+      width: 100%;
+      position: relative;
+    }
+
+    .nav > .nav-header {
+      display: inline;
+    }
+
+    .nav > .nav-header > .nav-title {
+      display: inline-block;
+      font-size: 22px;
+      color: #fff;
+      padding: 10px 10px 10px 10px;
+    }
+
+    .nav > .nav-btn {
+      display: none;
+    }
+
+    .nav > .nav-links {
+      display: inline;
+      float: right;
+      font-size: 18px;
+    }
+
+    .nav > .nav-links > a {
+      display: inline-block;
+      padding: 13px 10px 13px 10px;
+      text-decoration: none;
+      color: #efefef;
+    }
+
+    .nav > .nav-links > a:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > #nav-check {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+      }
+
+      .nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
         height: 50px;
+        padding: 13px;
+      }
+
+      .nav > .nav-btn > label:hover,
+      .nav #nav-check:checked ~ .nav-btn > label {
+        background-color: transparent;
+      }
+
+      .nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #eee;
+      }
+
+      .nav > .nav-links {
+        position: absolute;
+        display: block;
         width: 100%;
-        position: relative;
-    }
+        background-color: #333;
+        height: 0px;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 50px;
+        left: 0px;
+      }
 
-    .nav>.nav-header {
-        display: inline;
-    }
+      .nav > .nav-links > a {
+        display: block;
+        width: 100%;
+      }
 
-    .nav>.nav-header>.nav-title {
-        display: inline-block;
-        font-size: 22px;
-        color: #fff;
-        padding: 10px 10px 10px 10px;
-    }
+      .nav > #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+      }
 
-    .nav>.nav-btn {
-        display: none;
-    }
-
-    .nav>.nav-links {
-        display: inline;
-        float: right;
-        font-size: 18px;
-    }
-
-    .nav>.nav-links>a {
-        display: inline-block;
-        padding: 13px 10px 13px 10px;
-        text-decoration: none;
-        color: #efefef;
-    }
-
-    .nav>.nav-links>a:hover {
-        background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .nav>#nav-check {
-        display: none;
-    }
-
-    @media (max-width:600px) {
-        .nav>.nav-btn {
-            display: inline-block;
-            position: absolute;
-            right: 0px;
-            top: 0px;
-        }
-
-        .nav>.nav-btn>label {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            padding: 13px;
-        }
-
-        .nav>.nav-btn>label:hover,
-        .nav #nav-check:checked~.nav-btn>label {
-            background-color: transparent;
-        }
-
-        .nav>.nav-btn>label>span {
-            display: block;
-            width: 25px;
-            height: 10px;
-            border-top: 2px solid #eee;
-        }
-
-        .nav>.nav-links {
-            position: absolute;
-            display: block;
-            width: 100%;
-            background-color: #333;
-            height: 0px;
-            transition: all 0.3s ease-in;
-            overflow-y: hidden;
-            top: 50px;
-            left: 0px;
-        }
-
-        .nav>.nav-links>a {
-            display: block;
-            width: 100%;
-        }
-
-        .nav>#nav-check:not(:checked)~.nav-links {
-            height: 0px;
-        }
-
-        .nav>#nav-check:checked~.nav-links {
-            height: calc(100vh - 50px);
-            overflow-y: auto;
-        }
+      .nav > #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+      }
     }
 
     .profile {
-        display: flex;
-        justify-content: space-around;
-        margin: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 8px;
-        margin-top: 80px;
+      display: flex;
+      justify-content: space-around;
+      margin: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 8px;
+      margin-top: 80px;
     }
 
     .profile-details {
-        width: 40%;
-        padding: 20px;
+      width: 40%;
+      padding: 20px;
     }
 
     .profile-details h2 {
-        color: #333;
-        font-size: 24px;
-        margin-bottom: 10px;
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
 
     .profile-details p {
-        font-size: 16px;
-        margin-bottom: 5px;
+      font-size: 16px;
+      margin-bottom: 5px;
     }
 
     .profile-picture {
-        width: 40%;
-        text-align: center;
+      width: 40%;
+      text-align: center;
     }
 
     .profile-picture img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .test-attempts {
-        margin-top: 20px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 20px;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
     }
 
     .test-attempts h2 {
-        font-size: 20px;
-        color: #333;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc;
     }
 
     .test-section {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
     }
 
     .test-section h3 {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc;
     }
 
     .test-section table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
     }
 
     .test-section th,
     .test-section td {
-        padding: 12px;
-        border: 1px solid #ccc;
-        text-align: center;
-        font-size: 16px;
-        color: #fff;
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
     }
 
     .test-section th {
-        background-color: #032d80;
-        color: #fff;
+      background-color: #032d80;
+      color: #fff;
     }
 
     .test-section td {
-        background-color: #165dad;
+      background-color: #165dad;
     }
 
     .test-section td:first-child {
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
 
     .test-section td:last-child {
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
     }
 
     .profile-picture {
-        margin-top: 40px;
+      margin-top: 40px;
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <div class="nav">
-        <input type="checkbox" id="nav-check">
-        <div class="nav-header">
-        </div>
-        <div class="nav-btn">
-            <label for="nav-check">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-        </div>
+      <input type="checkbox" id="nav-check" />
+      <div class="nav-header"></div>
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
 
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="cognition.html">Cognition Domain Test</a>
-            <a href="login.html" class="signlog">Login</a>
-            <a href="signup.html" class="signlog">Sign up</a>
-            <a href="tests.html">Non-Clinical Tests</a>
-            <a href="profile.html" class="myprofile">My profile</a>
-        </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="cognition.html">Cognition Domain Test</a>
+        <a href="login.html" class="signlog">Login</a>
+        <a href="sign_up.html" class="signlog">Sign up</a>
+        <a href="tests.html">Non-Clinical Tests</a>
+        <a href="profile.html" class="myprofile">My profile</a>
+      </div>
     </div>
 
     <div class="profile">
-        <div class="profile-details">
-            <h2>Profile Details</h2>
-            <p><strong>Name:</strong> <span id="profileName"></span></p>
-            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
-            <p><strong>Age:</strong> <span id="profileAge"></span></p>
-        </div>
-        <div class="profile-picture">
-            <img id="profileImage" src="placeholder.jpg" alt="Profile Picture">
-        </div>
+      <div class="profile-details">
+        <h2>Profile Details</h2>
+        <p><strong>Name:</strong> <span id="profileName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+        <p><strong>Age:</strong> <span id="profileAge"></span></p>
+      </div>
+      <div class="profile-picture">
+        <img id="profileImage" src="placeholder.jpg" alt="Profile Picture" />
+      </div>
     </div>
 
     <div class="test-attempts">
-        <center>
-            <h2>Test Attempts</h2>
-        </center>
-        <div class="test-section" id="perceptionTests">
-            <h3>Perception Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Perception test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="test-section" id="attentionTests">
-            <h3>Attention Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Attention test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="test-section" id="memoryTests">
-            <h3>Memory Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Memory test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="test-section" id="languageTests">
-            <h3>Language Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Language test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="test-section" id="reasoningTests">
-            <h3>Reasoning Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Reasoning test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
-        <div class="test-section" id="executiveTests">
-            <h3>Executive Tests</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Executive test attempts will be inserted here -->
-                </tbody>
-            </table>
-        </div>
+      <center>
+        <h2>Test Attempts</h2>
+      </center>
+      <div class="test-section" id="perceptionTests">
+        <h3>Perception Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Perception test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="test-section" id="attentionTests">
+        <h3>Attention Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Attention test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="test-section" id="memoryTests">
+        <h3>Memory Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Memory test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="test-section" id="languageTests">
+        <h3>Language Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Language test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="test-section" id="reasoningTests">
+        <h3>Reasoning Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Reasoning test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+      <div class="test-section" id="executiveTests">
+        <h3>Executive Tests</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Executive test attempts will be inserted here -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
-            document.getElementById('profileName').textContent = currentUser.name || 'Name not available';
-            document.getElementById('profileEmail').textContent = currentUser.email || 'Email not available';
-            document.getElementById('profileAge').textContent = currentUser.age || 'Age not available';
+      document.addEventListener("DOMContentLoaded", function () {
+        let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+        document.getElementById("profileName").textContent =
+          currentUser.name || "Name not available";
+        document.getElementById("profileEmail").textContent =
+          currentUser.email || "Email not available";
+        document.getElementById("profileAge").textContent =
+          currentUser.age || "Age not available";
 
-            let firstLetter = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : '';
-            document.getElementById('profileImage').setAttribute('src', `https://via.placeholder.com/100x100.png?text=${firstLetter}`);
+        let firstLetter = currentUser.name
+          ? currentUser.name.charAt(0).toUpperCase()
+          : "";
+        document
+          .getElementById("profileImage")
+          .setAttribute(
+            "src",
+            `https://via.placeholder.com/100x100.png?text=${firstLetter}`
+          );
 
-            let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        let testAttempts =
+          JSON.parse(localStorage.getItem("testAttempts")) || [];
 
-            function populateTestSection(sectionId, testNameKeywords) {
-                let sectionBody = document.querySelector(`#${sectionId} tbody`);
-                sectionBody.innerHTML = '';  // Clear any existing rows
-                testAttempts.filter(attempt => testNameKeywords.some(keyword => attempt.testName.includes(keyword))).forEach(function (attempt) {
-                    let row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${attempt.date || attempt.dateTime.split(', ')[0]}</td>
-                        <td>${attempt.time || attempt.dateTime.split(', ')[1]}</td>
+        function populateTestSection(sectionId, testNameKeywords) {
+          let sectionBody = document.querySelector(`#${sectionId} tbody`);
+          sectionBody.innerHTML = ""; // Clear any existing rows
+          testAttempts
+            .filter((attempt) =>
+              testNameKeywords.some((keyword) =>
+                attempt.testName.includes(keyword)
+              )
+            )
+            .forEach(function (attempt) {
+              let row = document.createElement("tr");
+              row.innerHTML = `
+                        <td>${
+                          attempt.date || attempt.dateTime.split(", ")[0]
+                        }</td>
+                        <td>${
+                          attempt.time || attempt.dateTime.split(", ")[1]
+                        }</td>
                         <td>${attempt.score}</td>
                     `;
-                    sectionBody.appendChild(row);
-                });
-            }
+              sectionBody.appendChild(row);
+            });
+        }
 
-            populateTestSection('perceptionTests', ['Perception']);
-            populateTestSection('attentionTests', ['Attention']);
-            populateTestSection('memoryTests', ['Memory']);
-            populateTestSection('languageTests', ['Language']);
-            populateTestSection('reasoningTests', ['Reasoning']);
-            populateTestSection('executiveTests', ['Executive']);
-        });
+        populateTestSection("perceptionTests", ["Perception"]);
+        populateTestSection("attentionTests", ["Attention"]);
+        populateTestSection("memoryTests", ["Memory"]);
+        populateTestSection("languageTests", ["Language"]);
+        populateTestSection("reasoningTests", ["Reasoning"]);
+        populateTestSection("executiveTests", ["Executive"]);
+      });
     </script>
-</body>
-
+  </body>
 </html>
