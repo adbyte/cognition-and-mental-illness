@@ -176,6 +176,9 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        width: 100vw;
+        height:100vh;
+        margin:0;
 
     }
 
@@ -864,10 +867,10 @@ buttonstart.onclick = function () {
     beforestart.style.display = "flex";
 }
 
-<<<<<<< HEAD
+
     var icount = 0;
     var tcount = 0;
-    iletter.forEach(element => {
+    iletter.forEach((element) => {
         element.onclick = function () {
             icount++;
 
@@ -878,8 +881,7 @@ buttonstart.onclick = function () {
             tcount++;
             element.style.backgroundColor="green";
             console.log(tcount);
-        };
-=======
+        };})
 const readybutton = document.querySelector(".readybutton");
 
 readybutton.onclick = function () {
@@ -903,13 +905,13 @@ var scorebutton = document.querySelector(".score");
 var icount = 0;
 var tcount = 0;
 
-iletter.forEach(element => {
+iletter.forEach((element) => {
     element.onclick = function () {
         icount++;
     };
 });
 
-tletter.forEach(element => {
+tletter.forEach((element) => {
     element.onclick = function () {
         tcount++;
         console.log(tcount);
@@ -995,7 +997,7 @@ function displayPreviousScores() {
                 <td>${attempt.score}</td>
             </tr>`;
         scoreTable.innerHTML += scoreRow;
->>>>>>> fe97854a8a4aa2e605453901b4d9daf1b8bb8f1f
+
     });
 }
 
