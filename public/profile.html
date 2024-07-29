@@ -180,14 +180,26 @@
         border-bottom: 1px solid #ccc;
     }
 
-    .test-attempts table {
+    .test-section {
+        margin-bottom: 20px;
+    }
+
+    .test-section h3 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .test-section table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
     }
 
-    .test-attempts th,
-    .test-attempts td {
+    .test-section th,
+    .test-section td {
         padding: 12px;
         border: 1px solid #ccc;
         text-align: center;
@@ -195,21 +207,21 @@
         color: #fff;
     }
 
-    .test-attempts th {
+    .test-section th {
         background-color: #032d80;
         color: #fff;
     }
 
-    .test-attempts td {
+    .test-section td {
         background-color: #165dad;
     }
 
-    .test-attempts td:first-child {
+    .test-section td:first-child {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
     }
 
-    .test-attempts td:last-child {
+    .test-section td:last-child {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
     }
@@ -258,48 +270,130 @@
         <center>
             <h2>Test Attempts</h2>
         </center>
-        <table id="testAttemptsTable">
-            <thead>
-                <tr>
-                    <th>Test Name</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!--Data-->
-            </tbody>
-        </table>
-    </div>
+        <div class="test-section" id="perceptionTests">
+            <h3>Perception Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Perception test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="test-section" id="attentionTests">
+            <h3>Attention Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Attention test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="test-section" id="memoryTests">
+            <h3>Memory Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Memory test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="test-section" id="languageTests">
+            <h3>Language Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Language test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="test-section" id="reasoningTests">
+            <h3>Reasoning Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Reasoning test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="test-section" id="executiveTests">
+            <h3>Executive Tests</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Executive test attempts will be inserted here -->
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-          
             let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
             document.getElementById('profileName').textContent = currentUser.name || 'Name not available';
             document.getElementById('profileEmail').textContent = currentUser.email || 'Email not available';
             document.getElementById('profileAge').textContent = currentUser.age || 'Age not available';
 
-            
             let firstLetter = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : '';
             document.getElementById('profileImage').setAttribute('src', `https://via.placeholder.com/100x100.png?text=${firstLetter}`);
 
-            
             let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
 
-            let tableBody = document.querySelector('#testAttemptsTable tbody');
-            testAttempts.forEach(function (attempt) {
-                let row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${attempt.testName}</td>
-                    <td>${attempt.date}</td>
-                    <td>${attempt.time}</td>
-                    <td>${attempt.score}</td>
-                `;
-                tableBody.appendChild(row);
-            });
+            function populateTestSection(sectionId, testNameKeywords) {
+                let sectionBody = document.querySelector(`#${sectionId} tbody`);
+                sectionBody.innerHTML = '';  // Clear any existing rows
+                testAttempts.filter(attempt => testNameKeywords.some(keyword => attempt.testName.includes(keyword))).forEach(function (attempt) {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${attempt.date || attempt.dateTime.split(', ')[0]}</td>
+                        <td>${attempt.time || attempt.dateTime.split(', ')[1]}</td>
+                        <td>${attempt.score}</td>
+                    `;
+                    sectionBody.appendChild(row);
+                });
+            }
+
+            populateTestSection('perceptionTests', ['Perception']);
+            populateTestSection('attentionTests', ['Attention']);
+            populateTestSection('memoryTests', ['Memory']);
+            populateTestSection('languageTests', ['Language']);
+            populateTestSection('reasoningTests', ['Reasoning']);
+            populateTestSection('executiveTests', ['Executive']);
         });
     </script>
 </body>
