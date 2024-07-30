@@ -1,477 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>language</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-</head>
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reasoning and Problem-Solving Questionnaire</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <style>
     body {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        background: url("../images/bg3.png") no-repeat center center fixed;
+      /* background: url("../images/bg3.png");*/
+      background: radial-gradient(circle, #7cebfc 0%, #296186 100%);
     }
 
-    .heading,
-    .description {
-        background: #7CEBFC;
-        background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);
-        width: 100%;
-
-    }
-
-    .description {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: .6;
-    }
-
-
-    .heading:hover,
-    .description:hover {
-        background: none;
-        /* background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);*/
-    }
-
-    .wheeldiv {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 300px;
-    }
-
-    .wheel {
-        height: 100%;
-        width: 20%;
-        border-radius: 100%;
-        background: url("../images/wheel.png") no-repeat center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-
-    }
-
-    .newclass {
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
-
-    }
-
-    .rotate {
-        background-color: white;
-        border-radius: 80%;
-        cursor: pointer;
-    }
-
-    .rotate:active {
-        /* transition: 1s ease-in-out;*/
-        transform: translateY(-10px);
-        background-color: transparent;
-    }
-
-    .textarea {
-        display: none;
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        padding: 1rem;
-        margin: 1rem;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: .8;
-        background: url("../images/bg.png");
-    }
-
-    .text {
-
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 80%;
-        width: 80%;
-        margin-left: 15%;
-        background-color: #7CEBFC;
-
-    }
-
-    .stop {
-        display: none;
-    }
-
-    .footer {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
+    option {
+      background-color: #7cebfc;
     }
 
     .score-card-modal {
-        display: none;
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
+      display: none;
+      overflow: auto;
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
 
-        background: url("../images/bg.png");
-
+      background: url("../images/bg.png");
     }
-.score-card-content {
-  
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #e2e2e9;
-  width: 60%;
-  max-width: 600px;
-  text-align: center;
-  background-color: #ffffff;
-  font-size: medium;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-}
 
-.score-card-content button {
-display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-.score-card-content button:hover {
-  background-color: #0056b3;
-}
-.score-card-content h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
-}
+    .score-card-content {
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #e2e2e9;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
 
-.score-card-content p {
-  font-size: 18px;
-  color: #666;
-}
-.modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
+    .score-card-content button {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Reasoning and Problem-Solving Questionnaire</h1>
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+      <!-- Section 1: Logical Reasoning -->
+      <div class="mt-4">
+        <h2>Section 1: Logical Reasoning</h2>
+        <h3>1.1. Syllogisms</h3>
+        <form>
+          <div class="form-group">
+            <label
+              >1. All dogs are animals. All animals have four legs. Therefore,
+              all dogs have four legs.</label
+            >
+            <select class="form-control">
+              <option value="false" class="n">False</option>
+              <option data-correct="true" value="true">True</option>
+              <option value="uncertain" class="n">Uncertain</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              >2. Some fruits are sweet. All apples are fruits. Therefore, some
+              apples are sweet.</label
+            >
+            <select class="form-control">
+              <option value="true">True</option>
+              <option value="false">False</option>
+              <option data-correct="true" value="uncertain">Uncertain</option>
+            </select>
+          </div>
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+          <h3>1.2. Pattern Recognition</h3>
+          <div class="form-group">
+            <label>1. What comes next in the sequence? 2, 4, 8, 16, __</label>
+            <select class="form-control">
+              <option value="24">24</option>
+              <option data-correct="true" value="32">32</option>
+              <option value="20">20</option>
+              <option value="18">18</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              >2. Find the missing number in the series: 1, 3, 6, 10, 15,
+              __</label
+            >
+            <select class="form-control">
+              <option value="20">20</option>
+              <option data-correct="true" value="21">21</option>
+              <option value="22">22</option>
+              <option value="19">19</option>
+            </select>
+          </div>
 
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
+          <!-- Section 2: Verbal Reasoning -->
+          <h2>Section 2: Verbal Reasoning</h2>
+          <h3>2.1. Analogies</h3>
+          <div class="form-group">
+            <label>1. Book is to Reading as Fork is to:</label>
+            <select class="form-control">
+              <option value="drawing">Drawing</option>
+              <option value="writing">Writing</option>
+              <option data-correct="true" value="eating">Eating</option>
+              <option value="stirring">Stirring</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>2. Cat is to Kitten as Dog is to:</label>
+            <select class="form-control">
+              <option value="calf">Calf</option>
+              <option data-correct="true" value="puppy">Puppy</option>
 
-        table th,
-        table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-</style>
-<body>
-    <div class="textarea">
-        <textarea name="textt" class="text" placeholder="Start writing here"></textarea>
-    </div>
-    <div class="heading">
-        <h1 style="margin-left: 40%;">
-            Word Fluency Task
-        </h1>
-    </div>
-    <div class="description">
-        <b>
+              <option value="foal">Foal</option>
+              <option value="cub">Cub</option>
+            </select>
+          </div>
 
-            <p>Its a task to test your language , You'll be given a wheel to genrate an alphabet from A to Z . Your task
-                will be then to write as many words as you can from theat randomly generated alphabet</p>
-            <p>You 'll have <b>20 sec</b> to make things work for you . Make sure that your written words should be
-                meaningfull .
-                <b>Fluency is the key</b>
-            </p>
-            <ul>Remember , after 20 seconds , screen will close and you will not be able to write further</ul>
-            <ul>Writing Noun is not allowed </ul>
-            <ul>After one word , give a space and then write other</ul>
-            <ul>If you'll write same word more than one then <b>none of the word will be counted.</b></ul>
-        </b>
+          <h3>2.2. Critical Thinking</h3>
+          <div class="form-group">
+            <label>1. A doctor is to hospital as a teacher is to:</label>
+            <select class="form-control">
+              <option value="office">Office</option>
+              <option data-correct="true" value="school">School</option>
+              <option value="market">Market</option>
+              <option value="factory">Factory</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              >2. Identify the conclusion: "All roses are flowers. Some flowers
+              fade quickly. Therefore, some roses fade quickly."</label
+            >
+            <select class="form-control">
+              <option value="valid">Valid</option>
+              <option data-correct="true" value="invalid">Invalid</option>
+            </select>
+          </div>
 
-    </div>
-    <div class="wheeldiv">
-        <div class="wheel">
-            <div class="rotate"><i class="fa-solid fa-rotate fa-4x"></i></div>
+          <!-- Section 3: Numerical Reasoning -->
+          <h2>Section 3: Numerical Reasoning</h2>
+          <h3>3.1. Basic Arithmetic</h3>
+          <div class="form-group">
+            <label
+              >1. If a train travels at 60 km/h for 3 hours, how far does it
+              travel?</label
+            >
+            <select class="form-control">
+              <option value="120km">120 km</option>
+              <option data-correct="true" value="180km">180 km</option>
+              <option value="240km">240 km</option>
+              <option value="300km">300 km</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>2. What is 25% of 200?</label>
+            <select class="form-control">
+              <option value="25">25</option>
+              <option data-correct="true" value="50">50</option>
+              <option value="75">75</option>
+              <option value="100">100</option>
+            </select>
+          </div>
 
-        </div>
-    </div>
-    <div class="footer">
-        <button type="button" class="btn btn-primary stop">Start</button>
-        <button type="button" class="btn btn-secondary score">Check score</button>
-        <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to Home </button>
-        <button type="button" class="btn btn-danger" onclick="window.location.href='language.html'">Restart</button>
+          <h3>3.2. Word Problems</h3>
+          <div class="form-group">
+            <label
+              >1. If John has 3 apples and gives 2 to Mary, how many apples are
+              still left?</label
+            >
+            <select class="form-control">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option data-correct="true" value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              >2. A car's fuel efficiency is 20 miles per gallon. How many
+              gallons are needed to travel 100 miles?</label
+            >
+            <select class="form-control">
+              <option value="4">4</option>
+              <option data-correct="true" value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
 
-        <div id="scoreCardModal" class="score-card-modal">
+          <!-- Section 4: Abstract Reasoning -->
+          <h2>Section 4: Abstract Reasoning</h2>
+          <h3>4.1. Shapes and Patterns</h3>
+          <div class="form-group">
+            <label>1. Identify the next shape in the sequence:</label>
+            <!-- Add images for sequence here -->
+            <div><img src="../images/shape1.avif" alt="" /></div>
+            <select class="form-control">
+              <option value="shapeA">Shape A</option>
+              <option value="shapeB">Shape B</option>
+              <option data-correct="true" value="shapeC">Shape C</option>
+              <option value="shapeD">Shape D</option>
+              <option value="shapeE">Shape E</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>2. Which shape does not belong?</label>
+            <!-- Add images of 4 different shapes here -->
+            <div><img src="../images/shape2.jpg" alt="" /></div>
+            <select class="form-control">
+              <option value="shape1">Shape a</option>
+              <option data-correct="true" value="shape2">Shape b</option>
+              <option value="shape3">Shape c</option>
+              <option value="shape4">Shape d</option>
+            </select>
+          </div>
+
+          <!-- Section 5: Situational Judgment -->
+          <h2>Section 5: Situational Judgment</h2>
+          <h3>5.1. Work Scenarios</h3>
+          <div class="form-group">
+            <label
+              >1. If you find out that a colleague has been taking credit for
+              your work, what would you do?</label
+            >
+            <select class="form-control">
+              <option value="confront">
+                Confront the colleague immediately
+              </option>
+              <option value="report">Report to the manager</option>
+              <option value="ignore">Ignore and continue working</option>
+              <option data-correct="true" value="discuss">
+                Discuss with the colleague privately
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label
+              >2. During a team project, if one team member is not contributing,
+              what is the best approach?</label
+            >
+            <select class="form-control">
+              <option value="ignore">Ignore their behavior</option>
+              <option value="workload">Take on their workload yourself</option>
+              <option data-correct="true" value="speak">
+                Speak to them directly to understand their situation
+              </option>
+              <option value="report">Report to the team leader</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn btn-secondary score">
+            Check score
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="window.location.href='index.html'"
+          >
+            Back to Home
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            onclick="window.location.href='reasoning.html'"
+          >
+            Restart
+          </button>
+
+          <div id="scoreCardModal" class="score-card-modal">
             <div class="score-card-content">
-                <!-- Content of your score card goes here -->
-                <h2>Score Card</h2>
-                <p>Your score value is : <span class="scoreValue"></span> </p>
-
-                <p class="conclusion"></p>
-                <span></span>
-                <!-- Add more content as needed -->
-                 <p> Previous Scores </p>
-                <table id="previousScores" class="table table-striped">
-                    <!-- Previous scores will be inserted here -->
-                </table>
-                <button id="closeScoreCardBtn">Close</button>
+              <!-- Content of your score card goes here -->
+              <h2>Score Card</h2>
+              <p>corrects are : <span class="correctValue"></span></p>
+              <p>Incorrects are : <span class="incorrect"></span></p>
+              <p class="conclusion"></p>
+              <span></span>
+              <!-- Add more content as needed -->
+              <button id="closeScoreCardBtn">Close</button>
             </div>
-        </div>
-
+          </div>
+        </form>
+      </div>
     </div>
-</body>
-<script>
-    var ran;
-    var rot = document.querySelector(".rotate");
-    rot.onclick = function () {
-        var wheel = document.querySelector(".wheel");
-        wheel.classList.toggle("newclass");
-        rot.innerHTML = "<i class='fa-solid fa-circle-stop fa-3x'></i>"
-        rot.onclick = function () {
-            const alphabets = "abcdefghijklmnopqrstuvwxyz";
-            const randomIndex = Math.floor(Math.random() * alphabets.length);
-            ran = alphabets[randomIndex];
 
-            wheel.classList.remove("newclass");
-            wheel.style.background = "radial-gradient(circle, #7CEBFC 0%, #296186 100%)";
-            wheel.innerHTML = "<i class='fa-solid fa-" + `${ran}` + " fa-6x'></i>";
-            let st = document.querySelector(".stop");
-            st.style.display = "block";
-        }
-    }
-    var ss = document.querySelector(".stop");
-    ss.onclick = function () {
-        var txt = document.querySelector(".textarea");
-        txt.style.display = "block";
-        let txtstr = document.querySelector(".text").value;
-        setTimeout(function () {
-            txt.style.display = "none";
-        }, 20000);
-
-    }
-    var scorebutton = document.querySelector(".score");
-    scorebutton.onclick = function () {
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      var count = 0;
+      var incorr = 0;
+      document.querySelectorAll("select").forEach((select) => {
+        select.addEventListener("change", function () {
+          if (
+            this.options[this.selectedIndex].getAttribute("data-correct") ===
+            "true"
+          ) {
+            count++;
+          } else {
+            incorr++;
+          }
+          console.log(count);
+        });
+      });
+      var scorebutton = document.querySelector(".score");
+      scorebutton.onclick = function () {
         let scorecard = document.querySelector(".score-card-modal");
         scorecard.style.display = "block";
-        let txtstr = document.querySelector(".text").value;
-        let arr = txtstr.split(' ');
-        let rn = ran;
-        let finalscore = 0;
-        let map={};
-        for (let i = 0; i < arr.length; i++) {
-            map[arr[i]]++;
-        }
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i][0] == rn) {
-                if (map[arr[i]] > 1)
-                    continue;
-                finalscore++;
-            }
-        }
-        let value = document.querySelector(".scoreValue");
-        value.innerHTML = `${finalscore}`;
+        let correct = document.querySelector(".correctValue");
+        let incorrect = document.querySelector(".incorrect");
         let con = document.querySelector(".conclusion");
-        let msg;
-        if (finalscore <= 5) {
-            msg = "Less Linguistic";
-        }
-        else if (finalscore < 11) {
-            msg = "Average Linguistic";
-        }
-        else {
-            msg = "High Linguistic";
-        }
-        con.innerHTML = `${msg}`;
-        displayPreviousScores()
-    }
-    var closebutton = document.querySelector("#closeScoreCardBtn");
-    closebutton.onclick = function () {
-        let element = document.querySelector(".score-card-modal");
-        element.style.display = "none";
-    }
-
-    function saveTestAttempt(testName, date, time, score) {
-        const testAttempt = {
-            testName: testName,
-            date: date,
-            time: time,
-            score: score
-        };
-
-        
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-
-
-        testAttempts.push(testAttempt);
-
-        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
-
-        console.log('Test attempt saved:', testAttempt); 
-    }
-
-    var closebutton = document.querySelector("#closeScoreCardBtn");
-    closebutton.onclick = function () {
-        let scorecard = document.querySelector(".score-card-modal");
-        scorecard.style.display = "none";
-
-        const currentDate = new Date();
-        const date = currentDate.toLocaleDateString();
-        const time = currentDate.toLocaleTimeString();
-
-        let finalscore = document.querySelector(".scoreValue").textContent;
-
-        saveTestAttempt('Language Test', date, time, finalscore);
-
-       
-        
-    }
-    function displayPreviousScores() {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-    let languageTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Language Test');
-
-    let scoreTable = document.querySelector("#previousScores");
-    scoreTable.innerHTML = "";
-
-    let tableHeader = `
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Score</th>
-        </tr>`;
-    scoreTable.innerHTML = tableHeader;
-
-    languageTestAttempts.forEach(attempt => {
-        
-        let dateParts = attempt.date.split('/');
-        let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/); 
-
-        if (dateParts.length === 3 && timeParts) {
-            let day = parseInt(dateParts[0], 10);
-            let month = parseInt(dateParts[1], 10) - 1; 
-            let year = parseInt(dateParts[2], 10);
-
-            let hours = parseInt(timeParts[1], 10) + (timeParts[4] === 'pm' ? 12 : 0); 
-            let minutes = parseInt(timeParts[2], 10);
-            let seconds = parseInt(timeParts[3], 10);
-
-            
-            let dateTime = new Date(year, month, day, hours, minutes, seconds);
-
-            if (!isNaN(dateTime.getTime())) { 
-                let formattedDate = dateTime.toLocaleDateString();
-                let formattedTime = dateTime.toLocaleTimeString();
-
-                let scoreRow = `
-                    <tr>
-                        <td>${formattedDate}</td>
-                        <td>${formattedTime}</td>
-                        <td>${attempt.score}</td>
-                    </tr>`;
-                scoreTable.innerHTML += scoreRow;
-            } else {
-                console.error('Invalid date/time format:', attempt.date, attempt.time);
-            }
+        correct.innerHTML = count;
+        incorrect.innerHTML = incorr;
+        if (correct > incorr) {
+          con.innerHTML = "GOOD !!<br></br> Keep it up";
         } else {
-            console.error('Invalid date/time format:', attempt.date, attempt.time);
+          con.innerHTML = "Poor performance";
         }
-    });
-}
-
-
-    //installing textrazor api 
-    /* const apikey="c0fddcc0f54557442c5bc879116972566811dcadea82a4e54739e210";
-     var txtstr=document.querySelector(".text").value;
-     var arr=txtstr.split(' ');
-     for(let i=0;i<arr.length;i++){
-         fetch('https://api.textrazor.com/v1/analyze',{
-             method:'POST',
-             headers:{
-                 'Content-Type':'application/json',
-                 'x-textrazor-key':apikey
-             },
-             body:JSON.stringify({
-                 text:arr[i]
-             })
-         })
-         .then(response=>response.son())
-         .then(data=>{
-             console.log(data);
-         })
-         .catch(error => {
-             console.error("error fetching data ",error);
-         })
-     }*/
-
-</script>
-
+      };
+    </script>
+  </body>
 </html>
