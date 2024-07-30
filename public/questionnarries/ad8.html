@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="intern2.css" />
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150vh;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("../../images/bg.png");
+    }
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: #91b2c9;
+      box-shadow: 0 4px 8px rgba(171, 27, 27, 0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #1a1212;
+      font-size: 1.8em;
+      font-weight: 700;
+      font-size: 35px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #082931;
+      font-size: 18;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 5px;
+      font-size: 1em;
+      color: #333;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    select:hover {
+      border-color: #888;
+      background-color: #fff;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1>AD8 Dementia Screening Interview</h1>
+      <div class="question">
+        <label for="question1"
+          >Problems with judgment (e.g., problems making decisions, bad
+          financial decisions, problems with thinking).</label
+        >
+        <select name="question1" id="question1">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question2">Less interest in hobbies/activities.</label>
+        <select name="question2" id="question2">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question3"
+          >Repeats the same things over and over (questions, stories, or
+          statements).</label
+        >
+        <select name="question3" id="question3">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question4"
+          >Trouble learning how to use a tool, appliance, or gadget (e.g., VCR,
+          computer, microwave, remote control).</label
+        >
+        <select name="question4" id="question4">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question5">Forgets correct month or year.</label>
+        <select name="question5" id="question5">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question6"
+          >Trouble handling complicated financial affairs (e.g., balancing
+          checkbook, income taxes, paying bills).</label
+        >
+        <select name="question6" id="question6">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question7">Trouble remembering appointments.</label>
+        <select name="question7" id="question7">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question8"
+          >Daily problems with thinking and/or memory.</label
+        >
+        <select name="question8" id="question8">
+          <option value="yes">yes</option>
+          <option value="no">no</option>
+          <option value="dont know">don't know</option>
+        </select>
+      </div>
+      <button onclick="submitForm()">Submit</button>
+    </div>
+  </body>
+</html>
