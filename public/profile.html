@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <style>
     body {
@@ -232,6 +233,16 @@
     .profile-picture {
       margin-top: 40px;
     }
+
+    .chart-container {
+      position: relative;
+      height: 200px;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
   </style>
 
   <body>
@@ -286,6 +297,9 @@
             <!-- Perception test attempts will be inserted here -->
           </tbody>
         </table>
+        <div class="chart-container">
+          <canvas id="perceptionChart"></canvas>
+        </div>
       </div>
       <div class="test-section" id="attentionTests">
         <h3>Attention Tests</h3>
@@ -301,6 +315,9 @@
             <!-- Attention test attempts will be inserted here -->
           </tbody>
         </table>
+        <div class="chart-container">
+          <canvas id="attentionChart"></canvas>
+        </div>
       </div>
       <div class="test-section" id="memoryTests">
         <h3>Memory Tests</h3>
@@ -316,6 +333,9 @@
             <!-- Memory test attempts will be inserted here -->
           </tbody>
         </table>
+        <div class="chart-container">
+          <canvas id="memoryChart"></canvas>
+        </div>
       </div>
       <div class="test-section" id="languageTests">
         <h3>Language Tests</h3>
@@ -331,6 +351,9 @@
             <!-- Language test attempts will be inserted here -->
           </tbody>
         </table>
+        <div class="chart-container">
+          <canvas id="languageChart"></canvas>
+        </div>
       </div>
       <div class="test-section" id="reasoningTests">
         <h3>Reasoning Tests</h3>
@@ -346,6 +369,9 @@
             <!-- Reasoning test attempts will be inserted here -->
           </tbody>
         </table>
+        <div class="chart-container">
+          <canvas id="reasoningChart"></canvas>
+        </div>
       </div>
       <div class="test-section" id="executiveTests">
         <h3>Executive Tests</h3>
@@ -361,6 +387,10 @@
             <!-- Executive test attempts will be inserted here -->
           </tbody>
         </table>
+
+        <div class="chart-container">
+          <canvas id="executiveChart"></canvas>
+        </div>
       </div>
     </div>
 
@@ -387,18 +417,18 @@
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
 
-        function populateTestSection(sectionId, testNameKeywords) {
+        function populateTestSection(sectionId, testNameKeywords, chartId) {
           let sectionBody = document.querySelector(`#${sectionId} tbody`);
-          sectionBody.innerHTML = ""; // Clear any existing rows
-          testAttempts
+          sectionBody.innerHTML = ""; 
+          let sectionData = testAttempts
             .filter((attempt) =>
               testNameKeywords.some((keyword) =>
                 attempt.testName.includes(keyword)
               )
-            )
-            .forEach(function (attempt) {
-              let row = document.createElement("tr");
-              row.innerHTML = `
+            );
+          sectionData.forEach(function (attempt) {
+            let row = document.createElement("tr");
+            row.innerHTML = `
                         <td>${
                           attempt.date || attempt.dateTime.split(", ")[0]
                         }</td>
@@ -407,16 +437,54 @@
                         }</td>
                         <td>${attempt.score}</td>
                     `;
-              sectionBody.appendChild(row);
-            });
+            sectionBody.appendChild(row);
+          });
+
+          let dates = sectionData.map((attempt) =>
+            attempt.date || attempt.dateTime.split(", ")[0]
+          );
+          let scores = sectionData.map((attempt) => attempt.score);
+
+          let ctx = document.getElementById(chartId).getContext("2d");
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: dates,
+              datasets: [
+                {
+                  label: "Scores",
+                  data: scores,
+                  borderColor: "rgba(54, 162, 235, 1)",
+                  backgroundColor: "rgba(54, 162, 235, 0.2)",
+                  fill: true,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: "Date",
+                  },
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: "Score",
+                  },
+                },
+              },
+            },
+          });
         }
 
-        populateTestSection("perceptionTests", ["Perception"]);
-        populateTestSection("attentionTests", ["Attention"]);
-        populateTestSection("memoryTests", ["Memory"]);
-        populateTestSection("languageTests", ["Language"]);
-        populateTestSection("reasoningTests", ["Reasoning"]);
-        populateTestSection("executiveTests", ["Executive"]);
+        populateTestSection("perceptionTests", ["Perception"], "perceptionChart");
+        populateTestSection("attentionTests", ["Attention"], "attentionChart");
+        populateTestSection("memoryTests", ["Memory"], "memoryChart");
+        populateTestSection("languageTests", ["Language"], "languageChart");
+        populateTestSection("reasoningTests", ["Reasoning"], "reasoningChart");
+        populateTestSection("executiveTests", ["Executive"], "executiveChart");
       });
     </script>
   </body>
