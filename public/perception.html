@@ -868,20 +868,7 @@ buttonstart.onclick = function () {
 }
 
 
-    var icount = 0;
-    var tcount = 0;
-    iletter.forEach((element) => {
-        element.onclick = function () {
-            icount++;
-
-        };
-    });
-    tletter.forEach(element => {
-        element.onclick = function () {
-            tcount++;
-            element.style.backgroundColor="green";
-            console.log(tcount);
-        };})
+  
 const readybutton = document.querySelector(".readybutton");
 
 readybutton.onclick = function () {
@@ -889,6 +876,7 @@ readybutton.onclick = function () {
     setTimeout(() => {
         const grid = document.querySelector(".grid");
         grid.style.display = "none";
+        console.log("ho gya");
     }, 30000);
 }
 
@@ -914,6 +902,7 @@ iletter.forEach((element) => {
 tletter.forEach((element) => {
     element.onclick = function () {
         tcount++;
+        element.style.backgroundColor="green";
         console.log(tcount);
     };
 });
