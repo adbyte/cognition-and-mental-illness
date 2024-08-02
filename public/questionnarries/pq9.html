@@ -312,8 +312,8 @@
 
           <p class="conclusion"></p>
           <span></span>
-          <!-- Add more content as needed -->
-          <p>Previous Scores</p>
+          <!-- Add more content as needed 
+          <p>Previous Scores</p>-->
           <table id="previousScores" class="table table-striped">
             <!-- Previous scores will be inserted here -->
           </table>
@@ -359,7 +359,7 @@
             "Consider urgent psychiatric referral, especially if there are thoughts of self-harm.";
         }
         conclusion.innerHTML = `${msg}`;
-
+      }; /*
         const testName = "Executive Test";
         const currentDate = new Date().toLocaleDateString();
         const currentTime = new Date().toLocaleTimeString();
@@ -374,13 +374,14 @@
           JSON.parse(localStorage.getItem("testAttempts")) || [];
         testAttempts.push(testAttempt);
         localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
-      };
+      };*/
 
       const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
       closeScoreCardBtn.addEventListener("click", function () {
         const scoreCardModal = document.querySelector(".score-card-modal");
         scoreCardModal.style.display = "none";
       });
+      /*
 
       function displayPreviousScores() {
         let testAttempts =
@@ -421,7 +422,7 @@
             );
           }
         });
-      }
+      }*/
     });
   </script>
 </html>

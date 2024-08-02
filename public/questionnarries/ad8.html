@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="intern2.css" />
   </head>
   <style>
     body {
@@ -185,6 +184,7 @@
       background-color: lightgray;
     }
   </style>
+
   <body>
     <div class="container">
       <h1>AD8 Dementia Screening Interview</h1>
@@ -194,6 +194,7 @@
           financial decisions, problems with thinking).</label
         >
         <select name="question1" id="question1">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -202,6 +203,7 @@
       <div class="question">
         <label for="question2">Less interest in hobbies/activities.</label>
         <select name="question2" id="question2">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -213,6 +215,7 @@
           statements).</label
         >
         <select name="question3" id="question3">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -224,6 +227,7 @@
           computer, microwave, remote control).</label
         >
         <select name="question4" id="question4">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -232,6 +236,7 @@
       <div class="question">
         <label for="question5">Forgets correct month or year.</label>
         <select name="question5" id="question5">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -243,6 +248,7 @@
           checkbook, income taxes, paying bills).</label
         >
         <select name="question6" id="question6">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -251,6 +257,7 @@
       <div class="question">
         <label for="question7">Trouble remembering appointments.</label>
         <select name="question7" id="question7">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -261,6 +268,7 @@
           >Daily problems with thinking and/or memory.</label
         >
         <select name="question8" id="question8">
+          <option value="choose">choose</option>
           <option value="yes" class="yes">yes</option>
           <option value="no" class="no">no</option>
           <option value="dont know" class="dont">don't know</option>
@@ -287,12 +295,9 @@
         <div class="score-card-content">
           <!-- Content of your score card goes here -->
           <h2>Score Card</h2>
-          <p>corrects are : <span class="correctValue"></span></p>
-          <p>Incorrects are : <span class="incorrect"></span></p>
+          <p>Your Score is : <span class="correctValue"></span></p>
           <p class="conclusion"></p>
-          <span></span>
-          <!-- Add more content as needed -->
-          <p>Previous Scores</p>
+          <!--<p>Previous Scores</p>-->
           <table id="previousScores" class="table table-striped">
             <!-- Previous scores will be inserted here -->
           </table>
@@ -300,98 +305,46 @@
         </div>
       </div>
     </div>
-  </body>
-  <script>
-    var score = 0;
-    var yesbutton = document.querySelectorAll(".yes");
-    yesbutton.forEach((element) => {
-      element.onclick = function () {
-        score++;
-        console.log(score);
-        console.log("jaddu");
-      };
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-      const scoreButton = document.querySelector(".score");
-      scoreButton.onclick = function () {
-        const modal = document.querySelector(".score-card-modal");
-        modal.style.display = "block";
-        const rate = score;
-        const scoreValue = document.querySelector(".scoreValue");
-        scoreValue.innerHTML = `${rate}`;
-        const conclusion = document.querySelector(".conclusion");
 
-        let msg;
-        if (rate <= 1) {
-          msg = "Normal cognitive function";
-        } else {
-          msg =
-            "Cognitive impairment is likely present, and further evaluation is warranted";
-        }
-        conclusion.innerHTML = `${msg}`;
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let score = 0;
 
-        const testName = "Executive Test";
-        const currentDate = new Date().toLocaleDateString();
-        const currentTime = new Date().toLocaleTimeString();
-        const testAttempt = {
-          testName: testName,
-          date: currentDate,
-          time: currentTime,
-          score: rate,
+        const selectElements = document.querySelectorAll("select");
+        selectElements.forEach((select) => {
+          select.addEventListener("change", (event) => {
+            console.log("Option selected:", event.target.value);
+            if (event.target.value === "yes") {
+              score++;
+              console.log("Score incremented:", score);
+            }
+          });
+        });
+
+        const scoreButton = document.querySelector(".score");
+        scoreButton.onclick = function () {
+          const modal = document.querySelector(".score-card-modal");
+          modal.style.display = "block";
+          const scoreValue = document.querySelector(".correctValue");
+          scoreValue.innerHTML = `${score}`;
+          const conclusion = document.querySelector(".conclusion");
+
+          let msg;
+          if (score <= 1) {
+            msg = "Normal cognitive function";
+          } else {
+            msg =
+              "Cognitive impairment is likely present, and further evaluation is warranted";
+          }
+          conclusion.innerHTML = `${msg}`;
         };
 
-        let testAttempts =
-          JSON.parse(localStorage.getItem("testAttempts")) || [];
-        testAttempts.push(testAttempt);
-        localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
-      };
-
-      const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
-      closeScoreCardBtn.addEventListener("click", function () {
-        const scoreCardModal = document.querySelector(".score-card-modal");
-        scoreCardModal.style.display = "none";
-      });
-
-      function displayPreviousScores() {
-        let testAttempts =
-          JSON.parse(localStorage.getItem("testAttempts")) || [];
-        let executiveTestAttempts = testAttempts.filter(
-          (attempt) => attempt.testName === "Executive Test"
-        );
-
-        let scoreTable = document.querySelector("#previousScores");
-        scoreTable.innerHTML = "";
-
-        let tableHeader = `
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Score</th>
-                </tr>`;
-        scoreTable.innerHTML = tableHeader;
-
-        executiveTestAttempts.forEach((attempt) => {
-          let dateTime = new Date(`${attempt.date} ${attempt.time}`);
-          if (!isNaN(dateTime.getTime())) {
-            let formattedDate = dateTime.toLocaleDateString();
-            let formattedTime = dateTime.toLocaleTimeString();
-
-            let scoreRow = `
-                        <tr>
-                            <td>${formattedDate}</td>
-                            <td>${formattedTime}</td>
-                            <td>${attempt.score}</td>
-                        </tr>`;
-            scoreTable.innerHTML += scoreRow;
-          } else {
-            console.error(
-              "Invalid date/time format:",
-              attempt.date,
-              attempt.time
-            );
-          }
+        const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+        closeScoreCardBtn.addEventListener("click", function () {
+          const scoreCardModal = document.querySelector(".score-card-modal");
+          scoreCardModal.style.display = "none";
         });
-      }
-    });
-  </script>
+      });
+    </script>
+  </body>
 </html>
