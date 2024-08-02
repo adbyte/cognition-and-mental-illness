@@ -302,7 +302,7 @@
     </div>
   </body>
   <script>
-    const score = 0;
+    var score = 0;
     var yesbutton = document.querySelectorAll(".yes");
     yesbutton.forEach((element) => {
       element.onclick = function () {
@@ -310,6 +310,88 @@
         console.log(score);
         console.log("jaddu");
       };
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const scoreButton = document.querySelector(".score");
+      scoreButton.onclick = function () {
+        const modal = document.querySelector(".score-card-modal");
+        modal.style.display = "block";
+        const rate = score;
+        const scoreValue = document.querySelector(".scoreValue");
+        scoreValue.innerHTML = `${rate}`;
+        const conclusion = document.querySelector(".conclusion");
+
+        let msg;
+        if (rate <= 1) {
+          msg = "Normal cognitive function";
+        } else {
+          msg =
+            "Cognitive impairment is likely present, and further evaluation is warranted";
+        }
+        conclusion.innerHTML = `${msg}`;
+
+        const testName = "Executive Test";
+        const currentDate = new Date().toLocaleDateString();
+        const currentTime = new Date().toLocaleTimeString();
+        const testAttempt = {
+          testName: testName,
+          date: currentDate,
+          time: currentTime,
+          score: rate,
+        };
+
+        let testAttempts =
+          JSON.parse(localStorage.getItem("testAttempts")) || [];
+        testAttempts.push(testAttempt);
+        localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
+      };
+
+      const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+      closeScoreCardBtn.addEventListener("click", function () {
+        const scoreCardModal = document.querySelector(".score-card-modal");
+        scoreCardModal.style.display = "none";
+      });
+
+      function displayPreviousScores() {
+        let testAttempts =
+          JSON.parse(localStorage.getItem("testAttempts")) || [];
+        let executiveTestAttempts = testAttempts.filter(
+          (attempt) => attempt.testName === "Executive Test"
+        );
+
+        let scoreTable = document.querySelector("#previousScores");
+        scoreTable.innerHTML = "";
+
+        let tableHeader = `
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Score</th>
+                </tr>`;
+        scoreTable.innerHTML = tableHeader;
+
+        executiveTestAttempts.forEach((attempt) => {
+          let dateTime = new Date(`${attempt.date} ${attempt.time}`);
+          if (!isNaN(dateTime.getTime())) {
+            let formattedDate = dateTime.toLocaleDateString();
+            let formattedTime = dateTime.toLocaleTimeString();
+
+            let scoreRow = `
+                        <tr>
+                            <td>${formattedDate}</td>
+                            <td>${formattedTime}</td>
+                            <td>${attempt.score}</td>
+                        </tr>`;
+            scoreTable.innerHTML += scoreRow;
+          } else {
+            console.error(
+              "Invalid date/time format:",
+              attempt.date,
+              attempt.time
+            );
+          }
+        });
+      }
     });
   </script>
 </html>
