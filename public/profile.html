@@ -396,14 +396,18 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        
         let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+        let userId = currentUser.email || "";
+    
+      
         document.getElementById("profileName").textContent =
           currentUser.name || "Name not available";
         document.getElementById("profileEmail").textContent =
           currentUser.email || "Email not available";
         document.getElementById("profileAge").textContent =
           currentUser.age || "Age not available";
-
+    
         let firstLetter = currentUser.name
           ? currentUser.name.charAt(0).toUpperCase()
           : "";
@@ -413,38 +417,36 @@
             "src",
             `https://via.placeholder.com/100x100.png?text=${firstLetter}`
           );
-
+    
+        
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
-
+    
+       
         function populateTestSection(sectionId, testNameKeywords, chartId) {
           let sectionBody = document.querySelector(`#${sectionId} tbody`);
-          sectionBody.innerHTML = ""; 
+          sectionBody.innerHTML = "";
           let sectionData = testAttempts
             .filter((attempt) =>
               testNameKeywords.some((keyword) =>
                 attempt.testName.includes(keyword)
-              )
+              ) && attempt.userId === userId 
             );
           sectionData.forEach(function (attempt) {
             let row = document.createElement("tr");
             row.innerHTML = `
-                        <td>${
-                          attempt.date || attempt.dateTime.split(", ")[0]
-                        }</td>
-                        <td>${
-                          attempt.time || attempt.dateTime.split(", ")[1]
-                        }</td>
+                        <td>${attempt.date || attempt.dateTime.split(", ")[0]}</td>
+                        <td>${attempt.time || attempt.dateTime.split(", ")[1]}</td>
                         <td>${attempt.score}</td>
                     `;
             sectionBody.appendChild(row);
           });
-
+    
           let dates = sectionData.map((attempt) =>
             attempt.date || attempt.dateTime.split(", ")[0]
           );
           let scores = sectionData.map((attempt) => attempt.score);
-
+    
           let ctx = document.getElementById(chartId).getContext("2d");
           new Chart(ctx, {
             type: "line",
@@ -478,7 +480,7 @@
             },
           });
         }
-
+    
         populateTestSection("perceptionTests", ["Perception"], "perceptionChart");
         populateTestSection("attentionTests", ["Attention"], "attentionChart");
         populateTestSection("memoryTests", ["Memory"], "memoryChart");
@@ -487,5 +489,6 @@
         populateTestSection("executiveTests", ["Executive"], "executiveChart");
       });
     </script>
+    
   </body>
 </html>
