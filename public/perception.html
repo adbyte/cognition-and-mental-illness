@@ -860,136 +860,145 @@ table th, table td {
    
 </body>
 <script>
-const buttonstart = document.querySelector(".buttonstart");
-const beforestart = document.querySelector(".beforestart");
-
-buttonstart.onclick = function () {
-    beforestart.style.display = "flex";
-}
-
-
-  
-const readybutton = document.querySelector(".readybutton");
-
-readybutton.onclick = function () {
-    beforestart.style.display = "none";
-    setTimeout(() => {
-        const grid = document.querySelector(".grid");
-        grid.style.display = "none";
-        console.log("ho gya");
-    }, 30000);
-}
-
-function help() {
-    let hp = document.querySelector(".helpoption");
-    hp.style.display = "block";
-}
-
-var iletter = document.querySelectorAll(".l");
-var tletter = document.querySelectorAll(".t");
-var score = document.querySelector(".scoreValue");
-var scorebutton = document.querySelector(".score");
-
-var icount = 0;
-var tcount = 0;
-
-iletter.forEach((element) => {
-    element.onclick = function () {
-        icount++;
-    };
-});
-
-tletter.forEach((element) => {
-    element.onclick = function () {
-        tcount++;
-        element.style.backgroundColor="green";
-        console.log(tcount);
-    };
-});
-
-function storeTestAttempt(testName, date, time, score) {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-
-    testAttempts.push({
-        testName: testName,
-        date: date,
-        time: time,
-        score: score
-    });
-
-    localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
-}
-
-scorebutton.onclick = function () {
-    scoreCardModal.style.display = "block";
-
-    score.innerHTML = `${tcount * 10}`;
-    let er = document.querySelector(".error");
-    er.innerHTML = `${icount}`;
-    let msg;
-    let sc = (tcount * 10);
-    let con = document.querySelector(".conclusion");
-
-    if (sc <= 33.33) {
-        msg = "Less Perceptive";
-    } else if (sc <= 67) {
-        msg = "Average Perceptive";
-    } else if (sc <= 100) {
-        msg = "High Perceptive";
-    } else {
-        msg = 'You pressed same T multiple times ..';
+    const buttonstart = document.querySelector(".buttonstart");
+    const beforestart = document.querySelector(".beforestart");
+    
+    buttonstart.onclick = function () {
+        beforestart.style.display = "flex";
     }
-    con.innerHTML = `${msg}`;
-
-    let testName = "Perception Test";
-    let currentDate = new Date().toLocaleDateString();
-    let currentTime = new Date().toLocaleTimeString();
-
-    storeTestAttempt(testName, currentDate, currentTime, sc);
-
-    displayPreviousScores();
-}
-
-closeScoreCardBtn.addEventListener("click", function () {
-    scoreCardModal.style.display = "none";
-});
-
-let x = document.querySelector(".fa-x");
-x.onclick = function () {
-    let hp = document.querySelector(".helpoption");
-    hp.style.display = "none";
-}
-
-function displayPreviousScores() {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-    let perceptionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Perception Test');
-
-    let scoreTable = document.querySelector("#previousScores");
-    scoreTable.innerHTML = ""; 
-
-    let tableHeader = `
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Score</th>
-        </tr>`;
-    scoreTable.innerHTML += tableHeader;
-
-    perceptionTestAttempts.forEach(attempt => {
-        let dateTime = attempt.date.split(", ");
-        let date = dateTime[0];
-        let time = dateTime[1];
-        let scoreRow = `
-            <tr>
-                <td>${date}</td>
-                <td>${time}</td>
-                <td>${attempt.score}</td>
-            </tr>`;
-        scoreTable.innerHTML += scoreRow;
-
+    
+    const readybutton = document.querySelector(".readybutton");
+    
+    readybutton.onclick = function () {
+        beforestart.style.display = "none";
+        setTimeout(() => {
+            const grid = document.querySelector(".grid");
+            grid.style.display = "none";
+            console.log("ho gya");
+        }, 30000);
+    }
+    
+    function help() {
+        let hp = document.querySelector(".helpoption");
+        hp.style.display = "block";
+    }
+    
+    var iletter = document.querySelectorAll(".l");
+    var tletter = document.querySelectorAll(".t");
+    var score = document.querySelector(".scoreValue");
+    var scorebutton = document.querySelector(".score");
+    
+    var icount = 0;
+    var tcount = 0;
+    
+    iletter.forEach((element) => {
+        element.onclick = function () {
+            icount++;
+        };
     });
-}
-
-</script>
+    
+    tletter.forEach((element) => {
+        element.onclick = function () {
+            tcount++;
+            element.style.backgroundColor = "green";
+            console.log(tcount);
+        };
+    });
+    
+    function getUserId() {
+        // Retrieve the currentUser from local storage and get the email
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+    }
+    
+    function storeTestAttempt(testName, date, time, score, userId) {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+    
+        testAttempts.push({
+            testName: testName,
+            date: date,
+            time: time,
+            score: score,
+            userId: userId // Add user ID to the stored data
+        });
+    
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+    }
+    
+    scorebutton.onclick = function () {
+        scoreCardModal.style.display = "block";
+    
+        let sc = tcount * 10;
+        score.innerHTML = `${sc}`;
+        let er = document.querySelector(".error");
+        er.innerHTML = `${icount}`;
+        let msg;
+    
+        if (sc <= 33.33) {
+            msg = "Less Perceptive";
+        } else if (sc <= 67) {
+            msg = "Average Perceptive";
+        } else if (sc <= 100) {
+            msg = "High Perceptive";
+        } else {
+            msg = 'You pressed same T multiple times ..';
+        }
+    
+        let con = document.querySelector(".conclusion");
+        con.innerHTML = `${msg}`;
+    
+        let testName = "Perception Test";
+        let currentDate = new Date().toLocaleDateString();
+        let currentTime = new Date().toLocaleTimeString();
+        let userId = getUserId(); // Retrieve the user ID from local storage
+    
+        storeTestAttempt(testName, currentDate, currentTime, sc, userId);
+    
+        displayPreviousScores();
+    }
+    
+    const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+    closeScoreCardBtn.addEventListener("click", function () {
+        scoreCardModal.style.display = "none";
+    });
+    
+    let x = document.querySelector(".fa-x");
+    x.onclick = function () {
+        let hp = document.querySelector(".helpoption");
+        hp.style.display = "none";
+    }
+    
+    function displayPreviousScores() {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        let perceptionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Perception Test');
+    
+        let scoreTable = document.querySelector("#previousScores");
+        scoreTable.innerHTML = "";
+    
+        let tableHeader = `
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Score</th>
+                
+            </tr>`;
+        scoreTable.innerHTML += tableHeader;
+    
+        perceptionTestAttempts.forEach(attempt => {
+            let dateTime = attempt.date.split(", ");
+            let date = dateTime[0];
+            let time = dateTime[1];
+            let scoreRow = `
+                <tr>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${attempt.score}</td>
+                  
+                </tr>`;
+            scoreTable.innerHTML += scoreRow;
+        });
+    }
+    </script>
+    
 
 </html>
