@@ -367,10 +367,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
       var count = 0;
       var incorr = 0;
-
+    
+      function getUserId() {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+      }
+    
       document.querySelectorAll("select").forEach((select) => {
         select.addEventListener("change", function () {
           if (
@@ -381,24 +387,24 @@
           } else {
             incorr++;
           }
-          console.log(count);
         });
       });
-
-      function storeTestAttempt(testName, date, time, score) {
+    
+      function storeTestAttempt(testName, date, time, score, userId) {
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
-
+    
         testAttempts.push({
           testName: testName,
           date: date,
           time: time,
           score: score,
+          userId: userId
         });
-
+    
         localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
       }
-
+    
       var scorebutton = document.querySelector(".score");
       scorebutton.onclick = function () {
         let scorecard = document.querySelector("#scoreCardModal");
@@ -408,55 +414,58 @@
         let con = document.querySelector(".conclusion");
         correct.innerHTML = count;
         incorrect.innerHTML = incorr;
-
+    
         if (count > incorr) {
           con.innerHTML = "GOOD !!<br></br> Keep it up";
         } else {
           con.innerHTML = "Poor performance";
         }
-
+    
         let testName = "Reasoning Test";
         let currentDate = new Date().toLocaleDateString();
         let currentTime = new Date().toLocaleTimeString();
-
-        storeTestAttempt(testName, currentDate, currentTime, count);
-
+        let userId = getUserId();
+    
+        storeTestAttempt(testName, currentDate, currentTime, count, userId);
+    
         displayPreviousScores();
       };
-
+    
       function displayPreviousScores() {
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
-        let perceptionTestAttempts = testAttempts.filter(
+        let reasoningTestAttempts = testAttempts.filter(
           (attempt) => attempt.testName === "Reasoning Test"
         );
-
+    
         let scoreTable = document.querySelector("#previousScores");
         scoreTable.innerHTML = "";
-
+    
         let tableHeader = `
           <tr>
             <th>Date</th>
             <th>Time</th>
             <th>Score</th>
+          
           </tr>`;
         scoreTable.innerHTML += tableHeader;
-
-        perceptionTestAttempts.forEach((attempt) => {
+    
+        reasoningTestAttempts.forEach((attempt) => {
           let scoreRow = `
             <tr>
               <td>${attempt.date}</td>
               <td>${attempt.time}</td>
               <td>${attempt.score}</td>
+             
             </tr>`;
           scoreTable.innerHTML += scoreRow;
         });
       }
-
-      // Close the score card modal
+    
       document.getElementById("closeScoreCardBtn").onclick = function () {
         document.getElementById("scoreCardModal").style.display = "none";
       };
     </script>
+    
   </body>
 </html>
