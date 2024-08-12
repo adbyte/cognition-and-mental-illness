@@ -293,6 +293,14 @@ display: block;
 <script>
     var ran;
     var rot = document.querySelector(".rotate");
+    
+    function getUserId() {
+        
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+    }
+
     rot.onclick = function () {
         var wheel = document.querySelector(".wheel");
         wheel.classList.toggle("newclass");
@@ -309,16 +317,16 @@ display: block;
             st.style.display = "block";
         }
     }
+    
     var ss = document.querySelector(".stop");
     ss.onclick = function () {
         var txt = document.querySelector(".textarea");
         txt.style.display = "block";
-        let txtstr = document.querySelector(".text").value;
         setTimeout(function () {
             txt.style.display = "none";
         }, 20000);
-
     }
+    
     var scorebutton = document.querySelector(".score");
     scorebutton.onclick = function () {
         let scorecard = document.querySelector(".score-card-modal");
@@ -327,14 +335,14 @@ display: block;
         let arr = txtstr.split(' ');
         let rn = ran;
         let finalscore = 0;
-        let map={};
+        let map = {};
+        
         for (let i = 0; i < arr.length; i++) {
-            map[arr[i]]++;
+            map[arr[i]] = (map[arr[i]] || 0) + 1; 
         }
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i][0] == rn) {
-                if (map[arr[i]] > 1)
-                    continue;
+            if (arr[i][0] === rn) {
+                if (map[arr[i]] > 1) continue;
                 finalscore++;
             }
         }
@@ -344,41 +352,15 @@ display: block;
         let msg;
         if (finalscore <= 5) {
             msg = "Less Linguistic";
-        }
-        else if (finalscore < 11) {
+        } else if (finalscore < 11) {
             msg = "Average Linguistic";
-        }
-        else {
+        } else {
             msg = "High Linguistic";
         }
         con.innerHTML = `${msg}`;
-        displayPreviousScores()
+        displayPreviousScores();
     }
-    var closebutton = document.querySelector("#closeScoreCardBtn");
-    closebutton.onclick = function () {
-        let element = document.querySelector(".score-card-modal");
-        element.style.display = "none";
-    }
-
-    function saveTestAttempt(testName, date, time, score) {
-        const testAttempt = {
-            testName: testName,
-            date: date,
-            time: time,
-            score: score
-        };
-
-        
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-
-
-        testAttempts.push(testAttempt);
-
-        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
-
-        console.log('Test attempt saved:', testAttempt); 
-    }
-
+    
     var closebutton = document.querySelector("#closeScoreCardBtn");
     closebutton.onclick = function () {
         let scorecard = document.querySelector(".score-card-modal");
@@ -387,65 +369,80 @@ display: block;
         const currentDate = new Date();
         const date = currentDate.toLocaleDateString();
         const time = currentDate.toLocaleTimeString();
-
         let finalscore = document.querySelector(".scoreValue").textContent;
+        let userId = getUserId(); 
 
-        saveTestAttempt('Language Test', date, time, finalscore);
-
-       
-        
+        saveTestAttempt('Language Test', date, time, finalscore, userId);
     }
+    
+    function saveTestAttempt(testName, date, time, score, userId) {
+        const testAttempt = {
+            testName: testName,
+            date: date,
+            time: time,
+            score: score,
+            userId: userId 
+        };
+
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        testAttempts.push(testAttempt);
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+
+        console.log('Test attempt saved:', testAttempt);
+    }
+
     function displayPreviousScores() {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-    let languageTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Language Test');
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        let languageTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Language Test');
 
-    let scoreTable = document.querySelector("#previousScores");
-    scoreTable.innerHTML = "";
+        let scoreTable = document.querySelector("#previousScores");
+        scoreTable.innerHTML = "";
 
-    let tableHeader = `
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Score</th>
-        </tr>`;
-    scoreTable.innerHTML = tableHeader;
+        let tableHeader = `
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Score</th>
+                
+            </tr>`;
+        scoreTable.innerHTML = tableHeader;
 
-    languageTestAttempts.forEach(attempt => {
-        
-        let dateParts = attempt.date.split('/');
-        let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/); 
+        languageTestAttempts.forEach(attempt => {
+            let dateParts = attempt.date.split('/');
+            let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/);
 
-        if (dateParts.length === 3 && timeParts) {
-            let day = parseInt(dateParts[0], 10);
-            let month = parseInt(dateParts[1], 10) - 1; 
-            let year = parseInt(dateParts[2], 10);
+            if (dateParts.length === 3 && timeParts) {
+                let day = parseInt(dateParts[1], 10);
+                let month = parseInt(dateParts[0], 10) - 1;
+                let year = parseInt(dateParts[2], 10);
 
-            let hours = parseInt(timeParts[1], 10) + (timeParts[4] === 'pm' ? 12 : 0); 
-            let minutes = parseInt(timeParts[2], 10);
-            let seconds = parseInt(timeParts[3], 10);
+                let hours = parseInt(timeParts[1], 10) + (timeParts[4] === 'pm' ? 12 : 0);
+                let minutes = parseInt(timeParts[2], 10);
+                let seconds = parseInt(timeParts[3], 10);
 
-            
-            let dateTime = new Date(year, month, day, hours, minutes, seconds);
+                let dateTime = new Date(year, month, day, hours, minutes, seconds);
 
-            if (!isNaN(dateTime.getTime())) { 
-                let formattedDate = dateTime.toLocaleDateString();
-                let formattedTime = dateTime.toLocaleTimeString();
+                if (!isNaN(dateTime.getTime())) {
+                    let formattedDate = dateTime.toLocaleDateString();
+                    let formattedTime = dateTime.toLocaleTimeString();
 
-                let scoreRow = `
-                    <tr>
-                        <td>${formattedDate}</td>
-                        <td>${formattedTime}</td>
-                        <td>${attempt.score}</td>
-                    </tr>`;
-                scoreTable.innerHTML += scoreRow;
+                    let scoreRow = `
+                        <tr>
+                            <td>${formattedDate}</td>
+                            <td>${formattedTime}</td>
+                            <td>${attempt.score}</td>
+                           
+                        </tr>`;
+                    scoreTable.innerHTML += scoreRow;
+                } else {
+                    console.error('Invalid date/time format:', attempt.date, attempt.time);
+                }
             } else {
                 console.error('Invalid date/time format:', attempt.date, attempt.time);
             }
-        } else {
-            console.error('Invalid date/time format:', attempt.date, attempt.time);
-        }
-    });
-}
+        });
+    }
+
 
 
     //installing textrazor api 
