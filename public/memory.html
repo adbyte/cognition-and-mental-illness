@@ -369,14 +369,22 @@
     var but = document.querySelector(".but");
     var scorecount = 0;
 
-    function storeTestAttempt(testName, date, time, score) {
+    function getUserId() {
+        
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+    }
+
+    function storeTestAttempt(testName, date, time, score, userId) {
         let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
 
         testAttempts.push({
             testName: testName,
             date: date,
             time: time,
-            score: score
+            score: score,
+            userId: userId 
         });
 
         localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
@@ -389,8 +397,8 @@
         var text = document.querySelector("#paragraph").value;
         let group1 = ["moon", "trophy", "cow", "boy", "teacher", "train", "rail", "phone", "pig", "goat", "star", "sheep", "horse", "cock", "hen", "god", "krishna", "farmer", "man", "flower", "grapes", "road", "car", "banana"];
         let group2 = ["x-mas tree", "tree", "mouse", "hat", "bulb", "globe", "rainbow", "statue of liberty", "statue", "woman", "lady", "santa", "christmas", "clock", "table", "book", "phone", "school", "mobile", "watermelon", "cupboard", "almirah", "scissor", "bag", "mirror", "rat", "building", "lion", "mango", "pigeon", "chair", "vase", "light", "laptop"];
-        
-        scorecount = 0; // Reset scorecount before recalculating
+
+        scorecount = 0; 
         for (let i = 0; i < group1.length; i++) {
             if (text.includes(group1[i])) {
                 scorecount++;
@@ -422,8 +430,9 @@
         let testName = "Memory Test";
         let currentDate = new Date().toLocaleDateString();
         let currentTime = new Date().toLocaleTimeString();
+        let userId = getUserId(); 
 
-        storeTestAttempt(testName, currentDate, currentTime, accuracyFormatted);
+        storeTestAttempt(testName, currentDate, currentTime, accuracyFormatted, userId);
 
         displayPreviousScores();
     }
@@ -455,6 +464,7 @@
                 <th>Date</th>
                 <th>Time</th>
                 <th>Score</th>
+                
             </tr>`;
         scoreTable.innerHTML = tableHeader;
 
@@ -468,6 +478,7 @@
                     <td>${formattedDate}</td>
                     <td>${formattedTime}</td>
                     <td>${attempt.score}</td>
+                   
                 </tr>`;
             scoreTable.innerHTML += scoreRow;
         });
