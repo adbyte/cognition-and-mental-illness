@@ -1208,160 +1208,167 @@ table th, table td {
     </div>
 </body>
 <script>
-   var mediator = document.querySelector(".mediator");
-var play = document.querySelector(".pl");
-var idw = document.querySelector(".bus");
-var immage = document.querySelector(".mimg");
-var stopbutton = document.querySelector(".stop");
-var scorebutton = document.querySelector(".score");
-var pressbutton = document.querySelector(".press");
-var count = 0;
-var oneminutecount = 12;
-
-pressbutton.onclick = function () {
-    count++;
-    console.log(count);
-}
-
-const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
-const scoreCardModal = document.getElementById("scoreCardModal");
-
-scorebutton.addEventListener("click", function () {
-    scoreCardModal.style.display = "block";
-    let sv = document.querySelector("#scoreValue");
-    let count2 = (count / 12) * 100;
-    let c3 = count2.toFixed(2);
-    sv.innerHTML = `${c3}`;
-    let con = document.querySelector(".conclusion");
-    let msg;
-    if (c3 <= 33.33) {
-        msg = "Less Attentive";
-    } else if (c3 <= 67) {
-        msg = "Average Attentive"
-    } else if(c3<=100){
-        msg = "High Attentive";
+    var mediator = document.querySelector(".mediator");
+    var play = document.querySelector(".pl");
+    var idw = document.querySelector(".bus");
+    var immage = document.querySelector(".mimg");
+    var stopbutton = document.querySelector(".stop");
+    var scorebutton = document.querySelector(".score");
+    var pressbutton = document.querySelector(".press");
+    var count = 0;
+    var oneminutecount = 12;
+ 
+    pressbutton.onclick = function () {
+        count++;
+        console.log(count);
     }
-    else{
-        msg="You pressed more than needed.."
-    }
-    con.innerHTML = `${msg}`;
-
-    displayPreviousScores(); 
-});
-
-closeScoreCardBtn.addEventListener("click", function () {
-    scoreCardModal.style.display = "none";
-
-    const testName = 'Attention Test';
-    const currentDateTime = getCurrentDateTime();
-    const score = document.querySelector("#scoreValue").innerText;
-
-    storeTestAttempt(testName, currentDateTime, score);
-
-    console.log('Test attempt saved:', JSON.stringify(testAttempt)); // Log the saved data
-});
-
-function getCurrentDateTime() {
-    let date = new Date().toLocaleDateString();
-    let time = new Date().toLocaleTimeString();
-    return `${date}, ${time}`;
-}
-
-function storeTestAttempt(testName, dateTime, score) {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-    testAttempts.push({
-        testName: testName,
-        dateTime: dateTime,
-        score: score
+ 
+    const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+    const scoreCardModal = document.getElementById("scoreCardModal");
+ 
+    scorebutton.addEventListener("click", function () {
+        scoreCardModal.style.display = "block";
+        let sv = document.querySelector("#scoreValue");
+        let count2 = (count / 12) * 100;
+        let c3 = count2.toFixed(2);
+        sv.innerHTML = `${c3}`;
+        let con = document.querySelector(".conclusion");
+        let msg;
+        if (c3 <= 33.33) {
+            msg = "Less Attentive";
+        } else if (c3 <= 67) {
+            msg = "Average Attentive";
+        } else if(c3 <= 100) {
+            msg = "High Attentive";
+        } else {
+            msg = "You pressed more than needed..";
+        }
+        con.innerHTML = `${msg}`;
+ 
+        displayPreviousScores(); 
     });
-    localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
-}
-
-function displayPreviousScores() {
-    let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-    let attentionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Attention Test');
-
-    let scoreTable = document.querySelector("#previousScores");
-    scoreTable.innerHTML = ""; 
-    
-
-    let tableHeader = `
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Score</th>
-        </tr>`;
-    scoreTable.innerHTML += tableHeader;
-
-    attentionTestAttempts.forEach(attempt => {
-        let dateTime = attempt.dateTime.split(", ");
-        let date = dateTime[0];
-        let time = dateTime[1];
-        let scoreRow = `
+ 
+    closeScoreCardBtn.addEventListener("click", function () {
+        scoreCardModal.style.display = "none";
+ 
+        const testName = 'Attention Test';
+        const currentDateTime = getCurrentDateTime();
+        const score = document.querySelector("#scoreValue").innerText;
+        const userId = getUserId();  
+        storeTestAttempt(testName, currentDateTime, score, userId);
+ 
+        console.log('Test attempt saved:', JSON.stringify(testAttempt)); 
+    });
+ 
+    function getCurrentDateTime() {
+        let date = new Date().toLocaleDateString();
+        let time = new Date().toLocaleTimeString();
+        return `${date}, ${time}`;
+    }
+ 
+    function getUserId() {
+        
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+    }
+ 
+    function storeTestAttempt(testName, dateTime, score, userId) {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        testAttempts.push({
+            testName: testName,
+            dateTime: dateTime,
+            score: score,
+            userId: userId 
+        });
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+    }
+ 
+    function displayPreviousScores() {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        let attentionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Attention Test');
+ 
+        let scoreTable = document.querySelector("#previousScores");
+        scoreTable.innerHTML = ""; 
+ 
+        let tableHeader = `
             <tr>
-                <td>${date}</td>
-                <td>${time}</td>
-                <td>${attempt.score}</td>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Score</th>
+                
             </tr>`;
-        scoreTable.innerHTML += scoreRow;
-    });
-}
-
-play.onclick = function () {
-    let f = idw;
-    f.style.display = "block";
-    let b = stopbutton;
-    b.style.display = "flex";
-    let y = scorebutton;
-    y.style.display = "flex";
-    setTimeout(() => {
-        f.style.display="none";
-    }, 60000);
-}
-
-stopbutton.onclick = function () {
-    let f = idw;
-    f.style.display = "none";
-}
-
-var defaults = {},
-    one_second = 1000,
-    one_minute = one_second * 60,
-    one_hour = one_minute * 60,
-    one_day = one_hour * 24,
-    startDate = new Date(),
-    face = document.getElementById('lazy');
-
-var requestAnimationFrame = (function () {
-    return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-        };
-}());
-
-tick();
-
-function tick() {
-    var now = new Date(),
-        elapsed = now - startDate,
-        parts = [];
-
-    parts[0] = '' + Math.floor(elapsed / one_hour);
-    parts[1] = '' + Math.floor((elapsed % one_hour) / one_minute);
-    parts[2] = '' + Math.floor(((elapsed % one_hour) % one_minute) / one_second);
-
-    parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
-    parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
-    parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
-
-    face.innerText = parts.join(':');
-    requestAnimationFrame(tick);
-}
-
-</script>
+        scoreTable.innerHTML += tableHeader;
+ 
+        attentionTestAttempts.forEach(attempt => {
+            let dateTime = attempt.dateTime.split(", ");
+            let date = dateTime[0];
+            let time = dateTime[1];
+            let scoreRow = `
+                <tr>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${attempt.score}</td>
+                   
+                </tr>`;
+            scoreTable.innerHTML += scoreRow;
+        });
+    }
+ 
+    play.onclick = function () {
+        let f = idw;
+        f.style.display = "block";
+        let b = stopbutton;
+        b.style.display = "flex";
+        let y = scorebutton;
+        y.style.display = "flex";
+        setTimeout(() => {
+            f.style.display="none";
+        }, 60000);
+    }
+ 
+    stopbutton.onclick = function () {
+        let f = idw;
+        f.style.display = "none";
+    }
+ 
+    var defaults = {},
+        one_second = 1000,
+        one_minute = one_second * 60,
+        one_hour = one_minute * 60,
+        one_day = one_hour * 24,
+        startDate = new Date(),
+        face = document.getElementById('lazy');
+ 
+    var requestAnimationFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);
+            };
+    }());
+ 
+    tick();
+ 
+    function tick() {
+        var now = new Date(),
+            elapsed = now - startDate,
+            parts = [];
+ 
+        parts[0] = '' + Math.floor(elapsed / one_hour);
+        parts[1] = '' + Math.floor((elapsed % one_hour) / one_minute);
+        parts[2] = '' + Math.floor(((elapsed % one_hour) % one_minute) / one_second);
+ 
+        parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
+        parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
+        parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
+ 
+        face.innerText = parts.join(':');
+        requestAnimationFrame(tick);
+    }
+ </script>
+ 
 
 </html>
