@@ -13,6 +13,7 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <style>
+<<<<<<< HEAD
       body {
         background: url("../images/signup.png") no-repeat center center fixed;
         background-size: cover;
@@ -80,6 +81,16 @@
           position: absolute;
           right: 0px;
           top: 0px;
+=======
+        body {
+            background: url("../images/signup.png") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: auto;
+>>>>>>> 336471726d28f5e56b5e08ff324e908e87adac3b
         }
 
         .nav > .nav-btn > label {
@@ -189,6 +200,7 @@
         line-height: 24px;
       }
 
+<<<<<<< HEAD
       #form button:hover,
       #form button:focus {
         background: linear-gradient(135deg, #0866d1 0%, #1561d2 100%);
@@ -196,6 +208,103 @@
         letter-spacing: 4px;
         color: #ffffff;
       }
+=======
+            .nav>.nav-links {
+                position: absolute;
+                display: block;
+                width: 100%;
+                background-color: #333;
+                height: 0px;
+                transition: all 0.3s ease-in;
+                overflow-y: hidden;
+                top: 50px;
+                left: 0px;
+            }
+
+            .nav>.nav-links>a {
+                display: block;
+                width: 100%;
+            }
+
+            .nav>#nav-check:not(:checked)~.nav-links {
+                height: 0px;
+            }
+
+            .nav>#nav-check:checked~.nav-links {
+                height: calc(100vh - 50px);
+                overflow-y: auto;
+            }
+        }
+
+        .myprofile {
+            display: none;
+        }
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mainbox h5 {
+            margin: 10px 0;
+            font-size: small;
+        }
+
+        #form {
+            background: rgba(255, 255, 255, 0.7);
+            width: 450px;
+            max-width: 95%;
+            margin: auto;
+            border-radius: 25px;
+            padding: 20px;
+            font-size: 10px;
+        }
+
+        #form input , select{
+            display: block;
+            margin: 10px 0;
+            font-size: 15px;
+            padding: 8px;
+            width: calc(100% - 20px);
+            background: transparent;
+            border: 1px solid #aaa;
+            border-bottom: 2px solid #888;
+            transition: all 0.4s;
+            outline: none;
+        }
+
+        #form input:focus {
+            background: #fff;
+            border-color: transparent;
+            border-bottom-color: #2a6fca;
+            box-shadow: 2px 2px 5px 0px #9c8e8e;
+        }
+
+        #form button {
+            display: block;
+            margin: 15px 0;
+            padding: 10px;
+            width: calc(100% - 20px);
+            cursor: pointer;
+            font-size: 15px;
+            background: linear-gradient(135deg, transparent 0%, transparent 100%);
+            border: 3px solid #2a6fca;
+            outline: none;
+            transition: all 0.4s;
+            color: #2908a2;
+            line-height: 24px;
+        }
+
+        #form button:hover,
+        #form button:focus {
+            background: linear-gradient(135deg, #0866d1 0%, #1561d2 100%);
+            color: #fff;
+            letter-spacing: 4px;
+            color: #ffffff;
+        }
+>>>>>>> 336471726d28f5e56b5e08ff324e908e87adac3b
     </style>
   </head>
 
@@ -223,6 +332,7 @@
     </div>
 
     <div class="mainbox mt-5">
+<<<<<<< HEAD
       <form id="form">
         <h5>
           Enter the Name - <input type="text" name="name" id="name" required />
@@ -258,6 +368,76 @@
             password: pwd,
             age: age,
           };
+=======
+        <form id="form">
+            <h5>Enter the Name - <input type="text" name="name" id="name" required></h5>
+            <h5>Enter Email ID - <input type="email" name="email" id="email" required></h5>
+            <h5>Create password - <input type="password" name="pwd" id="pwd" required></h5>
+            <h5>Age - <input type="number" name="age" id="age" required></h5>
+            <h5>Gender <select id="gender" name="gender">
+               
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+            </select></h5>
+            <h5>Education <select id="education" name="education">
+               
+                <option value="below 10th"> Did not complete 10th class </option>
+                <option value="10th">10th</option>
+                <option value="12th">12th</option>
+                <option value="graduation">Graduation</option>
+                <option value="post graduation">Post Grauation</option>
+                <option value="doctoral">Doctoral/Post Doctoral</option>
+                <option value="unknown">Unknown or not reported</option>
+            </select></h5>
+
+            <h5> Job Industry <select id="job-industry" name="job-industry">
+                
+                <option value="technology">Technology</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="finance">Finance</option>
+                <option value="education">Education</option>
+                <option value="engineering">Engineering</option>
+                <option value="manufacturing">Manufacturing</option>
+                <option value="retail">Retail</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="construction">Construction</option>
+                <option value="hospitality">Hospitality</option>
+                <option value="transportation">Transportation</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="legal">Legal</option>
+                <option value="marketing">Marketing</option>
+                <option value="non-profit">Non-Profit</option>
+                <option value="government">Government</option>
+                <option value="telecommunications">Telecommunications</option>
+                <option value="agriculture">Agriculture</option> </select> </h5>
+
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const pwd = document.getElementById('pwd').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const education = document.getElementById('education').value;
+            const jobIndustry = document.getElementById('job-industry').value;
+
+            const user = {
+                name: name,
+                email: email,
+                password: pwd,
+                age: age,
+                gender: gender,
+                education: education,
+                jobIndustry: jobIndustry
+            };
+>>>>>>> 336471726d28f5e56b5e08ff324e908e87adac3b
 
           let userTable = JSON.parse(localStorage.getItem("userTable")) || [];
           userTable.push(user);
