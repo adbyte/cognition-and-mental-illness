@@ -241,7 +241,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
     }
   </style>
 
@@ -264,6 +263,7 @@
         <a href="sign_up.html" class="signlog">Sign up</a>
         <a href="tests.html">Non-Clinical Tests</a>
         <a href="profile.html" class="myprofile">My profile</a>
+        <a id="redirectreact" class="admin">Admin</a>
       </div>
     </div>
 
@@ -419,13 +419,12 @@
 
         function populateTestSection(sectionId, testNameKeywords, chartId) {
           let sectionBody = document.querySelector(`#${sectionId} tbody`);
-          sectionBody.innerHTML = ""; 
-          let sectionData = testAttempts
-            .filter((attempt) =>
-              testNameKeywords.some((keyword) =>
-                attempt.testName.includes(keyword)
-              )
-            );
+          sectionBody.innerHTML = "";
+          let sectionData = testAttempts.filter((attempt) =>
+            testNameKeywords.some((keyword) =>
+              attempt.testName.includes(keyword)
+            )
+          );
           sectionData.forEach(function (attempt) {
             let row = document.createElement("tr");
             row.innerHTML = `
@@ -440,8 +439,8 @@
             sectionBody.appendChild(row);
           });
 
-          let dates = sectionData.map((attempt) =>
-            attempt.date || attempt.dateTime.split(", ")[0]
+          let dates = sectionData.map(
+            (attempt) => attempt.date || attempt.dateTime.split(", ")[0]
           );
           let scores = sectionData.map((attempt) => attempt.score);
 
@@ -479,13 +478,24 @@
           });
         }
 
-        populateTestSection("perceptionTests", ["Perception"], "perceptionChart");
+        populateTestSection(
+          "perceptionTests",
+          ["Perception"],
+          "perceptionChart"
+        );
         populateTestSection("attentionTests", ["Attention"], "attentionChart");
         populateTestSection("memoryTests", ["Memory"], "memoryChart");
         populateTestSection("languageTests", ["Language"], "languageChart");
         populateTestSection("reasoningTests", ["Reasoning"], "reasoningChart");
         populateTestSection("executiveTests", ["Executive"], "executiveChart");
       });
+
+      //reactdirection
+      document
+        .getElementById("redirectreact")
+        .addEventListener("click", function () {
+          window.location.href = " http://172.16.98.196:3000 ";
+        });
     </script>
   </body>
 </html>
