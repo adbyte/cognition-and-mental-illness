@@ -1,0 +1,16 @@
+body {
+  background-color: #01496d;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+.adminhead {
+  font-size: 3.5rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}

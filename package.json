@@ -1,7 +1,6 @@
 {
   "name": "cognition",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,6 +14,14 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "mongoose": "^8.4.4",
+    "mysql": "^2.18.1",
     "nodemon": "^3.1.4"
-  }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/preset-react": "^7.24.7",
+    "babel-loader": "^9.1.3"
+  },
+  "description": ""
 }
