@@ -396,7 +396,7 @@
     </div>
 
     <script>
-      document
+      /*document
         .getElementById("form")
         .addEventListener("submit", function (event) {
           event.preventDefault();
@@ -411,9 +411,9 @@
             password: pwd,
             age: age,
           };
-        });
+        });*/
 
-      document
+      /*  document
         .getElementById("form")
         .addEventListener("submit", function (event) {
           event.preventDefault();
@@ -442,29 +442,36 @@
           alert("User registered successfully!");
           window.location.href = "login.html";
         });
-
+*/
       //for sql:----------------------
       document.getElementById("form").addEventListener("submit", function (e) {
-        e, preventDefault();
+        e.preventDefault();
         const data = {
           username: document.getElementById("name").value,
           password: document.getElementById("pwd").value,
-          email: document.getElementById("email").value,
+          emailid: document.getElementById("email").value,
           age: document.getElementById("age").value,
           gender: document.getElementById("gender").value,
           education: document.getElementById("education").value,
-          job_industry: document.getElementById("job_industry").value,
+          job_industry: document.getElementById("job-industry").value,
         };
+        // Store user data in local storage
+        let userTable = JSON.parse(localStorage.getItem("userTable")) || [];
+        userTable.push(data);
+        localStorage.setItem("userTable", JSON.stringify(userTable));
+        // Send user data to server
         fetch("http://localhost:3001/store-data", {
           method: "POST",
           headers: {
-            "Content-Type": "appliaction/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
         })
           .then((response) => response.text())
           .then((data) => console.log(data))
           .catch((error) => console.error("error", error));
+        alert("User registered successfully!");
+        window.location.href = "login.html";
       });
     </script>
   </body>
