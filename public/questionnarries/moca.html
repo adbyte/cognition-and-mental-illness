@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Test</title>
+    <link rel="stylesheet" href="styles.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px; /* Reduced padding */
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden; /* Added to prevent overflow */
+}
+
+h1 {
+    font-size: 2rem; /* Adjusted font size */
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.scrollable-container {
+    max-height: 60vh; /* Adjusted height to fit better within the viewport */
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background: #f9f9f9;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+    margin-bottom: 20px;
+    padding: 10px; /* Reduced padding */
+    border-radius: 10px;
+    background: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.question.correct {
+    border: 2px solid #2ecc71;
+    background: #d4edda;
+}
+
+.question.incorrect {
+    border: 2px solid #e74c3c;
+    background: #f8d7da;
+}
+
+.question p {
+    font-size: 1rem; /* Adjusted font size */
+    color: #34495e;
+    font-weight: 500;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px; /* Reduced padding */
+    margin-top: 10px;
+    border-radius: 25px;
+    border: 2px solid #bdc3c7;
+    font-size: 16px; /* Adjusted font size */
+    transition: all 0.3s ease;
+    background-color: #f1f1f1;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px; /* Adjusted padding */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px; /* Adjusted font size */
+    margin-top: 15px; /* Reduced margin */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button.hidden {
+    display: none;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 2rem; /* Adjusted font size */
+    color: #16a085;
+    font-weight: bold;
+}
+
+#feedback {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.mic-button {
+    margin-top: 15px;
+    background-color: #2ecc71;
+    border-radius: 30px;
+    color: white;
+    padding: 10px 20px; /* Adjusted padding */
+    cursor: pointer;
+    border: none;
+    font-size: 16px; /* Adjusted font size */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.mic-button:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+.mic-button:active {
+    transform: translateY(0);
+}
+
+.mcq-options {
+    text-align: left;
+    margin-top: 10px; /* Adjusted margin */
+}
+
+.mcq-options label {
+    display: block;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mcq-options label:hover {
+    background-color: #e9e9e9;
+}
+
+#score {
+    font-size: 2rem; /* Adjusted font size */
+    color: #16a085;
+    font-weight: bold;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cognitive Disorder Analysis Test</h1>
+        <div id="question-container" class="scrollable-container">
+            <!-- Questions will be injected here -->
+        </div>
+        <button id="submit-button" onclick="submitTest()">Submit Test</button>
+        <p id="feedback"></p>
+        <button id="retake-button" class="hidden" onclick="startTest()">Retake Test</button>
+        <div id="result" class="hidden">
+            <h2>Your Score: <span id="score"></span></h2>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+    { question: "What is the date today?", correctAnswer: "date", answer: "", type: "text" },
+    { question: "What is 100 minus 7?", correctAnswer: "93", answer: "", type: "text" },
+    { question: "What is the capital of France?", correctAnswer: "paris", answer: "", type: "text" },
+    { question: "Spell the word 'WORLD' backwards.", correctAnswer: "dlrow", answer: "", type: "text" },
+    { question: "How many sides does a hexagon have?", correctAnswer: "6", answer: "", type: "text" },
+    { question: "Name the four seasons in order.", correctAnswer: ["spring", "summer", "fall", "winter"], answer: "", type: "text" },
+    { question: "What are the colors of the rainbow?", correctAnswer: ["red", "orange", "yellow", "green", "blue", "indigo", "violet"], answer: "", type: "text" },
+    { question: "Count backward from 20 to 0.", correctAnswer: "counting", answer: "", type: "text" },
+    { question: "Recall the following words: Apple, Pen, Dog.", correctAnswer: ["apple", "pen", "dog"], answer: "", type: "audio" },
+    { question: "Recall the following words: Cat, Book, Tree.", correctAnswer: ["cat", "book", "tree"], answer: "", type: "audio" },
+    { question: "What comes next in the sequence: 2, 4, 6, ...?", correctAnswer: "8", answer: "", type: "text" },
+    { question: "Select the odd one out: Apple, Orange, Carrot, Banana.", options: ["Apple", "Orange", "Carrot", "Banana"], correctAnswer: "Carrot", answer: "", type: "mcq" },
+    { question: "Which of the following is a mammal? Lion, Shark, Penguin, Goldfish.", options: ["Lion", "Shark", "Penguin", "Goldfish"], correctAnswer: "Lion", answer: "", type: "mcq" },
+    { question: "What is the largest continent by area?", options: ["Asia", "Africa", "Europe", "North America"], correctAnswer: "Asia", answer: "", type: "mcq" },
+    { question: "Choose the smallest prime number: 1, 2, 3, 4.", options: ["1", "2", "3", "4"], correctAnswer: "2", answer: "", type: "mcq" },
+    { question: "Identify the odd one out: Hammer, Wrench, Screwdriver, Brush.", options: ["Hammer", "Wrench", "Screwdriver", "Brush"], correctAnswer: "Brush", answer: "", type: "mcq" }
+];
+
+let currentQuestions = [];
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function startTest() {
+    resetScore();
+    currentQuestions = shuffle([...questions]).slice(0, 10);
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.innerHTML = '';
+
+    currentQuestions.forEach((q, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('question');
+        questionElement.innerHTML = `
+            <p>${index + 1}. ${q.question}</p>
+            ${q.type === 'text' ? `<input type="text" id="answer-${index}" />` : ''}
+            ${q.type === 'audio' ? `<button class="mic-button" onclick="startRecording(${index})">Answer with Microphone</button>` : ''}
+            ${q.type === 'mcq' ? generateMCQOptions(index, q) : ''}
+            <div id="feedback-${index}" class="feedback"></div>
+        `;
+        questionContainer.appendChild(questionElement);
+    });
+
+    document.getElementById('submit-button').classList.remove('hidden');
+    document.getElementById('retake-button').classList.add('hidden');
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('result').classList.add('hidden');
+}
+
+function resetScore() {
+    document.getElementById('score').textContent = '';
+}
+
+function startRecording(questionIndex) {
+    let feedbackElement = document.getElementById(`feedback-${questionIndex}`);
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Speech recognition not supported in this browser.");
+        return;
+    }
+
+    let recognition = new webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.start();
+
+    recognition.onresult = function (event) {
+        let spokenText = event.results[0][0].transcript.toLowerCase();
+        currentQuestions[questionIndex].answer = spokenText;
+        feedbackElement.textContent = "You said: " + spokenText;
+    };
+
+    recognition.onerror = function (event) {
+        feedbackElement.textContent = "Error occurred in recognition: " + event.error;
+    };
+}
+
+function generateMCQOptions(index, question) {
+    return `
+        <div class="mcq-options">
+            ${question.options.map(option => `
+                <label>
+                    <input type="radio" name="mcq-${index}" value="${option}" />
+                    ${option}
+                </label>
+                <br />
+            `).join('')}
+        </div>
+    `;
+}
+
+function submitTest() {
+    currentQuestions.forEach((q, index) => {
+        if (q.type === 'text') {
+            q.answer = document.getElementById(`answer-${index}`).value.toLowerCase();
+        } else if (q.type === 'mcq') {
+            const selectedOption = document.querySelector(`input[name="mcq-${index}"]:checked`);
+            q.answer = selectedOption ? selectedOption.value : '';
+        }
+    });
+
+    const score = calculateScore();
+    displayResult(score);
+    storeResults(score);
+    highlightAnswers();
+
+    document.getElementById('submit-button').classList.add('hidden');
+    document.getElementById('retake-button').classList.remove('hidden');
+}
+
+function calculateScore() {
+    let score = 0;
+
+    currentQuestions.forEach(q => {
+        if (typeof q.correctAnswer === 'string') {
+            if (q.answer.includes(q.correctAnswer)) {
+                score++;
+            }
+        } else if (Array.isArray(q.correctAnswer)) {
+            let correctCount = 0;
+            q.correctAnswer.forEach(word => {
+                if (q.answer.includes(word)) {
+                    correctCount++;
+                }
+            });
+            if (correctCount === q.correctAnswer.length) {
+                score++;
+            }
+        } else if (q.type === 'mcq' && q.answer === q.correctAnswer) {
+            score++;
+        }
+    });
+
+    return score;
+}
+
+function displayResult(score) {
+    const scoreElement = document.getElementById('score');
+    scoreElement.textContent = `${score} / 10`;
+    document.getElementById('result').classList.remove('hidden');
+}
+
+function storeResults(score) {
+    const userResults = {
+        date: new Date().toLocaleString(),
+        score: score,
+        answers: currentQuestions.map(q => ({ question: q.question, answer: q.answer }))
+    };
+
+    let results = JSON.parse(localStorage.getItem('mocaTestResults')) || [];
+    results.push(userResults);
+    localStorage.setItem('mocaTestResults', JSON.stringify(results));
+}
+
+function highlightAnswers() {
+    currentQuestions.forEach((q, index) => {
+        const questionElement = document.querySelector(`#question-container .question:nth-of-type(${index + 1})`);
+        const feedbackElement = document.getElementById(`feedback-${index}`);
+        const correctAnswer = q.correctAnswer;
+        const userAnswer = q.answer;
+
+        if (q.type === 'text' || q.type === 'audio') {
+            if (typeof correctAnswer === 'string') {
+                if (userAnswer.includes(correctAnswer)) {
+                    questionElement.classList.add('correct');
+                    feedbackElement.textContent = "Correct!";
+                } else {
+                    questionElement.classList.add('incorrect');
+                    feedbackElement.textContent = `Incorrect! The correct answer was "${correctAnswer}".`;
+                }
+            } else if (Array.isArray(correctAnswer)) {
+                let correctCount = 0;
+                correctAnswer.forEach(word => {
+                    if (userAnswer.includes(word)) {
+                        correctCount++;
+                    }
+                });
+                if (correctCount === correctAnswer.length) {
+                    questionElement.classList.add('correct');
+                    feedbackElement.textContent = "Correct!";
+                } else {
+                    questionElement.classList.add('incorrect');
+                    feedbackElement.textContent = `Incorrect! The correct answers were "${correctAnswer.join(', ')}".`;
+                }
+            }
+        } else if (q.type === 'mcq') {
+            const selectedOption = document.querySelector(`input[name="mcq-${index}"]:checked`);
+            const selectedAnswer = selectedOption ? selectedOption.value : '';
+
+            if (selectedAnswer === correctAnswer) {
+                questionElement.classList.add('correct');
+                feedbackElement.textContent = "Correct!";
+            } else {
+                questionElement.classList.add('incorrect');
+                feedbackElement.textContent = `Incorrect! The correct answer was "${correctAnswer}".`;
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', startTest);
+
+    </script>
+</body>
+</html>
