@@ -29,6 +29,7 @@ const AdminDashboard = () => {
             <th>age</th>
             <th>gender</th>
             <th>education</th>
+            <th>job_industry</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@ const AdminDashboard = () => {
               <td>{user.age}</td>
               <td>{user.gender}</td>
               <td>{user.education}</td>
+              <td>{user.job_industry}</td>
             </tr>
           ))}
         </tbody>
