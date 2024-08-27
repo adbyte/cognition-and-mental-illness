@@ -56,6 +56,31 @@ app.get("*", (req, res) => {
   res.send("Request received");
 });
 
+//fetching data on criteria
+app.get("/api/fetch-data", (req, res) => {
+  const { age, gender, job_industry, education } = req.query;
+  //now building sql query dynamically
+  let sqlquery = "SELECT * FORM users WHERE 1=1";
+  let queryparams = [];
+  if (age) {
+    sqlquery += " AND AGE = ? ";
+    queryparams.push(age);
+  }
+  if (gender) {
+    sqlquery += " AND gender = ?";
+    queryparams.push(gender);
+  }
+  //execute the query
+  db.query(sqlquery, queryparams, (err, results) => {
+    if (err) {
+      console.error("error executing query", err);
+      res.status(500).send("error featching data");
+      return;
+    }
+    res.json(results);
+  });
+});
+
 app.listen(3001, () => {
   console.log("server is running");
 });
