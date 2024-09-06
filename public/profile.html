@@ -399,99 +399,129 @@
       </div>
     </div>
 
-    
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-          let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
-          let userId = currentUser.email || "";
+        let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+        let userId = currentUser.email || "";
 
-          document.getElementById("profileName").textContent = currentUser.name || "Name not available";
-          document.getElementById("profileEmail").textContent = currentUser.email || "Email not available";
-          document.getElementById("profileAge").textContent = currentUser.age || "Age not available";
+        document.getElementById("profileName").textContent =
+          currentUser.name || "Name not available";
+        document.getElementById("profileEmail").textContent =
+          currentUser.email || "Email not available";
+        document.getElementById("profileAge").textContent =
+          currentUser.age || "Age not available";
 
-          let firstLetter = currentUser.name ? currentUser.name.charAt(0).toUpperCase() : "";
-          document.getElementById("profileImage").setAttribute(
-              "src",
-              `https://via.placeholder.com/100x100.png?text=${firstLetter}`
+        let firstLetter = currentUser.name
+          ? currentUser.name.charAt(0).toUpperCase()
+          : "";
+        document
+          .getElementById("profileImage")
+          .setAttribute(
+            "src",
+            `https://via.placeholder.com/100x100.png?text=${firstLetter}`
           );
 
-          let testAttempts = JSON.parse(localStorage.getItem("testAttempts")) || [];
+        let testAttempts =
+          JSON.parse(localStorage.getItem("testAttempts")) || [];
 
-          function populateTestSection(sectionId, testNameKeywords, chartId) {
-              let sectionBody = document.querySelector(`#${sectionId} tbody`);
-              sectionBody.innerHTML = "";
+        function populateTestSection(sectionId, testNameKeywords, chartId) {
+          let sectionBody = document.querySelector(`#${sectionId} tbody`);
+          sectionBody.innerHTML = "";
 
-              let sectionData = testAttempts.filter(
-                  (attempt) =>
-                      testNameKeywords.some((keyword) =>
-                          attempt.testName.includes(keyword)
-                      ) && attempt.userId === userId
-              );
+          let sectionData = testAttempts.filter(
+            (attempt) =>
+              testNameKeywords.some((keyword) =>
+                attempt.testName.includes(keyword)
+              ) && attempt.userId === userId
+          );
 
-              sectionData.forEach(function (attempt) {
-                  let row = document.createElement("tr");
-                  row.innerHTML = `
-                      <td>${attempt.date || attempt.dateTime.split(", ")[0]}</td>
-                      <td>${attempt.time || attempt.dateTime.split(", ")[1]}</td>
+          sectionData.forEach(function (attempt) {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                      <td>${
+                        attempt.date || attempt.dateTime.split(", ")[0]
+                      }</td>
+                      <td>${
+                        attempt.time || attempt.dateTime.split(", ")[1]
+                      }</td>
                       <td>${attempt.score}</td>
                   `;
-                  sectionBody.appendChild(row);
-              });
+            const datum = {
+              test: sectionId,
+              score: `${attempt.score}`,
+              date: `${attempt.date || attempt.dateTime.split(", ")[0]}`,
+              time: `${attempt.time || attempt.dateTime.split(", ")[1]}`,
+            };
+            fetch(`${currentUser}/store-score`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(datum),
+            })
+              .then((response) => response.text())
+              .then((datum) => console.log(datum))
+              .catch((error) => console.error("error", error));
+            sectionBody.appendChild(row);
+          });
 
-              let dates = sectionData.map(
-                  (attempt) => attempt.date || attempt.dateTime.split(", ")[0]
-              );
-              let scores = sectionData.map((attempt) => attempt.score);
+          let dates = sectionData.map(
+            (attempt) => attempt.date || attempt.dateTime.split(", ")[0]
+          );
+          let scores = sectionData.map((attempt) => attempt.score);
 
-              let ctx = document.getElementById(chartId).getContext("2d");
-              new Chart(ctx, {
-                  type: "line",
-                  data: {
-                      labels: dates,
-                      datasets: [
-                          {
-                              label: "Scores",
-                              data: scores,
-                              borderColor: "rgba(54, 162, 235, 1)",
-                              backgroundColor: "rgba(54, 162, 235, 0.2)",
-                              fill: true,
-                          },
-                      ],
+          let ctx = document.getElementById(chartId).getContext("2d");
+          new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: dates,
+              datasets: [
+                {
+                  label: "Scores",
+                  data: scores,
+                  borderColor: "rgba(54, 162, 235, 1)",
+                  backgroundColor: "rgba(54, 162, 235, 0.2)",
+                  fill: true,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: "Date",
                   },
-                  options: {
-                      scales: {
-                          x: {
-                              title: {
-                                  display: true,
-                                  text: "Date",
-                              },
-                          },
-                          y: {
-                              title: {
-                                  display: true,
-                                  text: "Score",
-                              },
-                          },
-                      },
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: "Score",
                   },
-              });
-          }
+                },
+              },
+            },
+          });
+        }
 
-          populateTestSection("perceptionTests", ["Perception"], "perceptionChart");
-          populateTestSection("attentionTests", ["Attention"], "attentionChart");
-          populateTestSection("memoryTests", ["Memory"], "memoryChart");
-          populateTestSection("languageTests", ["Language"], "languageChart");
-          populateTestSection("reasoningTests", ["Reasoning"], "reasoningChart");
-          populateTestSection("executiveTests", ["Executive"], "executiveChart");
+        populateTestSection(
+          "perceptionTests",
+          ["Perception"],
+          "perceptionChart"
+        );
+        populateTestSection("attentionTests", ["Attention"], "attentionChart");
+        populateTestSection("memoryTests", ["Memory"], "memoryChart");
+        populateTestSection("languageTests", ["Language"], "languageChart");
+        populateTestSection("reasoningTests", ["Reasoning"], "reasoningChart");
+        populateTestSection("executiveTests", ["Executive"], "executiveChart");
       });
 
-      
       //reactdirection
       document
         .getElementById("redirectreact")
         .addEventListener("click", function () {
           window.location.href = "http://172.16.98.196:9000 ";
         });
-  </script>
+    </script>
   </body>
 </html>
