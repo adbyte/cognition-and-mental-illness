@@ -446,7 +446,7 @@
                       }</td>
                       <td>${attempt.score}</td>
                   `;
-            const datum = {
+          /*  const datum = {
               test: sectionId,
               score: `${attempt.score}`,
               date: `${attempt.date || attempt.dateTime.split(", ")[0]}`,
@@ -463,7 +463,7 @@
               .then((datum) => console.log(datum))
               .catch((error) => console.error("error", error));
             sectionBody.appendChild(row);
-          });
+          });*/
 
           let dates = sectionData.map(
             (attempt) => attempt.date || attempt.dateTime.split(", ")[0]

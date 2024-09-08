@@ -8,6 +8,10 @@ const App = () => {
   const [gender, setgender] = useState("");
   const [job_industry, setjob_industry] = useState("");
   const [education, seteducation] = useState("");
+  const [fromage, setfromage] = useState("");
+  const [toage, settoage] = useState("");
+  const [aboveage, setaboveage] = useState("");
+  const [belowage, setbelowage] = useState("");
   const [data, setdata] = useState([]); // Initialize as an empty array
 
   // Fetch all data on component mount (for initial load)
@@ -32,7 +36,16 @@ const App = () => {
     event.preventDefault();
     try {
       const response = await axios.get("http://localhost:3001/api/fetch-data", {
-        params: { age, gender, job_industry, education },
+        params: {
+          age,
+          gender,
+          job_industry,
+          education,
+          fromage,
+          toage,
+          aboveage,
+          belowage,
+        },
       });
       console.log("Full response:", response);
       console.log("Response data:", response.data);
@@ -52,19 +65,64 @@ const App = () => {
   return (
     <>
       <div className="adminhead"> ADMIN DASHBOARD </div>
-      <form onSubmit={handlesubmit}>
-        <div>
+      <form onSubmit={handlesubmit} className="mainfield">
+        <div className="even">
           <label>
-            Age:
+            Only specific Age:
             <input
               className="age"
               type="number"
+              placeholder="age "
               value={age}
               onChange={(e) => setage(e.target.value)}
             />
           </label>
         </div>
-        <div>
+        <div className="odd">
+          <label>
+            from age
+            <input
+              type="number"
+              placeholder="from"
+              value={fromage}
+              onChange={(e) => setfromage(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="even">
+          <label>
+            To age
+            <input
+              type="number"
+              placeholder="to-"
+              value={toage}
+              onChange={(e) => settoage(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="odd">
+          <label>
+            Age Above:
+            <input
+              type="number"
+              placeholder="age above-"
+              value={aboveage}
+              onChange={(e) => setaboveage(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="even">
+          <label>
+            Age Below:
+            <input
+              type="number"
+              placeholder="age below-"
+              value={belowage}
+              onChange={(e) => setbelowage(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="odd">
           <label>
             Gender:
             <select
@@ -78,7 +136,7 @@ const App = () => {
             </select>
           </label>
         </div>
-        <div>
+        <div className="even">
           <label>
             Education
             <select
@@ -97,7 +155,7 @@ const App = () => {
             </select>
           </label>
         </div>
-        <div>
+        <div className="odd">
           <label>Job Industry </label>
           <select
             id="job-industry"
@@ -127,7 +185,7 @@ const App = () => {
             {/* Add more options as needed */}
           </select>
         </div>
-
+        <br></br>
         <button type="submit">Fetch Data</button>
       </form>
 

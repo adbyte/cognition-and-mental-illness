@@ -11,3 +11,15 @@ td {
 th {
   background-color: #646aaa;
 }
+h2 {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+  color: #646aaa;
+  border: 4px solid #646aaa;
+}
+table {
+  font-size: 1rem;
+}

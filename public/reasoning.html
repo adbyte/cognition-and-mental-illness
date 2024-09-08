@@ -113,12 +113,24 @@
       padding: 10px;
       text-align: left;
     }
+    .container {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    .text-center {
+      font-weight: bolder;
+      font-style: normal;
+      font-family: cursive;
+      margin-top: 30px;
+      color: #f8f8f8;
+    }
   </style>
 
   <body>
-    <div class="container mt-5">
-      <h1 class="text-center">Reasoning and Problem-Solving Questionnaire</h1>
+    <u class="text-center"
+      ><h1>Reasoning and Problem-Solving Questionnaire</h1></u
+    >
 
+    <div class="container mt-5">
       <!-- Section 1: Logical Reasoning -->
       <div class="mt-4">
         <h2>Section 1: Logical Reasoning</h2>
@@ -371,12 +383,12 @@
     <script>
       var count = 0;
       var incorr = 0;
-    
+
       function getUserId() {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
-        return currentUser.email || 'Unknown';
+        let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+        return currentUser.email || "Unknown";
       }
-    
+
       document.querySelectorAll("select").forEach((select) => {
         select.addEventListener("change", function () {
           if (
@@ -389,22 +401,22 @@
           }
         });
       });
-    
+
       function storeTestAttempt(testName, date, time, score, userId) {
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
-    
+
         testAttempts.push({
           testName: testName,
           date: date,
           time: time,
           score: score,
-          userId: userId
+          userId: userId,
         });
-    
+
         localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
       }
-    
+
       var scorebutton = document.querySelector(".score");
       scorebutton.onclick = function () {
         let scorecard = document.querySelector("#scoreCardModal");
@@ -414,33 +426,33 @@
         let con = document.querySelector(".conclusion");
         correct.innerHTML = count;
         incorrect.innerHTML = incorr;
-    
+
         if (count > incorr) {
           con.innerHTML = "GOOD !!<br></br> Keep it up";
         } else {
           con.innerHTML = "Poor performance";
         }
-    
+
         let testName = "Reasoning Test";
         let currentDate = new Date().toLocaleDateString();
         let currentTime = new Date().toLocaleTimeString();
         let userId = getUserId();
-    
+
         storeTestAttempt(testName, currentDate, currentTime, count, userId);
-    
+
         displayPreviousScores();
       };
-    
+
       function displayPreviousScores() {
         let testAttempts =
           JSON.parse(localStorage.getItem("testAttempts")) || [];
         let reasoningTestAttempts = testAttempts.filter(
           (attempt) => attempt.testName === "Reasoning Test"
         );
-    
+
         let scoreTable = document.querySelector("#previousScores");
         scoreTable.innerHTML = "";
-    
+
         let tableHeader = `
           <tr>
             <th>Date</th>
@@ -449,7 +461,7 @@
           
           </tr>`;
         scoreTable.innerHTML += tableHeader;
-    
+
         reasoningTestAttempts.forEach((attempt) => {
           let scoreRow = `
             <tr>
@@ -461,11 +473,10 @@
           scoreTable.innerHTML += scoreRow;
         });
       }
-    
+
       document.getElementById("closeScoreCardBtn").onclick = function () {
         document.getElementById("scoreCardModal").style.display = "none";
       };
     </script>
-    
   </body>
 </html>

@@ -24,7 +24,7 @@ app.post("/store-data", (req, res) => {
   user = username;
   const useQuery =
     "INSERT INTO users (username , password , emailid ,age , gender , education , job_industry ) VALUES (? , ? ,? ,? ,?,?,?)";
-  const usertable = `CREATE TABLE ? (test varchar (150), score int , date varchar (50) , time varchar (30))`;
+  /*const usertable = `CREATE TABLE ? (test varchar (150), score int , date varchar (50) , time varchar (30))`;
   db.query(usertable, [username], (err, result) => {
     if (err) {
       console.error(err);
@@ -33,7 +33,7 @@ app.post("/store-data", (req, res) => {
       const userId = result.insertId;
       res.send("Data stored in SQL");
     }
-  });
+  });*/
   db.query(
     useQuery,
     [username, password, emailid, age, gender, education, job_industry],
@@ -48,6 +48,7 @@ app.post("/store-data", (req, res) => {
     }
   );
 });
+/*
 app.post(`${user}/store-score`, (req, res) => {
   console.log("scoreing is here");
   const { test, score, date, time } = req.body;
@@ -61,7 +62,7 @@ app.post(`${user}/store-score`, (req, res) => {
       res.send("Data stored in SQL");
     }
   });
-});
+});*/
 
 app.get("/users", (req, res) => {
   console.log("Executing /users endpoint");
@@ -79,7 +80,16 @@ app.get("/users", (req, res) => {
 
 //fetching data on criteria
 app.get("/api/fetch-data", (req, res) => {
-  const { age, gender, job_industry, education } = req.query;
+  const {
+    age,
+    gender,
+    job_industry,
+    education,
+    fromage,
+    toage,
+    aboveage,
+    belowage,
+  } = req.query;
   //now building sql query dynamically
   let sqlquery = "SELECT * FROM users WHERE 1=1";
   let queryparams = [];
@@ -87,6 +97,7 @@ app.get("/api/fetch-data", (req, res) => {
     sqlquery += " AND AGE = ? ";
     queryparams.push(age);
   }
+
   if (gender) {
     sqlquery += " AND gender = ?";
     queryparams.push(gender);
@@ -98,6 +109,18 @@ app.get("/api/fetch-data", (req, res) => {
   if (job_industry) {
     sqlquery += " AND JOB_INDUSTRY = ?";
     queryparams.push(job_industry);
+  }
+  if (fromage && toage) {
+    sqlquery += " AND AGE BETWEEN ? AND ? ";
+    queryparams.push(fromage, toage);
+  }
+  if (aboveage) {
+    sqlquery += " AND AGE >= ? ";
+    queryparams.push(aboveage);
+  }
+  if (belowage) {
+    sqlquery += " AND AGE <= ";
+    queryparams, push(belowage);
   }
   console.log("SQL Query:", sqlquery);
   console.log("Query Parameters:", queryparams);

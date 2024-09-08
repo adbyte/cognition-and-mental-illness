@@ -1,451 +1,481 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>language</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-</head>
-<style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <style>
     body {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        background: url("../images/bg3.png") no-repeat center center fixed;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: url("../images/bg3.png") no-repeat center center fixed;
     }
 
     .heading,
     .description {
-        background: #7CEBFC;
-        background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);
-        width: 100%;
-
+      background: #7cebfc;
+      background: radial-gradient(circle, #7cebfc 0%, #296186 100%);
+      width: 100%;
     }
 
     .description {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: .6;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.6;
     }
-
 
     .heading:hover,
     .description:hover {
-        background: none;
-        /* background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);*/
+      background: none;
+      /* background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);*/
     }
 
     .wheeldiv {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 300px;
     }
 
     .wheel {
-        height: 100%;
-        width: 20%;
-        border-radius: 100%;
-        background: url("../images/wheel.png") no-repeat center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-
+      height: 100%;
+      width: 20%;
+      border-radius: 100%;
+      background: url("../images/wheel.png") no-repeat center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .newclass {
-        animation: spin 1s linear infinite;
+      animation: spin 1s linear infinite;
     }
 
     @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
+      from {
+        transform: rotate(0deg);
+      }
 
-        to {
-            transform: rotate(360deg);
-        }
-
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .rotate {
-        background-color: white;
-        border-radius: 80%;
-        cursor: pointer;
+      background-color: white;
+      border-radius: 80%;
+      cursor: pointer;
     }
 
     .rotate:active {
-        /* transition: 1s ease-in-out;*/
-        transform: translateY(-10px);
-        background-color: transparent;
+      /* transition: 1s ease-in-out;*/
+      transform: translateY(-10px);
+      background-color: transparent;
     }
 
     .textarea {
-        display: none;
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        padding: 1rem;
-        margin: 1rem;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: .8;
-        background: url("../images/bg.png");
+      display: none;
+      overflow: auto;
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      padding: 1rem;
+      margin: 1rem;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.8;
+      background: url("../images/bg.png");
     }
 
     .text {
-
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 80%;
-        width: 80%;
-        margin-left: 15%;
-        background-color: #7CEBFC;
-
+      overflow: auto;
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 80%;
+      width: 80%;
+      margin-left: 15%;
+      background-color: #7cebfc;
     }
 
     .stop {
-        display: none;
+      display: none;
     }
 
     .footer {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
     }
 
     .score-card-modal {
-        display: none;
-        overflow: auto;
-        z-index: 1000;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
+      display: none;
+      overflow: auto;
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
 
-        background: url("../images/bg.png");
-
+      background: url("../images/bg.png");
     }
-.score-card-content {
-  
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #e2e2e9;
-  width: 60%;
-  max-width: 600px;
-  text-align: center;
-  background-color: #ffffff;
-  font-size: medium;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-}
+    .score-card-content {
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #e2e2e9;
+      width: 60%;
+      max-width: 600px;
+      text-align: center;
+      background-color: #ffffff;
+      font-size: medium;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: "Arial", sans-serif;
+    }
 
-.score-card-content button {
-display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-.score-card-content button:hover {
-  background-color: #0056b3;
-}
-.score-card-content h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
-}
+    .score-card-content button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .score-card-content button:hover {
+      background-color: #0056b3;
+    }
+    .score-card-content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-.score-card-content p {
-  font-size: 18px;
-  color: #666;
-}
-.modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
+    .score-card-content p {
+      font-size: 18px;
+      color: #666;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
 
-        table th,
-        table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-</style>
-<body>
+    table th,
+    table td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    .description {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+  <body>
     <div class="textarea">
-        <textarea name="textt" class="text" placeholder="Start writing here"></textarea>
+      <textarea
+        name="textt"
+        class="text"
+        placeholder="Start writing here"
+      ></textarea>
     </div>
     <div class="heading">
-        <h1 style="margin-left: 40%;">
-            Word Fluency Task
-        </h1>
+      <h1 style="margin-left: 40%">Word Fluency Task</h1>
     </div>
     <div class="description">
-        <b>
-
-            <p>Its a task to test your language , You'll be given a wheel to genrate an alphabet from A to Z . Your task
-                will be then to write as many words as you can from theat randomly generated alphabet</p>
-            <p>You 'll have <b>20 sec</b> to make things work for you . Make sure that your written words should be
-                meaningfull .
-                <b>Fluency is the key</b>
-            </p>
-            <ul>Remember , after 20 seconds , screen will close and you will not be able to write further</ul>
-            <ul>Writing Noun is not allowed </ul>
-            <ul>After one word , give a space and then write other</ul>
-            <ul>If you'll write same word more than one then <b>none of the word will be counted.</b></ul>
-        </b>
-
+      <b>
+        <p>
+          Its a task to test your language , You'll be given a wheel to genrate
+          an alphabet from A to Z . Your task will be then to write as many
+          words as you can from theat randomly generated alphabet
+        </p>
+        <p>
+          You 'll have <b>20 sec</b> to make things work for you . Make sure
+          that your written words should be meaningfull .
+          <b>Fluency is the key</b>
+        </p>
+        <ul>
+          Remember , after 20 seconds , screen will close and you will not be
+          able to write further
+        </ul>
+        <ul>
+          Writing Noun is not allowed
+        </ul>
+        <ul>
+          After one word , give a space and then write other
+        </ul>
+        <ul>
+          If you'll write same word more than one then
+          <b>none of the word will be counted.</b>
+        </ul>
+      </b>
     </div>
     <div class="wheeldiv">
-        <div class="wheel">
-            <div class="rotate"><i class="fa-solid fa-rotate fa-4x"></i></div>
-
-        </div>
+      <div class="wheel">
+        <div class="rotate"><i class="fa-solid fa-rotate fa-4x"></i></div>
+      </div>
     </div>
     <div class="footer">
-        <button type="button" class="btn btn-primary stop">Start</button>
-        <button type="button" class="btn btn-secondary score">Check score</button>
-        <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to Home </button>
-        <button type="button" class="btn btn-danger" onclick="window.location.href='language.html'">Restart</button>
+      <button type="button" class="btn btn-primary stop">Start</button>
+      <button type="button" class="btn btn-secondary score">Check score</button>
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href='index.html'"
+      >
+        Back to Home
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        onclick="window.location.href='language.html'"
+      >
+        Restart
+      </button>
 
-        <div id="scoreCardModal" class="score-card-modal">
-            <div class="score-card-content">
-                <!-- Content of your score card goes here -->
-                <h2>Score Card</h2>
-                <p>Your score value is : <span class="scoreValue"></span> </p>
+      <div id="scoreCardModal" class="score-card-modal">
+        <div class="score-card-content">
+          <!-- Content of your score card goes here -->
+          <h2>Score Card</h2>
+          <p>Your score value is : <span class="scoreValue"></span></p>
 
-                <p class="conclusion"></p>
-                <span></span>
-                <!-- Add more content as needed -->
-                 <p> Previous Scores </p>
-                <table id="previousScores" class="table table-striped">
-                    <!-- Previous scores will be inserted here -->
-                </table>
-                <button id="closeScoreCardBtn">Close</button>
-            </div>
+          <p class="conclusion"></p>
+          <span></span>
+          <!-- Add more content as needed -->
+          <p>Previous Scores</p>
+          <table id="previousScores" class="table table-striped">
+            <!-- Previous scores will be inserted here -->
+          </table>
+          <button id="closeScoreCardBtn">Close</button>
         </div>
-
+      </div>
     </div>
-</body>
-<script>
+  </body>
+  <script>
     var ran;
     var rot = document.querySelector(".rotate");
-    
-    function getUserId() {
-        
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
-        return currentUser.email || 'Unknown';
+    function getUserId() {
+      let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+      return currentUser.email || "Unknown";
     }
 
     rot.onclick = function () {
-        var wheel = document.querySelector(".wheel");
-        wheel.classList.toggle("newclass");
-        rot.innerHTML = "<i class='fa-solid fa-circle-stop fa-3x'></i>"
-        rot.onclick = function () {
-            const alphabets = "abcdefghijklmnopqrstuvwxyz";
-            const randomIndex = Math.floor(Math.random() * alphabets.length);
-            ran = alphabets[randomIndex];
+      var wheel = document.querySelector(".wheel");
+      wheel.classList.toggle("newclass");
+      rot.innerHTML = "<i class='fa-solid fa-circle-stop fa-3x'></i>";
+      rot.onclick = function () {
+        const alphabets = "abcdefghijklmnopqrstuvwxyz";
+        const randomIndex = Math.floor(Math.random() * alphabets.length);
+        ran = alphabets[randomIndex];
 
-            wheel.classList.remove("newclass");
-            wheel.style.background = "radial-gradient(circle, #7CEBFC 0%, #296186 100%)";
-            wheel.innerHTML = "<i class='fa-solid fa-" + `${ran}` + " fa-6x'></i>";
-            let st = document.querySelector(".stop");
-            st.style.display = "block";
-        }
-    }
-    
+        wheel.classList.remove("newclass");
+        wheel.style.background =
+          "radial-gradient(circle, #7CEBFC 0%, #296186 100%)";
+        wheel.innerHTML = "<i class='fa-solid fa-" + `${ran}` + " fa-6x'></i>";
+        let st = document.querySelector(".stop");
+        st.style.display = "block";
+      };
+    };
+
     var ss = document.querySelector(".stop");
     ss.onclick = function () {
-        var txt = document.querySelector(".textarea");
-        txt.style.display = "block";
-        setTimeout(function () {
-            txt.style.display = "none";
-        }, 20000);
-    }
-    
+      var txt = document.querySelector(".textarea");
+      txt.style.display = "block";
+      setTimeout(function () {
+        txt.style.display = "none";
+      }, 20000);
+    };
+
     var scorebutton = document.querySelector(".score");
     scorebutton.onclick = function () {
-        let scorecard = document.querySelector(".score-card-modal");
-        scorecard.style.display = "block";
-        let txtstr = document.querySelector(".text").value;
-        let arr = txtstr.split(' ');
-        let rn = ran;
-        let finalscore = 0;
-        let map = {};
-        
-        for (let i = 0; i < arr.length; i++) {
-            map[arr[i]] = (map[arr[i]] || 0) + 1; 
+      let scorecard = document.querySelector(".score-card-modal");
+      scorecard.style.display = "block";
+      let txtstr = document.querySelector(".text").value;
+      let arr = txtstr.split(" ");
+      let rn = ran;
+      let finalscore = 0;
+      let map = {};
+
+      for (let i = 0; i < arr.length; i++) {
+        map[arr[i]] = (map[arr[i]] || 0) + 1;
+      }
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i][0] === rn) {
+          if (map[arr[i]] > 1) continue;
+          finalscore++;
         }
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i][0] === rn) {
-                if (map[arr[i]] > 1) continue;
-                finalscore++;
-            }
-        }
-        let value = document.querySelector(".scoreValue");
-        value.innerHTML = `${finalscore}`;
-        let con = document.querySelector(".conclusion");
-        let msg;
-        if (finalscore <= 5) {
-            msg = "Less Linguistic";
-        } else if (finalscore < 11) {
-            msg = "Average Linguistic";
-        } else {
-            msg = "High Linguistic";
-        }
-        con.innerHTML = `${msg}`;
-        displayPreviousScores();
-    }
-    
+      }
+      let value = document.querySelector(".scoreValue");
+      value.innerHTML = `${finalscore}`;
+      let con = document.querySelector(".conclusion");
+      let msg;
+      if (finalscore <= 5) {
+        msg = "Less Linguistic";
+      } else if (finalscore < 11) {
+        msg = "Average Linguistic";
+      } else {
+        msg = "High Linguistic";
+      }
+      con.innerHTML = `${msg}`;
+      displayPreviousScores();
+    };
+
     var closebutton = document.querySelector("#closeScoreCardBtn");
     closebutton.onclick = function () {
-        let scorecard = document.querySelector(".score-card-modal");
-        scorecard.style.display = "none";
+      let scorecard = document.querySelector(".score-card-modal");
+      scorecard.style.display = "none";
 
-        const currentDate = new Date();
-        const date = currentDate.toLocaleDateString();
-        const time = currentDate.toLocaleTimeString();
-        let finalscore = document.querySelector(".scoreValue").textContent;
-        let userId = getUserId(); 
+      const currentDate = new Date();
+      const date = currentDate.toLocaleDateString();
+      const time = currentDate.toLocaleTimeString();
+      let finalscore = document.querySelector(".scoreValue").textContent;
+      let userId = getUserId();
 
-        saveTestAttempt('Language Test', date, time, finalscore, userId);
-    }
-    
+      saveTestAttempt("Language Test", date, time, finalscore, userId);
+    };
+
     function saveTestAttempt(testName, date, time, score, userId) {
-        const testAttempt = {
-            testName: testName,
-            date: date,
-            time: time,
-            score: score,
-            userId: userId 
-        };
+      const testAttempt = {
+        testName: testName,
+        date: date,
+        time: time,
+        score: score,
+        userId: userId,
+      };
 
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-        testAttempts.push(testAttempt);
-        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+      let testAttempts = JSON.parse(localStorage.getItem("testAttempts")) || [];
+      testAttempts.push(testAttempt);
+      localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
 
-        console.log('Test attempt saved:', testAttempt);
+      console.log("Test attempt saved:", testAttempt);
     }
 
     function displayPreviousScores() {
-        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
-        let languageTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Language Test');
+      let testAttempts = JSON.parse(localStorage.getItem("testAttempts")) || [];
+      let languageTestAttempts = testAttempts.filter(
+        (attempt) => attempt.testName === "Language Test"
+      );
 
-        let scoreTable = document.querySelector("#previousScores");
-        scoreTable.innerHTML = "";
+      let scoreTable = document.querySelector("#previousScores");
+      scoreTable.innerHTML = "";
 
-        let tableHeader = `
+      let tableHeader = `
             <tr>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Score</th>
                 
             </tr>`;
-        scoreTable.innerHTML = tableHeader;
+      scoreTable.innerHTML = tableHeader;
 
-        languageTestAttempts.forEach(attempt => {
-            let dateParts = attempt.date.split('/');
-            let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/);
+      languageTestAttempts.forEach((attempt) => {
+        let dateParts = attempt.date.split("/");
+        let timeParts = attempt.time.match(/(\d+):(\d+):(\d+) (am|pm)/);
 
-            if (dateParts.length === 3 && timeParts) {
-                let day = parseInt(dateParts[1], 10);
-                let month = parseInt(dateParts[0], 10) - 1;
-                let year = parseInt(dateParts[2], 10);
+        if (dateParts.length === 3 && timeParts) {
+          let day = parseInt(dateParts[1], 10);
+          let month = parseInt(dateParts[0], 10) - 1;
+          let year = parseInt(dateParts[2], 10);
 
-                let hours = parseInt(timeParts[1], 10) + (timeParts[4] === 'pm' ? 12 : 0);
-                let minutes = parseInt(timeParts[2], 10);
-                let seconds = parseInt(timeParts[3], 10);
+          let hours =
+            parseInt(timeParts[1], 10) + (timeParts[4] === "pm" ? 12 : 0);
+          let minutes = parseInt(timeParts[2], 10);
+          let seconds = parseInt(timeParts[3], 10);
 
-                let dateTime = new Date(year, month, day, hours, minutes, seconds);
+          let dateTime = new Date(year, month, day, hours, minutes, seconds);
 
-                if (!isNaN(dateTime.getTime())) {
-                    let formattedDate = dateTime.toLocaleDateString();
-                    let formattedTime = dateTime.toLocaleTimeString();
+          if (!isNaN(dateTime.getTime())) {
+            let formattedDate = dateTime.toLocaleDateString();
+            let formattedTime = dateTime.toLocaleTimeString();
 
-                    let scoreRow = `
+            let scoreRow = `
                         <tr>
                             <td>${formattedDate}</td>
                             <td>${formattedTime}</td>
                             <td>${attempt.score}</td>
                            
                         </tr>`;
-                    scoreTable.innerHTML += scoreRow;
-                } else {
-                    console.error('Invalid date/time format:', attempt.date, attempt.time);
-                }
-            } else {
-                console.error('Invalid date/time format:', attempt.date, attempt.time);
-            }
-        });
+            scoreTable.innerHTML += scoreRow;
+          } else {
+            console.error(
+              "Invalid date/time format:",
+              attempt.date,
+              attempt.time
+            );
+          }
+        } else {
+          console.error(
+            "Invalid date/time format:",
+            attempt.date,
+            attempt.time
+          );
+        }
+      });
     }
 
-
-
-    //installing textrazor api 
+    //installing textrazor api
     /* const apikey="c0fddcc0f54557442c5bc879116972566811dcadea82a4e54739e210";
      var txtstr=document.querySelector(".text").value;
      var arr=txtstr.split(' ');
@@ -468,7 +498,5 @@ display: block;
              console.error("error fetching data ",error);
          })
      }*/
-
-</script>
-
+  </script>
 </html>

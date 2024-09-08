@@ -4,8 +4,7 @@ import "./AdminDashboard.css";
 const AdminDashboard = ({ users }) => {
   return (
     <div>
-      <h1>Admin Dashboard</h1>
-      <h2>Users</h2>
+      <h2>Users Data</h2>
       {users.length > 0 ? ( // Check if users array is not empty
         <table>
           <thead>
