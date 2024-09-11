@@ -932,6 +932,17 @@ table th, table td {
         score.innerHTML = `${sc}`;
         let er = document.querySelector(".error");
         er.innerHTML = `${icount}`;
+         let data = { score: sc };
+      fetch("http://localhost:3001/perception", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.text())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("error", error));
         let msg;
     
         if (sc <= 33.33) {

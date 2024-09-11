@@ -370,6 +370,17 @@
       let value = document.querySelector(".scoreValue");
       value.innerHTML = `${finalscore}`;
       let con = document.querySelector(".conclusion");
+      let data = { score: finalscore };
+      fetch("http://localhost:3001/language", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.text())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("error", error));
       let msg;
       if (finalscore <= 5) {
         msg = "Less Linguistic";

@@ -456,8 +456,25 @@
           job_industry: document.getElementById("job-industry").value,
         };
         // Store user data in local storage
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const pwd = document.getElementById("pwd").value;
+        const age = document.getElementById("age").value;
+        const gender = document.getElementById("gender").value;
+        const education = document.getElementById("education").value;
+        const jobIndustry = document.getElementById("job-industry").value;
+
+        const user = {
+          name: name,
+          email: email,
+          password: pwd,
+          age: age,
+          gender: gender,
+          education: education,
+          jobIndustry: jobIndustry,
+        };
         let userTable = JSON.parse(localStorage.getItem("userTable")) || [];
-        userTable.push(data);
+        userTable.push(user);
         localStorage.setItem("userTable", JSON.stringify(userTable));
         // Send user data to server
         fetch("http://localhost:3001/store-data", {
