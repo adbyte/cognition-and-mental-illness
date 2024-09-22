@@ -1236,9 +1236,10 @@
         },
         body: JSON.stringify(data),
       })
-        .then((response) => response.text())
+        .then((response) => response.json()) // Change to .json() to parse JSON
         .then((data) => console.log(data))
         .catch((error) => console.error("error", error));
+
       sv.innerHTML = `${c3}`;
       let con = document.querySelector(".conclusion");
       let msg;
