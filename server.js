@@ -81,7 +81,6 @@ app.post("/attention", (req, res) => {
   });
 });
 
-/*
 app.post("/executive", (req, res) => {
   const { score } = req.body;
   const q = `UPDATE users SET executive = ? WHERE username = ?`;
@@ -172,8 +171,8 @@ app.post(`${user}/store-score`, (req, res) => {
       res.send("Data stored in SQL");
     }
   });
-});*/
-
+});
+*/
 app.get("/users", (req, res) => {
   console.log("Executing /users endpoint");
   const query = "SELECT * FROM users";
