@@ -5,7 +5,9 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(cors({ origin: "http://127.0.0.1:5501" }));
+
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -51,6 +53,7 @@ app.post("/store-data", (req, res) => {
 
 app.post("/attention", (req, res) => {
   const { score } = req.body;
+  console.log("Hello");
 
   // Log for debugging purposes
   console.log("User:", user, "Score:", score);
