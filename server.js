@@ -5,7 +5,9 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(cors({ origin: "http://127.0.0.1:5501" }));
+
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -48,6 +50,116 @@ app.post("/store-data", (req, res) => {
     }
   );
 });
+
+app.post("/attention", (req, res) => {
+  const { score } = req.body;
+  console.log("Hello");
+
+  // Log for debugging purposes
+  console.log("User:", user, "Score:", score);
+
+  if (!user) {
+    console.log("User not found in request");
+    return res.status(400).send({ message: "User not found" });
+  }
+
+  // Validate score
+  if (isNaN(score) || score < 0 || score > 100) {
+    console.log("Invalid score value:", score);
+    return res.status(400).send({ message: "Invalid score value" });
+  }
+
+  const q = `UPDATE users SET attention = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "Error storing data" });
+    } else {
+      console.log("Data stored successfully");
+      res.send("Data in MySQL");
+    }
+  });
+});
+
+app.post("/executive", (req, res) => {
+  const { score } = req.body;
+  const q = `UPDATE users SET executive = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "error storing data" });
+    } else {
+      res.send("data in mysql");
+    }
+  });
+});
+app.post("/language", (req, res) => {
+  const { score } = req.body;
+  const q = `UPDATE users SET language = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "error storing data" });
+    } else {
+      res.send("data in mysql");
+    }
+  });
+});
+app.post("/memory", (req, res) => {
+  const { score } = req.body;
+  const q = `UPDATE users SET memory = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "error storing data" });
+    } else {
+      res.send("data in mysql");
+    }
+  });
+});
+app.post("/perception", (req, res) => {
+  const { score } = req.body;
+  const q = `UPDATE users SET perception = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "error storing data" });
+    } else {
+      res.send("data in mysql");
+    }
+  });
+});
+
+app.post("/reasoning", (req, res) => {
+  const { score } = req.body;
+  const q = `UPDATE users SET reasoning = ? WHERE username = ?`;
+
+  // Execute the SQL query
+  db.query(q, [score, user], (err, result) => {
+    if (err) {
+      // Log the actual error message from MySQL
+      console.error("Error storing data:", err.sqlMessage);
+      res.status(500).send({ message: "error storing data" });
+    } else {
+      res.send("data in mysql");
+    }
+  });
+});
 /*
 app.post(`${user}/store-score`, (req, res) => {
   console.log("scoreing is here");
@@ -62,8 +174,8 @@ app.post(`${user}/store-score`, (req, res) => {
       res.send("Data stored in SQL");
     }
   });
-});*/
-
+});
+*/
 app.get("/users", (req, res) => {
   console.log("Executing /users endpoint");
   const query = "SELECT * FROM users";

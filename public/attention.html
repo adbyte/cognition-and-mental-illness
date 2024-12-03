@@ -1227,7 +1227,21 @@
       scoreCardModal.style.display = "block";
       let sv = document.querySelector("#scoreValue");
       let count2 = (count / 60) * 100;
-      let c3 = count2.toFixed(2);
+      let c3 = parseFloat(count2.toFixed(2));
+      let data = { score: c3 };
+      fetch("http://localhost:3001/attention", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          data,
+        },
+      })
+        .then((response) => response.json()) // Change to .json() to parse JSON
+        .then((data) => console.log(data))
+        .catch((error) => console.error("error", error));
+
       sv.innerHTML = `${c3}`;
       let con = document.querySelector(".conclusion");
       let msg;

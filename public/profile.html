@@ -285,9 +285,8 @@
     </div>
 
     <div class="test-attempts">
-      <center>
-        <h2>Test Attempts</h2>
-      </center>
+      <h2>Test Attempts</h2>
+
       <div class="test-section" id="perceptionTests">
         <h3>Perception Tests</h3>
         <table>
@@ -446,6 +445,9 @@
                       }</td>
                       <td>${attempt.score}</td>
                   `;
+            sectionBody.appendChild(row);
+          });
+
           /*  const datum = {
               test: sectionId,
               score: `${attempt.score}`,
@@ -462,7 +464,7 @@
               .then((response) => response.text())
               .then((datum) => console.log(datum))
               .catch((error) => console.error("error", error));
-            sectionBody.appendChild(row);
+            
           });*/
 
           let dates = sectionData.map(

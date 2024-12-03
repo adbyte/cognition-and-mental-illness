@@ -426,7 +426,19 @@
         let con = document.querySelector(".conclusion");
         correct.innerHTML = count;
         incorrect.innerHTML = incorr;
-
+        let data = { score: count };
+        fetch("http://localhost:3001/reasoning", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: {
+            data,
+          },
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error("error", error));
         if (count > incorr) {
           con.innerHTML = "GOOD !!<br></br> Keep it up";
         } else {
