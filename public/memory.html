@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Test</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background: url("../images/bg.png") repeat center center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        overflow: scroll;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .heading,
+      .description {
+        background: #7cebfc;
+        background: radial-gradient(circle, #7cebfc 0%, #296186 100%);
+        width: 100%;
+      }
+
+      .mainsection {
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+        height: 500px;
+      }
+
+      .left,
+      .right {
+        width: 40%;
+        height: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: url("../images/Bg2.png");
+        margin: 20px;
+      }
+
+      .btn-6 {
+        background: #7cebfc;
+        background: radial-gradient(circle, #7cebfc 0%, #296186 100%);
+        padding: 0;
+        border: none;
+        font-size: 1.5rem;
+        width: 180px;
+        height: 80px;
+      }
+
+      .btn-6 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .btn-6:before,
+      .btn-6:after {
+        position: absolute;
+        content: "";
+        height: 0%;
+        width: 1px;
+        box-shadow: -1px -1px 20px 0px rgba(255, 255, 255, 1),
+          -4px -4px 5px 0px rgba(255, 255, 255, 1),
+          7px 7px 20px 0px rgba(0, 0, 0, 0.4),
+          4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn-6:before {
+        right: 0;
+        top: 0;
+        transition: all 500ms ease;
+      }
+
+      .btn-6:after {
+        left: 0;
+        bottom: 0;
+        transition: all 500ms ease;
+      }
+
+      .btn-6:hover {
+        background: transparent;
+        color: #76aef1;
+        box-shadow: none;
+      }
+
+      .btn-6:hover:before {
+        transition: all 500ms ease;
+        height: 100%;
+      }
+
+      .btn-6:hover:after {
+        transition: all 500ms ease;
+        height: 100%;
+      }
+
+      .btn-6 span:before,
+      .btn-6 span:after {
+        position: absolute;
+        content: "";
+        box-shadow: -1px -1px 20px 0px rgba(255, 255, 255, 1),
+          -4px -4px 5px 0px rgba(255, 255, 255, 1),
+          7px 7px 20px 0px rgba(0, 0, 0, 0.4),
+          4px 4px 5px 0px rgba(0, 0, 0, 0.3);
+      }
+
+      .btn-6 span:before {
+        left: 0;
+        top: 0;
+        width: 0%;
+        height: 0.5px;
+        transition: all 500ms ease;
+      }
+
+      .btn-6 span:after {
+        right: 0;
+        bottom: 0;
+        width: 0%;
+        height: 0.5px;
+        transition: all 500ms ease;
+      }
+
+      .btn-6 span:hover:before {
+        width: 100%;
+      }
+
+      .btn-6 span:hover:after {
+        width: 100%;
+      }
+
+      .buttonstart {
+        width: 100%;
+        height: 70%;
+      }
+
+      .custom-btn {
+        margin-top: 10%;
+        margin-left: 35%;
+        margin-bottom: 100px;
+        cursor: pointer;
+      }
+
+      #paragraph {
+        opacity: 0.4;
+        width: 100%;
+        height: 80%;
+      }
+
+      .photoc {
+        display: none;
+        z-index: 2000;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        overflow: scroll;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .photoc img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .score-card-modal {
+        display: none;
+        overflow: auto;
+        z-index: 1000;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: url("../images/bg.png");
+      }
+
+      .score-card-content {
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #e2e2e9;
+        width: 60%;
+        max-width: 600px;
+        text-align: center;
+        background-color: #ffffff;
+        font-size: medium;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-family: "Arial", sans-serif;
+      }
+
+      .score-card-content button {
+        display: block;
+        margin: 20px auto 0;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .score-card-content button:hover {
+        background-color: #0056b3;
+      }
+
+      .score-card-content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .score-card-content p {
+        font-size: 18px;
+        color: #666;
+      }
+
+      .description {
+        background-color: #7cebfc;
+        opacity: 0.7;
+        padding: 1rem;
+        font-size: larger;
+      }
+
+      .fa-microphone {
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .fa-microphone:active {
+        transform: scale(0.85);
+      }
+
+      .stoprec {
+        font-size: 1rem;
+        text-decoration: none;
+        border: 2px solid red;
+        color: red;
+        background-color: transparent;
+        display: none;
+        cursor: pointer;
+        transition: transform 0.2 ease;
+      }
+
+      .stoprec:active {
+        transform: scale(0.85);
+      }
+
+      .transcription {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid black;
+        display: none;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+
+      table th,
+      table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="photo" class="photoc">
+      <img src="..\images\many.png" alt="" />
+    </div>
+    <div class="heading">
+      <h1 style="margin-left: 40%">Delayed Recall Task</h1>
+    </div>
+    <div class="description">
+      <p>
+        You will be given a picture that'll contain many things from the real
+        world. The picture will be shown to you for a brief period of 16
+        seconds. In that period, you have to memorize as many items as you can.
+      </p>
+      <p>
+        After completion of the demonstration step, you'll be asked to write
+        down as many things as you can recall.
+        <b>The more you recall, the more points you'll get.</b>
+      </p>
+    </div>
+    <div class="mainsection">
+      <div class="left">
+        <div class="buttonstart">
+          <a
+            ><button class="custom-btn btn-6 but">
+              <span>
+                <br />
+                Start the Game
+              </span>
+            </button></a
+          >
+        </div>
+      </div>
+      <div class="right">
+        <!--<form action="/submit" method="post">
+                <h2 style="text-align: center;">Enter Here</h2>
+                <textarea id="paragraph" name="paragraph" rows="15" cols="50" placeholder="write here"></textarea><br><br>
+
+            </form> -->
+        <i class="fa-solid fa-microphone fa-7x"></i>
+        <div class="stoprec"></div>
+        <p class="transcription"></p>
+        <script src="audioinput/memoryaudio.js"></script>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-secondary score">Check score</button>
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href='index.html'"
+      >
+        Back to Home
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        onclick="window.location.href='memory.html'"
+      >
+        Restart
+      </button>
+
+      <div id="scoreCardModal" class="score-card-modal">
+        <div class="score-card-content">
+          <!-- Content of your score card goes here -->
+          <h2>Score Card</h2>
+          <p>Accuracy: <span class="scoreValue"></span> %</p>
+
+          <p class="conclusion"></p>
+          <span></span>
+          <!-- Add more content as needed -->
+          <p>Previous Scores</p>
+          <table id="previousScores" class="table table-striped">
+            <!-- Previous scores will be inserted here -->
+          </table>
+          <button id="closeScoreCardBtn">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var but = document.querySelector(".but");
+    var scorecount = 0;
+
+    function getUserId() {
+      let currentUser = JSON.parse(localStorage.getItem("currentUser")) || {};
+      return currentUser.email || "Unknown";
+    }
+
+    function storeTestAttempt(testName, date, time, score, userId) {
+      let testAttempts = JSON.parse(localStorage.getItem("testAttempts")) || [];
+
+      testAttempts.push({
+        testName: testName,
+        date: date,
+        time: time,
+        score: score,
+        userId: userId,
+      });
+
+      localStorage.setItem("testAttempts", JSON.stringify(testAttempts));
+    }
+
+    var scorebutton = document.querySelector(".score");
+    scorebutton.onclick = function () {
+      let card = document.querySelector(".score-card-modal");
+      card.style.display = "block";
+      var text = document.querySelector("#paragraph").value;
+      let group1 = [
+        "moon",
+        "trophy",
+        "cow",
+        "boy",
+        "teacher",
+        "train",
+        "rail",
+        "phone",
+        "pig",
+        "goat",
+        "star",
+        "sheep",
+        "horse",
+        "cock",
+        "hen",
+        "god",
+        "krishna",
+        "farmer",
+        "man",
+        "flower",
+        "grapes",
+        "road",
+        "car",
+        "banana",
+      ];
+      let group2 = [
+        "x-mas tree",
+        "tree",
+        "mouse",
+        "hat",
+        "bulb",
+        "globe",
+        "rainbow",
+        "statue of liberty",
+        "statue",
+        "woman",
+        "lady",
+        "santa",
+        "christmas",
+        "clock",
+        "table",
+        "book",
+        "phone",
+        "school",
+        "mobile",
+        "watermelon",
+        "cupboard",
+        "almirah",
+        "scissor",
+        "bag",
+        "mirror",
+        "rat",
+        "building",
+        "lion",
+        "mango",
+        "pigeon",
+        "chair",
+        "vase",
+        "light",
+        "laptop",
+      ];
+
+      scorecount = 0;
+      for (let i = 0; i < group1.length; i++) {
+        if (text.includes(group1[i])) {
+          scorecount++;
+          console.log(group1[i] + " is found");
+        }
+      }
+      for (let i = 0; i < group2.length; i++) {
+        if (text.includes(group2[i])) {
+          scorecount++;
+          console.log(group2[i] + " is found");
+        }
+      }
+
+      let accuracy = (scorecount / (group1.length + group2.length)) * 100;
+      let accuracyFormatted = accuracy.toFixed(2);
+
+      let scoreValue = document.querySelector(".scoreValue");
+      scoreValue.textContent = accuracyFormatted;
+      let data = { score: scorecount };
+      fetch("http://localhost:3001/memory", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: {
+          data,
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("error", error));
+      let conclusion = document.querySelector(".conclusion");
+      if (accuracy <= 33.33) {
+        conclusion.textContent = "Less Memorable";
+      } else if (accuracy <= 67) {
+        conclusion.textContent = "Average Memorable";
+      } else {
+        conclusion.textContent = "Highly Memorable";
+      }
+
+      let testName = "Memory Test";
+      let currentDate = new Date().toLocaleDateString();
+      let currentTime = new Date().toLocaleTimeString();
+      let userId = getUserId();
+
+      storeTestAttempt(
+        testName,
+        currentDate,
+        currentTime,
+        accuracyFormatted,
+        userId
+      );
+
+      displayPreviousScores();
+    };
+
+    var closebutton = document.querySelector("#closeScoreCardBtn");
+    closebutton.onclick = function () {
+      let card = document.querySelector(".score-card-modal");
+      card.style.display = "none";
+    };
+
+    but.onclick = function () {
+      var pic = document.querySelector(".photoc");
+      pic.style.display = "block";
+
+      setTimeout(function () {
+        pic.style.display = "none";
+      }, 16000);
+    };
+
+    function displayPreviousScores() {
+      let testAttempts = JSON.parse(localStorage.getItem("testAttempts")) || [];
+      let memoryTestAttempts = testAttempts.filter(
+        (attempt) => attempt.testName === "Memory Test"
+      );
+
+      let scoreTable = document.querySelector("#previousScores");
+      scoreTable.innerHTML = "";
+
+      let tableHeader = `
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Score</th>
+                
+            </tr>`;
+      scoreTable.innerHTML = tableHeader;
+
+      memoryTestAttempts.forEach((attempt) => {
+        let dateTime = new Date(attempt.date + " " + attempt.time);
+        let formattedDate = dateTime.toLocaleDateString();
+        let formattedTime = dateTime.toLocaleTimeString();
+
+        let scoreRow = `
+                <tr>
+                    <td>${formattedDate}</td>
+                    <td>${formattedTime}</td>
+                    <td>${attempt.score}</td>
+                   
+                </tr>`;
+        scoreTable.innerHTML += scoreRow;
+      });
+    }
+  </script>
+</html>

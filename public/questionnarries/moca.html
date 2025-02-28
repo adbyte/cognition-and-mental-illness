@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* General Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(to right, #74ebd5, #ACB6E5);
+        color: #333;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .container {
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 700px;
+        text-align: center;
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.9);
+        margin-top: 20px;
+        max-height: calc(100vh - 40px);
+        overflow-y:auto;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .scrollable-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-bottom: 30px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        background: #f9f9f9;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+        margin-bottom: 30px;
+        padding: 15px;
+        border-radius: 10px;
+        background: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .question.correct {
+        border: 2px solid #2ecc71;
+        background: #d4edda;
+    }
+
+    .question.incorrect {
+        border: 2px solid #e74c3c;
+        background: #f8d7da;
+    }
+
+    .question p {
+        font-size: 1.2rem;
+        color: #34495e;
+        font-weight: 500;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 25px;
+        border: 2px solid #bdc3c7;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        background-color: #f1f1f1;
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"]:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
+    button {
+        background-color: #3498db;
+        color: #fff;
+        padding: 15px 25px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    button.hidden {
+        display: none;
+    }
+
+    #result {
+        margin-top: 30px;
+        font-size: 2.5rem;
+        color: #16a085;
+        font-weight: bold;
+    }
+
+    #feedback {
+        color: #e74c3c;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .mic-button {
+        margin-top: 20px;
+        background-color: #2ecc71;
+        border-radius: 30px;
+        color: white;
+        padding: 15px 25px;
+        cursor: pointer;
+        border: none;
+        font-size: 18px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .mic-button:hover {
+        background-color: #27ae60;
+        transform: translateY(-2px);
+    }
+
+    .mic-button:active {
+        transform: translateY(0);
+    }
+
+    .mcq-options {
+        text-align: left;
+        margin-top: 15px;
+    }
+
+    .mcq-options label {
+        display: block;
+        padding: 10px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .mcq-options label:hover {
+        background-color: #e9e9e9;
+    }
+
+    #score {
+        font-size: 2.5rem;
+        color: #16a085;
+        font-weight: bold;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <h1>Cognitive Disorder Analysis Test</h1>
+        <div id="question-container" class="scrollable-container">
+            <!-- Questions will be injected here -->
+        </div>
+        <button id="submit-button" onclick="submitTest()">Submit Test</button>
+        <p id="feedback"></p>
+        <button id="retake-button" class="hidden" onclick="startTest()">Retake Test</button>
+        <div id="result" class="hidden">
+            <h2>Your Score: <span id="score"></span></h2>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "What is the date today?", correctAnswer: "date", answer: "", type: "text" },
+            { question: "What is 100 minus 7?", correctAnswer: "93", answer: "", type: "text" },
+            { question: "What is the capital of France?", correctAnswer: "paris", answer: "", type: "text" },
+            { question: "Spell the word 'WORLD' backwards.", correctAnswer: "dlrow", answer: "", type: "text" },
+            { question: "How many sides does a hexagon have?", correctAnswer: "6", answer: "", type: "text" },
+            { question: "Name the four seasons in order.", correctAnswer: ["spring", "summer", "fall", "winter"], answer: "", type: "text" },
+            { question: "What are the colors of the rainbow?", correctAnswer: ["red", "orange", "yellow", "green", "blue", "indigo", "violet"], answer: "", type: "text" },
+            { question: "Count backward from 20 to 0.", correctAnswer: "counting", answer: "", type: "text" },
+            { question: "Recall the following words: Apple, Pen, Dog.", correctAnswer: ["apple", "pen", "dog"], answer: "", type: "audio" },
+            { question: "Recall the following words: Cat, Book, Tree.", correctAnswer: ["cat", "book", "tree"], answer: "", type: "audio" },
+            { question: "What comes next in the sequence: 2, 4, 6, ...?", correctAnswer: "8", answer: "", type: "text" },
+            { question: "Select the odd one out: Apple, Orange, Carrot, Banana.", options: ["Apple", "Orange", "Carrot", "Banana"], correctAnswer: "Carrot", answer: "", type: "mcq" },
+            { question: "Which of the following is a mammal? Lion, Shark, Penguin, Goldfish.", options: ["Lion", "Shark", "Penguin", "Goldfish"], correctAnswer: "Lion", answer: "", type: "mcq" },
+            { question: "What is the largest continent by area?", options: ["Asia", "Africa", "Europe", "North America"], correctAnswer: "Asia", answer: "", type: "mcq" },
+            { question: "Choose the smallest prime number: 1, 2, 3, 4.", options: ["1", "2", "3", "4"], correctAnswer: "2", answer: "", type: "mcq" },
+            { question: "Identify the odd one out: Hammer, Wrench, Screwdriver, Nail.", options: ["Hammer", "Wrench", "Screwdriver", "Nail"], correctAnswer: "Nail", answer: "", type: "mcq" }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function loadQuestion() {
+            const container = document.getElementById('question-container');
+            container.innerHTML = '';
+            questions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('question');
+                questionElement.id = `question-${index}`;
+
+                if (question.type === 'text') {
+                    questionElement.innerHTML = `
+                        <p>${question.question}</p>
+                        <input type="text" id="answer-${index}" oninput="storeAnswer(${index}, this.value)" />
+                    `;
+                } else if (question.type === 'mcq') {
+                    const optionsHTML = question.options.map(option => `
+                        <label>
+                            <input type="radio" name="answer-${index}" value="${option}" onchange="storeAnswer(${index}, '${option}')" /> 
+                            ${option}
+                        </label>
+                    `).join('');
+                    questionElement.innerHTML = `
+                        <p>${question.question}</p>
+                        <div class="mcq-options">
+                            ${optionsHTML}
+                        </div>
+                    `;
+                }
+
+                container.appendChild(questionElement);
+            });
+        }
+
+        function storeAnswer(index, value) {
+            questions[index].answer = value.toLowerCase();
+        }
+
+        function submitTest() {
+            let score = 0;
+
+            questions.forEach((question, index) => {
+                const isCorrect = Array.isArray(question.correctAnswer)
+                    ? question.correctAnswer.every((val, i) => val.toLowerCase() === question.answer[i])
+                    : question.correctAnswer.toLowerCase() === question.answer;
+
+                const questionElement = document.getElementById(`question-${index}`);
+                if (isCorrect) {
+                    questionElement.classList.add('correct');
+                    score++;
+                } else {
+                    questionElement.classList.add('incorrect');
+                }
+            });
+
+            document.getElementById('feedback').textContent = 'Test Submitted';
+            document.getElementById('submit-button').classList.add('hidden');
+            document.getElementById('retake-button').classList.remove('hidden');
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('score').textContent = `${score}/${questions.length}`;
+        }
+
+        function startTest() {
+            currentQuestionIndex = 0;
+            questions.forEach(question => question.answer = '');
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('submit-button').classList.remove('hidden');
+            document.getElementById('retake-button').classList.add('hidden');
+            document.getElementById('result').classList.add('hidden');
+            loadQuestion();
+        }
+
+        // Initialize the test
+        startTest();
+    </script>
+</body>
+</html>

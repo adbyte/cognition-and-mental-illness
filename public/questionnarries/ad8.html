@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150vh;
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("../../images/bg.png");
+    }
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: #91b2c9;
+      box-shadow: 0 4px 8px rgba(171, 27, 27, 0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #1a1212;
+      font-size: 1.8em;
+      font-weight: 700;
+      font-size: 35px;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #082931;
+      font-size: 18;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 5px;
+      font-size: 1em;
+      color: #333;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    select:hover {
+      border-color: #888;
+      background-color: #fff;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    #scoreCardModal {
+      display: none;
+      overflow: auto;
+      z-index: 1000;
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+
+      background: url("../images/bg.png");
+    }
+
+    .score-card-content {
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #e2e2e9;
+      width: 60%;
+      max-width: 600px;
+      text-align: center;
+      background-color: #ffffff;
+      font-size: medium;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: "Arial", sans-serif;
+    }
+
+    .score-card-content button {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .score-card-content button:hover {
+      background-color: #0056b3;
+    }
+    .score-card-content h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .score-card-content p {
+      font-size: 18px;
+      color: #666;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    table th,
+    table td {
+      padding: 10px;
+      text-align: left;
+    }
+    option.yes {
+      background-color: green;
+    }
+
+    option.no {
+      background-color: red;
+    }
+
+    option.dont {
+      background-color: lightgray;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <h1>AD8 Dementia Screening Interview</h1>
+      <div class="question">
+        <label for="question1"
+          >Problems with judgment (e.g., problems making decisions, bad
+          financial decisions, problems with thinking).</label
+        >
+        <select name="question1" id="question1">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question2">Less interest in hobbies/activities.</label>
+        <select name="question2" id="question2">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question3"
+          >Repeats the same things over and over (questions, stories, or
+          statements).</label
+        >
+        <select name="question3" id="question3">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question4"
+          >Trouble learning how to use a tool, appliance, or gadget (e.g., VCR,
+          computer, microwave, remote control).</label
+        >
+        <select name="question4" id="question4">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question5">Forgets correct month or year.</label>
+        <select name="question5" id="question5">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question6"
+          >Trouble handling complicated financial affairs (e.g., balancing
+          checkbook, income taxes, paying bills).</label
+        >
+        <select name="question6" id="question6">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question7">Trouble remembering appointments.</label>
+        <select name="question7" id="question7">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+      <div class="question">
+        <label for="question8"
+          >Daily problems with thinking and/or memory.</label
+        >
+        <select name="question8" id="question8">
+          <option value="choose">choose</option>
+          <option value="yes" class="yes">yes</option>
+          <option value="no" class="no">no</option>
+          <option value="dont know" class="dont">don't know</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn btn-secondary score">Check score</button>
+      <button
+        type="button"
+        class="btn btn-success"
+        onclick="window.location.href='../index.html'"
+      >
+        Back to Home
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        onclick="window.location.href='ad8.html'"
+      >
+        Restart
+      </button>
+
+      <div id="scoreCardModal" class="score-card-modal">
+        <div class="score-card-content">
+          <!-- Content of your score card goes here -->
+          <h2>Score Card</h2>
+          <p>Your Score is : <span class="correctValue"></span></p>
+          <p class="conclusion"></p>
+          <!--<p>Previous Scores</p>-->
+          <table id="previousScores" class="table table-striped">
+            <!-- Previous scores will be inserted here -->
+          </table>
+          <button id="closeScoreCardBtn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let score = 0;
+
+        const selectElements = document.querySelectorAll("select");
+        selectElements.forEach((select) => {
+          select.addEventListener("change", (event) => {
+            console.log("Option selected:", event.target.value);
+            if (event.target.value === "yes") {
+              score++;
+              console.log("Score incremented:", score);
+            }
+          });
+        });
+
+        const scoreButton = document.querySelector(".score");
+        scoreButton.onclick = function () {
+          const modal = document.querySelector(".score-card-modal");
+          modal.style.display = "block";
+          const scoreValue = document.querySelector(".correctValue");
+          scoreValue.innerHTML = `${score}`;
+          const conclusion = document.querySelector(".conclusion");
+
+          let msg;
+          if (score <= 1) {
+            msg = "Normal cognitive function";
+          } else {
+            msg =
+              "Cognitive impairment is likely present, and further evaluation is warranted";
+          }
+          conclusion.innerHTML = `${msg}`;
+        };
+
+        const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+        closeScoreCardBtn.addEventListener("click", function () {
+          const scoreCardModal = document.querySelector(".score-card-modal");
+          scoreCardModal.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

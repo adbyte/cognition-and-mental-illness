@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>perception</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin:0px;
+        padding: 0px;
+        background: url("../images/bg.png") no-repeat center center fixed;
+        overflow: scroll;
+    }
+
+    .description {
+        background-color: #7CEBFC;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: bolder;
+        width: 80%;
+        border-radius: 12%;
+        opacity: .6;
+
+
+    }
+    .headingvisual h1{
+        border: 2px solid #f6f7f9;
+    }
+
+    .description:hover {
+        background-color: #296186;
+    }
+
+    .btn-6 {
+        background: #7CEBFC;
+        background: radial-gradient(circle, #7CEBFC 0%, #296186 100%);
+        line-height: 80px;
+        /* Increased line-height for larger button */
+        padding: 0;
+        border: none;
+        font-size: 4rem;
+        /* Increased font size for larger text */
+        width: 500px;
+        /* Increased width */
+        height: 200px;
+        margin: 7rem;
+        /* Increased height */
+    }
+
+    .btn-6 span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-6:before,
+    .btn-6:after {
+        position: absolute;
+        content: "";
+        height: 0%;
+        width: 1px;
+        box-shadow:
+            -1px -1px 20px 0px rgba(255, 255, 255, 1),
+            -4px -4px 5px 0px rgba(255, 255, 255, 1),
+            7px 7px 20px 0px rgba(0, 0, 0, .4),
+            4px 4px 5px 0px rgba(0, 0, 0, .3);
+    }
+
+    .btn-6:before {
+        right: 0;
+        top: 0;
+        transition: all 500ms ease;
+    }
+
+    .btn-6:after {
+        left: 0;
+        bottom: 0;
+        transition: all 500ms ease;
+    }
+
+    .btn-6:hover {
+        background: transparent;
+        color: #76aef1;
+        box-shadow: none;
+    }
+
+    .btn-6:hover:before {
+        transition: all 500ms ease;
+        height: 100%;
+    }
+
+    .btn-6:hover:after {
+        transition: all 500ms ease;
+        height: 100%;
+    }
+
+    .btn-6 span:before,
+    .btn-6 span:after {
+        position: absolute;
+        content: "";
+        box-shadow:
+            -1px -1px 20px 0px rgba(255, 255, 255, 1),
+            -4px -4px 5px 0px rgba(255, 255, 255, 1),
+            7px 7px 20px 0px rgba(0, 0, 0, .4),
+            4px 4px 5px 0px rgba(0, 0, 0, .3);
+    }
+
+    .btn-6 span:before {
+        left: 0;
+        top: 0;
+        width: 0%;
+        height: .5px;
+        transition: all 500ms ease;
+    }
+
+    .btn-6 span:after {
+        right: 0;
+        bottom: 0;
+        width: 0%;
+        height: .5px;
+        transition: all 500ms ease;
+    }
+
+    .btn-6 span:hover:before {
+        width: 100%;
+    }
+
+    .btn-6 span:hover:after {
+        width: 100%;
+    }
+
+    .buttonstart {
+        width: 100%;
+        height: 70%;
+
+    }
+
+    .custom-btn {
+        margin-top: 10%;
+        margin-left: 35%;
+        margin-bottom: 100px;
+        cursor: pointer;
+
+    }
+
+    p {
+        padding: 10px;
+    }
+
+    .custom-btn span {
+        text-align: center;
+        padding: 0;
+    }
+
+    .l,
+    .t {
+        background: #7CEBFC;
+        padding: 3px;
+        margin: 3px;
+        cursor: pointer;
+
+    }
+
+
+    .grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100vw;
+        height:100vh;
+        margin:0;
+
+    }
+
+    .t:active {
+        background-color: green;
+    }
+
+    .l:active {
+        background-color: red;
+    }
+
+    #scoreCardModal {
+        display: none;
+        overflow: auto;
+        z-index: 1000;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+
+        background: url("../images/bg.png");
+    }
+
+
+    .score-card-content {
+  
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #e2e2e9;
+  width: 60%;
+  max-width: 600px;
+  text-align: center;
+  background-color: #ffffff;
+  font-size: medium;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.score-card-content button {
+display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.score-card-content button:hover {
+  background-color: #0056b3;
+}
+.score-card-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.score-card-content p {
+  font-size: 18px;
+  color: #666;
+}
+.helpoption{
+        display: none;
+        width:80%;
+        height:100%;
+        z-index: 10000;
+        background-color: #296186;
+        transform: translateY(-700px);
+
+    }
+    .helpoption .pre{
+        margin-left: 0;
+    }
+    .fa-x:hover{
+        cursor: pointer;
+    }
+    .fa-x:active{
+        color: red;
+
+    }
+    .headingvisual{
+        padding: 1rem;
+        color: black;
+        
+    }
+    .beforestart{
+        
+        top: 0;
+        left: 0;
+        margin: 26px;
+        background-color: #f6f7f9;
+        border: 2px solid black;
+        opacity: .7;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+        align-items: center;
+        display: none;
+    }
+    .readybutton{
+        margin: 20px;
+        border-radius: 25%;
+        width: 100%;
+    }
+    .pclass{
+        font-size: 2rem;
+    }
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+</style>
+<body>
+    <div class="headingvisual">
+        <h1>VISUAL SEARCH TASK</h1>
+    </div>
+   
+    <div class="description">
+        <p>Welcome to the Visual Search Task! This engaging game challenges your ability to quickly and accurately find
+            a specific target among a grid of distractors. Here's how you play:
+
+            Objective
+            Your goal is to find and click on a target shape or letter hidden among a grid of similar but slightly
+            different shapes or letters. Speed and accuracy are key! <br> Here , Grid of I's are given , find the T's
+        </p>
+    </div>
+    <br>
+    <div class="description">
+        <p>
+            The goal is to understand how quickly and accurately one can identify the target and what factors affect their performance.
+        </p>
+    </div>
+
+    <a href="#bs"> <div class="buttonstart">
+        <button class="custom-btn btn-6"><span> <br> Start the Game </span></button>
+       
+    </div></a>
+   
+    <div class="beforestart" id="bs">
+        <p class="pclass">
+           You 'll' be given 30 seconds for the task , under which only you have to find T's in the horde of I's 
+        </p>
+        <p><h3>ALL THE BEST</h3></p>
+        <a href="#grid"> <button class="readybutton">READY</button></a>
+       
+   </div>
+    <div id="grid" class="grid">
+        
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+
+        <div class="t"><i class="fa-solid fa-t fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-l fa-3x"></i></div>
+        <div class="l"><i class="fa-solid fa-i fa-3x"></i></div>
+
+    </div>
+    <div class="footer">
+
+        <button type="button" class="btn btn-secondary score">Check score</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to Home </button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='perception.html'">Restart</button>
+        <button type="button" class="btn btn-warning" onclick="help()">Help ?</button>
+        <div id="scoreCardModal" class="score-card-modal">
+            <div class="score-card-content">
+                <!-- Content of your score card goes here -->
+                <h2>Score Card</h2>
+                <p>Accuracy: <span class="scoreValue"></span> %</p>
+                <p>Error score : <span class="error"></span></p>
+                <p class="conclusion"></p>
+                <span></span>
+                
+                <!-- Add more content as needed -->
+                <p>Previous Scores</p>
+                <table id="previousScores" class="table table-striped">
+                    <!-- Previous scores will be inserted here -->
+                </table>
+                <button id="closeScoreCardBtn">Close</button>
+            </div>
+        </div>
+        <div  class="helpoption">
+            <p><pre>
+                Visual Search Task: How to Play         <i class="fa-solid fa-x"></i>
+                Welcome to the Visual Search Task! This engaging game 
+                challenges your ability to quickly and accurately
+                find a specific target among a grid of distractors.
+                 Here's how you play:
+
+                <b>Objective</b>
+                Your goal is to find and click on a target shape or letter 
+                hidden among a grid of similar but slightly
+                different shapes or letters. Speed and accuracy are key!
+
+                How to Play
+                Starting the Game:
+
+                Once you start the game, a grid will appear on your screen 
+                for a short period.
+                The grid will be filled with various shapes or letters.
+                Understanding the Grid:
+
+              
+                Each cell in the grid will contain either the target item 
+                you need to find or a distractor that looks similar to 
+                the target.
+                Identifying the Target:
+
+                Before the grid appears, you'll be informed about the target 
+                shape or letter you need to find. For example, you might need
+                 to find the letter "T" among a grid full of "I"s.
+                Pay close attention to the target item so you can recognize 
+                it quickly when the grid appears.
+                The Grid Display:
+
+                
+                Making Your Selection:
+
+                As soon as you spot the target item, click on it as quickly as
+                 possible.
+                Be careful with your selection : clicking on a distractor 
+                instead of the target will affect your
+                accuracy.
+                Feedback and Scoring:
+
+                After you click, you will receive immediate feedback 
+                indicating whether you found the correct target.
+                If you clicked on the correct target,it will be red.
+                If you clicked on a distractor, 
+                Tracking Performance:
+
+                Your performance will be tracked based on how much u pressed 
+                correct targets 
+                Try to improve your speed and accuracy with each attempt!
+                Example
+                Task: "Find the letter 'T' among a grid of 'I's."
+
+                Starting: The game begins, and you see a grid.
+                Identifying the Target: You know you need to find the letter
+                 "T."
+                Grid Display: The grid appears, filled with letters "I" and
+                 some letter "T."
+                Finding and Clicking: You scan the grid, spot the "T," and 
+                click on it as fast as you can.
+               
+                Stay Focused: Concentrate on the grid and block out distractions.
+                Be Quick but Accurate: Speed is important, but accuracy matters
+                 more. Dont rush so much that you click the wrong item.
+                Practice: The more you play, the better you'll get at quickly
+                 identifying the target among distractors.
+                Enjoy the challenge and see how fast and accurately you can find 
+                the target in the Visual Search Task!</pre>
+            </p>
+        </div>
+    </div>
+   
+</body>
+<script>
+    const buttonstart = document.querySelector(".buttonstart");
+    const beforestart = document.querySelector(".beforestart");
+    
+    buttonstart.onclick = function () {
+        beforestart.style.display = "flex";
+    }
+    
+    const readybutton = document.querySelector(".readybutton");
+    
+    readybutton.onclick = function () {
+        beforestart.style.display = "none";
+        setTimeout(() => {
+            const grid = document.querySelector(".grid");
+            grid.style.display = "none";
+            console.log("ho gya");
+        }, 30000);
+    }
+    
+    function help() {
+        let hp = document.querySelector(".helpoption");
+        hp.style.display = "block";
+    }
+    
+    var iletter = document.querySelectorAll(".l");
+    var tletter = document.querySelectorAll(".t");
+    var score = document.querySelector(".scoreValue");
+    var scorebutton = document.querySelector(".score");
+    
+    var icount = 0;
+    var tcount = 0;
+    
+    iletter.forEach((element) => {
+        element.onclick = function () {
+            icount++;
+        };
+    });
+    
+    tletter.forEach((element) => {
+        element.onclick = function () {
+            tcount++;
+            element.style.backgroundColor = "green";
+            console.log(tcount);
+        };
+    });
+    
+    function getUserId() {
+        // Retrieve the currentUser from local storage and get the email
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+        return currentUser.email || 'Unknown';
+    }
+    
+    function storeTestAttempt(testName, date, time, score, userId) {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+    
+        testAttempts.push({
+            testName: testName,
+            date: date,
+            time: time,
+            score: score,
+            userId: userId // Add user ID to the stored data
+        });
+    
+        localStorage.setItem('testAttempts', JSON.stringify(testAttempts));
+    }
+    
+    scorebutton.onclick = function () {
+        scoreCardModal.style.display = "block";
+    
+        let sc = tcount * 10;
+        score.innerHTML = `${sc}`;
+        let er = document.querySelector(".error");
+        er.innerHTML = `${icount}`;
+         let data = { score: sc };
+      fetch("http://localhost:3001/perception", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+       body: {
+          data,
+        },
+      })
+        .then((response) => response.text())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("error", error));
+        let msg;
+    
+        if (sc <= 33.33) {
+            msg = "Less Perceptive";
+        } else if (sc <= 67) {
+            msg = "Average Perceptive";
+        } else if (sc <= 100) {
+            msg = "High Perceptive";
+        } else {
+            msg = 'You pressed same T multiple times ..';
+        }
+    
+        let con = document.querySelector(".conclusion");
+        con.innerHTML = `${msg}`;
+    
+        let testName = "Perception Test";
+        let currentDate = new Date().toLocaleDateString();
+        let currentTime = new Date().toLocaleTimeString();
+        let userId = getUserId(); // Retrieve the user ID from local storage
+    
+        storeTestAttempt(testName, currentDate, currentTime, sc, userId);
+    
+        displayPreviousScores();
+    }
+    
+    const closeScoreCardBtn = document.getElementById("closeScoreCardBtn");
+    closeScoreCardBtn.addEventListener("click", function () {
+        scoreCardModal.style.display = "none";
+    });
+    
+    let x = document.querySelector(".fa-x");
+    x.onclick = function () {
+        let hp = document.querySelector(".helpoption");
+        hp.style.display = "none";
+    }
+    
+    function displayPreviousScores() {
+        let testAttempts = JSON.parse(localStorage.getItem('testAttempts')) || [];
+        let perceptionTestAttempts = testAttempts.filter(attempt => attempt.testName === 'Perception Test');
+    
+        let scoreTable = document.querySelector("#previousScores");
+        scoreTable.innerHTML = "";
+    
+        let tableHeader = `
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Score</th>
+                
+            </tr>`;
+        scoreTable.innerHTML += tableHeader;
+    
+        perceptionTestAttempts.forEach(attempt => {
+            let dateTime = attempt.date.split(", ");
+            let date = dateTime[0];
+            let time = dateTime[1];
+            let scoreRow = `
+                <tr>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${attempt.score}</td>
+                  
+                </tr>`;
+            scoreTable.innerHTML += scoreRow;
+        });
+    }
+    </script>
+    
+
+</html>

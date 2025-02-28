@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perception and Cognition Task with Timer</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+    .button {
+      margin-top: 20px;
+    }
+    .timer {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer" id="timer">Time Remaining: 60s</div>
+  <div id="road"></div>
+  <button class="button" onclick="recordPress()">Press</button>
+
+  <script>
+    let stripCount = 0;
+    let pressCount = 0;
+    const totalStrips = 100; // Total strips to be displayed
+    const stripsToHome = 5;  // Number of strips before pressing the button
+    const maxTime = 60000;   // Maximum time for the task in milliseconds (1 minute)
+    let timeRemaining = 60;  // Time remaining in seconds
+
+    // Generate road strips
+    function generateRoad() {
+      const road = document.getElementById('road');
+      for (let i = 0; i < totalStrips; i++) {
+        const strip = document.createElement('div');
+        strip.style.width = '100%';
+        strip.style.height = '10px';
+        strip.style.backgroundColor = i % 2 === 0 ? 'yellow' : 'gray';
+        strip.style.marginBottom = '5px';
+        road.appendChild(strip);
+      }
+    }
+
+    // Record button press
+    function recordPress() {
+      pressCount++;
+      stripCount += stripsToHome;
+      if (stripCount >= totalStrips) {
+        alert(`Task completed! Total presses: ${pressCount}`);
+        clearInterval(timerInterval);
+      }
+    }
+
+    // Start task and timer
+    function startTask() {
+      generateRoad();
+      timerInterval = setInterval(updateTimer, 1000);
+      setTimeout(() => {
+        clearInterval(timerInterval);
+        alert(`Time's up! Total presses: ${pressCount}`);
+      }, maxTime);
+    }
+
+    // Update timer display
+    function updateTimer() {
+      timeRemaining--;
+      document.getElementById('timer').textContent = `Time Remaining: ${timeRemaining}s`;
+      if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+      }
+    }
+
+    // Initialize task
+    startTask();
+  </script>
+</body>
+</html>

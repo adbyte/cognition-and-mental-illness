@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Tests</title>
+    <style>
+      body {
+        background: url("../images/bg4.png") no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: "Segoe UI", sans-serif;
+        overflow-x: hidden;
+      }
+      .nav {
+        height: 50px;
+        width: 100%;
+        position: relative;
+      }
+      .nav > .nav-header > .nav-title {
+        display: inline-block;
+        font-size: 22px;
+        color: #fff;
+        padding: 10px 10px 10px 10px;
+      }
+      .nav > .nav-btn {
+        display: none;
+      }
+      .nav > .nav-links {
+        display: inline;
+        float: right;
+        font-size: 18px;
+      }
+      .nav > .nav-links > a {
+        display: inline-block;
+        padding: 13px 10px;
+        text-decoration: none;
+        color: #efefef;
+      }
+      .nav > .nav-links > a:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .nav > #nav-check {
+        display: none;
+      }
+      @media (max-width: 600px) {
+        .nav > .nav-btn {
+          display: inline-block;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+        .nav > .nav-btn > label {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          padding: 13px;
+        }
+        .nav > .nav-btn > label > span {
+          display: block;
+          width: 25px;
+          height: 10px;
+          border-top: 2px solid #eee;
+        }
+        .nav > .nav-links {
+          position: absolute;
+          display: block;
+          width: 100%;
+          background-color: #333;
+          transition: all 0.3s ease-in;
+          overflow-y: hidden;
+          top: 50px;
+          left: 0px;
+        }
+        .nav > .nav-links > a {
+          display: block;
+          width: 100%;
+        }
+        .nav > #nav-check:not(:checked) ~ .nav-links {
+          height: 0px;
+        }
+        .nav > #nav-check:checked ~ .nav-links {
+          height: calc(100vh - 50px);
+          overflow-y: auto;
+        }
+      }
+
+      .mainheading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+        height: 25%;
+        width: 100%;
+      }
+      .head {
+        font-size: 4.5rem;
+        font-family: "Roboto", sans-serif;
+        color: #293658;
+        margin: 0;
+      }
+      @media (max-width: 650px) {
+        .head {
+          font-size: 4rem;
+        }
+      }
+      @media (max-width: 586px) {
+        .head {
+          font-size: 3rem;
+        }
+      }
+
+      .cardsdiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 20px;
+        width: 100%;
+      }
+
+      .card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 20px;
+        overflow: hidden;
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 300px;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-10px);
+      }
+
+      .testhead {
+        color: #293658;
+        font-size: 2rem;
+        margin: 0 0 10px;
+      }
+
+      .abouttest {
+        color: #555;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-size: 0.9rem;
+        margin: 10px 0;
+      }
+
+      .testbutton {
+        background-color: #296186;
+        border: none;
+        border-radius: 30px;
+        color: white;
+        cursor: pointer;
+        font-size: 1rem;
+        margin: 20px auto 0;
+        padding: 10px 20px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        width: 60%;
+      }
+
+      .testbutton:hover {
+        background-color: #47bfbf;
+        transform: scale(1.05);
+      }
+
+      .testbutton a {
+        color: white;
+        display: block;
+        text-decoration: none;
+      }
+
+      .odd {
+        background-color: #f7f7f7;
+      }
+
+      .even {
+        background-color: #e7e7e7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <input type="checkbox" id="nav-check" />
+      <div class="nav-header"></div>
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="cognition.html">Cognition Domain Test</a>
+        <a href="login.html" class="signlog">Login</a>
+        <a href="sign_up.html" class="signlog">Sign up</a>
+        <a href="tests.html">Non-Clinical Tests</a>
+        <a href="profile.html" class="myprofile">My profile</a>
+      </div>
+    </div>
+
+    <div class="mainheading">
+      <h1 class="head">Non-Clinical Tests</h1>
+    </div>
+
+    <div class="cardsdiv">
+      <div class="card odd">
+        <h3 class="testhead">GHQ-Test</h3>
+        <p class="abouttest">
+          The GHQ-12 (General Health Questionnaire-12) is a screening tool used
+          to assess general mental health and psychological well-being. It
+          consists of 12 questions that focus on recent experiences, typically
+          over the past week.
+        </p>
+        <button class="testbutton">
+          <a href="https://ghq12-app.vercel.app">Open Test</a>
+        </button>
+      </div>
+
+      <div class="card even">
+        <h3 class="testhead">CFT</h3>
+        <p class="abouttest">
+          Cognition function tests are used to evaluate various aspects of
+          cognitive functioning, including memory, attention, language,
+          problem-solving, and executive functions. These tests can be used in
+          clinical settings to diagnose cognitive impairments or in research
+          settings to study cognitive processes.
+        </p>
+        <button class="testbutton">
+          <a
+            href="https://vercel.com/dhruv-tyagis-projects-45d46a71/cognitive-function-test"
+            >Open Test</a
+          >
+        </button>
+      </div>
+
+      <div class="card odd">
+        <h3 class="testhead">AD-8</h3>
+        <p class="abouttest">
+          The AD8, or Ascertain Dementia 8, is a brief screening tool designed
+          to detect very mild dementia. It consists of eight questions and is
+          typically administered to an informant, such as a family member or
+          caregiver, who is familiar with the patient's daily functioning.
+        </p>
+        <button class="testbutton">
+          <a href="./questionnarries/ad8.html">Open Test</a>
+        </button>
+      </div>
+
+      <div class="card even">
+        <h3 class="testhead">PHQ-9</h3>
+        <p class="abouttest">
+          The PHQ-9 aids in the diagnosis and identification of potential
+          depressive symptoms. At follow-up visits, it measures treatment
+          response. The Questionnaire can be clinician or self-administered.
+        </p>
+        <button class="testbutton">
+          <a href="./questionnarries/pq9.html">Open Test</a>
+        </button>
+      </div>
+
+      <div class="card odd">
+        <h3 class="testhead">MoCA</h3>
+        <p class="abouttest">
+          The Montreal Cognitive Assessment (MoCA) is a widely used screening
+          tool for detecting cognitive impairment. It assesses various cognitive
+          domains, including attention, memory, language, visuospatial
+          abilities, executive function, and orientation.
+        </p>
+        <button class="testbutton">
+          <a href="./questionnarries/moca.html">Open Test</a>
+        </button>
+      </div>
+      <!---
+      <div class="card even">
+        <h3 class="testhead">GAD-7</h3>
+        <p class="abouttest">
+          The Generalized Anxiety Disorder 7-item (GAD-7) scale is a
+          self-report questionnaire used for screening and severity measuring
+          of generalized anxiety disorder (GAD). It consists of 7 questions
+          that measure the severity of symptoms related to anxiety.
+        </p>
+        <button class="testbutton">
+          <a href="https://www.integration.samhsa.gov/clinical-practice/gad708.19.08cart.pdf">Open Test</a>
+        </button>
+      </div>
+
+      <div class="card odd">
+        <h3 class="testhead">MMSE</h3>
+        <p class="abouttest">
+          The Mini-Mental State Examination (MMSE) is a commonly used tool for
+          assessing cognitive function. It includes simple questions and
+          problems in a number of areas such as arithmetic, memory, and
+          orientation. The MMSE is used to screen for dementia and estimate the
+          severity of cognitive impairment.
+        </p>
+        <button class="testbutton">
+          <a href="https://www.parinc.com/Products/Pkey/237">Open Test</a>
+        </button>
+      </div>
+      -->
+    </div>
+  </body>
+</html>

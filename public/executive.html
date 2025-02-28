@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<style>
+    body{
+        background: url("../images/bg.png");
+    }
+    .headingmain{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: rgb(232, 239, 237);
+        border-bottom: 4px solid white ;
+        margin-left: 0;
+        margin-right: 0;
+        
+        
+    }
+    .headingmain h1{
+        padding: 0;
+        margin: 10px;
+        font-size: 3.4em;
+    }
+    .headingmain h4{
+        color: black;
+        
+        margin: 0;
+        font-size: 2rem;
+    }
+    .secondcontainer{
+        display: flex;
+        padding: 1rem;
+
+    }
+    .rules1{
+        background-color: aliceblue;
+        opacity: .4;
+        width: 55%;
+        border-bottom: 4px solid black;
+    }
+    .rules2{
+        background-color: black;
+        opacity: .4;
+        width: 45%;
+        color: white;
+        border-bottom: 4px solid white;
+    }
+    .howtoplay , .rules{
+        font-size: 3rem;
+        opacity: 1;
+        margin-left: 1rem;
+        
+    }
+    .desciption , .rulelist{
+        font-size: 1.2rem;
+        opacity: 1;
+        margin: .5rem;
+        padding: .2rem;
+        
+    }
+    /* 5 */
+.btn-5 {
+  width: 600px;
+  height: 110px;
+  font-size: 2.5rem;
+  line-height: 42px;
+  padding: 0;
+  border-radius: 22%;
+  border: 2px solid black;
+  border: none;
+  background: rgb(255,27,0);
+background: linear-gradient(0deg, #296186 0%, #47BFBF 100%);
+}
+.btn-5:hover {
+  color: black;
+  background: transparent;
+   box-shadow:none;
+   font-size: xx-large;
+}
+.btn-5:before,
+.btn-5:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:35px;
+  width:0;
+  background: aliceblue;
+  box-shadow:
+   -1px -1px 5px 0px #fff,
+   7px 7px 20px 0px #0003,
+   4px 4px 5px 0px #0002;
+  transition:400ms ease all;
+}
+.btn-5:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.btn-5:hover:before,
+.btn-5:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+.startbtn{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 72%;
+     margin: 3rem;
+     margin-left: 14%;
+     cursor: pointer;
+}
+.game{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.gamebox{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 80%;
+    border: 3px solid black;
+    box-shadow: #296186;
+    align-items: center;
+}
+.colordisplay{
+    height: 80%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.colortext{
+    font-size: 7rem;
+    top: 0;
+    left: 0;
+  
+    color: wheat;
+
+}
+.inputbox {
+    width: 100%;
+    height: 20%;
+    padding: 0;
+    margin: 0;
+}
+.ans_by_user{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 2rem;
+  
+}
+.footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .score-card-modal {
+        display: none;
+        overflow: auto;
+        z-index: 1000;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        
+        background-color: white;
+
+    }
+
+   
+    .score-card-content {
+  
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #e2e2e9;
+  width: 60%;
+  max-width: 600px;
+  text-align: center;
+  background-color: #ffffff;
+  font-size: medium;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.score-card-content button {
+display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.score-card-content button:hover {
+  background-color: #0056b3;
+}
+.score-card-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.score-card-content p {
+  font-size: 18px;
+  color: #666;
+}
+.inputsection{
+   
+    width: 100%;
+    padding:1rem;
+    border: .85px solid black;
+    display: flex;
+   margin-top: 5px;
+    border-radius: 25%;
+    
+}
+.inputbox{
+    background-color: white;
+}
+.transcription{
+    width:90%;
+    height:100%;
+
+}
+.fa-microphone{
+    width: 10%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: transform .2s ease;
+}
+.fa-microphone:active{
+    transform: scale(.85);
+}
+.modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+
+</style>
+<body>
+    <div class="headingmain">
+        <h1>
+            <b>Executive Function Test</b>
+        </h1>
+        <h4> STROOP TEST</h4>
+    </div>
+    <div class="secondcontainer">
+        <div class="rules1">
+            <div class="howtoplay">
+                <p>How to Play ?</p>
+            </div>
+            <div class="desciption">
+                <p>You will be present with the balls on which color names will be written such that the color of that color name will not be the same . So , an input box will be given to u and some restricted seconds are given , identify the actual color name of that color and type the correct spelling of that color </p>
+            </div>
+        </div>
+        <div class="rules2">
+            <div class="rules">
+                <p>Know before the Test</p>
+            </div>
+            <div class="rulelist">
+                <ul>The task is to name the ink color of each word as quickly and accurately as possible, ignoring the word's meaning.</ul>
+                <ul>Participants are timed to measure their response speed (reaction time) and accuracy in naming the ink colors.</ul>
+                <ul>The test is used to assess cognitive processing speed, selective attention, and the ability to inhibit automatic responses.</ul>
+            </div>
+        </div>
+    </div>
+    <div class="startbtn">
+        <a href="#game">  <button class="custom-btn btn-5"><span>Start the Game</span></button></a>
+       
+    </div>
+    <div class="game" id="game">
+        <div class="gamebox">
+            <div class="colordisplay">
+                <p class="colortext">Click start  </p>
+            </div>
+            <div class="inputbox">
+                <!--<input type="text" class="ans_by_user" placeholder="Ans here">-->
+                <div class="inputsection">
+                    <div class="transcription"></div>
+                    <i class="fa-solid fa-microphone fa-2x"></i>
+                    <script src="audioinput/executiveaudio.js"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button type="button" class="btn btn-primary st">Start</button>
+        <button type="button" class="btn btn-secondary score">Check score</button>
+        <button type="button" class="btn btn-success" onclick="window.location.href='index.html'">Back to Home </button>
+        <button type="button" class="btn btn-danger" onclick="window.location.href='executive.html'">Restart</button>
+
+        <div id="scoreCardModal" class="score-card-modal">
+            <div class="score-card-content">
+                <!-- Content of your score card goes here -->
+                <h2>Score Card</h2>
+                <p>Accuracy Rate <span class="scoreValue"></span> </p>
+
+                <p class="conclusion"></p>
+                <span></span>
+                <!-- Add more content as needed -->
+                <p> Previous Scores </p>
+                <table id="previousScores" class="table table-striped">
+                    <!-- Previous scores will be inserted here -->
+                </table>
+                <button id="closeScoreCardBtn">Close</button>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+    
+</body>
+
+
+</html>
